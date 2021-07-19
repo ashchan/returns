@@ -1,6 +1,6 @@
 //
-//  ContentView.swift
-//  Shared
+//  PortfolioListView.swift
+//  PortfolioListView
 //
 //  Created by James Chen on 2021/07/19.
 //
@@ -8,7 +8,7 @@
 import SwiftUI
 import CoreData
 
-struct ContentView: View {
+struct PortfolioListView: View {
     @Environment(\.managedObjectContext) private var viewContext
 
     @FetchRequest(
@@ -73,8 +73,9 @@ private let itemFormatter: DateFormatter = {
     return formatter
 }()
 
-struct ContentView_Previews: PreviewProvider {
+struct PortfolioListView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView().environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+        PortfolioListView()
+            .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
     }
 }

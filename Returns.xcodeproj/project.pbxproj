@@ -17,6 +17,8 @@
 		1A21928826A565F60032A15D /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A21927426A565F50032A15D /* Persistence.swift */; };
 		1A21928926A565F60032A15D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1A21927526A565F60032A15D /* Assets.xcassets */; };
 		1A21928A26A565F60032A15D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1A21927526A565F60032A15D /* Assets.xcassets */; };
+		1A21929A26A574C00032A15D /* PortfolioListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A21929926A574C00032A15D /* PortfolioListView.swift */; };
+		1A21929C26A574D90032A15D /* PortfolioListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A21929B26A574D90032A15D /* PortfolioListView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,6 +29,9 @@
 		1A21927526A565F60032A15D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1A21927A26A565F60032A15D /* Returns.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Returns.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1A21928026A565F60032A15D /* Returns.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Returns.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		1A21929326A56B9C0032A15D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1A21929926A574C00032A15D /* PortfolioListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PortfolioListView.swift; path = ../../../returns/iOS/Views/PortfolioListView.swift; sourceTree = "<group>"; };
+		1A21929B26A574D90032A15D /* PortfolioListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PortfolioListView.swift; path = ../../../returns/macOS/Views/PortfolioListView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,6 +56,8 @@
 			isa = PBXGroup;
 			children = (
 				1A21926F26A565F50032A15D /* Shared */,
+				1A21929426A56BB70032A15D /* macOS */,
+				1A21929526A572FC0032A15D /* iOS */,
 				1A21927B26A565F60032A15D /* Products */,
 			);
 			sourceTree = "<group>";
@@ -58,8 +65,8 @@
 		1A21926F26A565F50032A15D /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				1A21929626A574520032A15D /* Views */,
 				1A21927226A565F50032A15D /* ReturnsApp.swift */,
-				1A21927326A565F50032A15D /* ContentView.swift */,
 				1A21927426A565F50032A15D /* Persistence.swift */,
 				1A21927526A565F60032A15D /* Assets.xcassets */,
 				1A21927026A565F50032A15D /* Returns.xcdatamodeld */,
@@ -74,6 +81,47 @@
 				1A21928026A565F60032A15D /* Returns.app */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		1A21929426A56BB70032A15D /* macOS */ = {
+			isa = PBXGroup;
+			children = (
+				1A21929826A574610032A15D /* Views */,
+				1A21929326A56B9C0032A15D /* Info.plist */,
+			);
+			path = macOS;
+			sourceTree = "<group>";
+		};
+		1A21929526A572FC0032A15D /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				1A21929726A5745B0032A15D /* Views */,
+			);
+			path = iOS;
+			sourceTree = "<group>";
+		};
+		1A21929626A574520032A15D /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				1A21927326A565F50032A15D /* ContentView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		1A21929726A5745B0032A15D /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				1A21929926A574C00032A15D /* PortfolioListView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		1A21929826A574610032A15D /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				1A21929B26A574D90032A15D /* PortfolioListView.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -174,6 +222,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1A21929A26A574C00032A15D /* PortfolioListView.swift in Sources */,
 				1A21928126A565F60032A15D /* Returns.xcdatamodeld in Sources */,
 				1A21928726A565F60032A15D /* Persistence.swift in Sources */,
 				1A21928326A565F60032A15D /* ReturnsApp.swift in Sources */,
@@ -185,6 +234,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1A21929C26A574D90032A15D /* PortfolioListView.swift in Sources */,
 				1A21928226A565F60032A15D /* Returns.xcdatamodeld in Sources */,
 				1A21928826A565F60032A15D /* Persistence.swift in Sources */,
 				1A21928426A565F60032A15D /* ReturnsApp.swift in Sources */,
@@ -381,6 +431,7 @@
 				ENABLE_PREVIEWS = YES;
 				ENABLE_USER_SELECTED_FILES = readonly;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = macOS/Info.plist;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -410,6 +461,7 @@
 				ENABLE_PREVIEWS = YES;
 				ENABLE_USER_SELECTED_FILES = readonly;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = macOS/Info.plist;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
