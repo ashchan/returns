@@ -17,21 +17,30 @@ struct PortfolioListView: View {
     private var items: FetchedResults<Item>
 
     var body: some View {
-        List {
-            ForEach(items) { item in
-                Text("Item at \(item.timestamp!, formatter: itemFormatter)")
-            }
-            .onDelete(perform: deleteItems)
-        }
-        .toolbar {
-            #if os(iOS)
-            EditButton()
-            #endif
+        NavigationView {
+            Sidebar()
+                .toolbar {
+                    ToolbarItemGroup {
+                        Button(action: toggleSidebar) {
+                            Image(systemName: "sidebar.left")
+                                .help("Toggle Sidebar")
+                        }
+                    }
+                }
+                .frame(minWidth: 220, alignment: .leading)
 
-            Button(action: addItem) {
-                Label("Add Item", systemImage: "plus")
+            List {
+                ForEach(items) { item in
+                    Text("Item at \(item.timestamp!, formatter: itemFormatter)")
+                }
+                .onDelete(perform: deleteItems)
             }
         }
+    }
+
+    private func toggleSidebar() {
+        NSApp.keyWindow?.firstResponder?
+            .tryToPerform(#selector(NSSplitViewController.toggleSidebar(_:)), with: nil)
     }
 
     private func addItem() {

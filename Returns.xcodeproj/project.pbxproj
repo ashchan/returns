@@ -19,6 +19,7 @@
 		1A21928A26A565F60032A15D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1A21927526A565F60032A15D /* Assets.xcassets */; };
 		1A21929A26A574C00032A15D /* PortfolioListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A21929926A574C00032A15D /* PortfolioListView.swift */; };
 		1A21929C26A574D90032A15D /* PortfolioListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A21929B26A574D90032A15D /* PortfolioListView.swift */; };
+		1A21929E26A6C1020032A15D /* Sidebar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A21929D26A6C1020032A15D /* Sidebar.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +33,7 @@
 		1A21929326A56B9C0032A15D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1A21929926A574C00032A15D /* PortfolioListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PortfolioListView.swift; path = ../../../returns/iOS/Views/PortfolioListView.swift; sourceTree = "<group>"; };
 		1A21929B26A574D90032A15D /* PortfolioListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PortfolioListView.swift; path = ../../../returns/macOS/Views/PortfolioListView.swift; sourceTree = "<group>"; };
+		1A21929D26A6C1020032A15D /* Sidebar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Sidebar.swift; path = ../../../returns/macOS/Views/Sidebar.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -120,6 +122,7 @@
 			isa = PBXGroup;
 			children = (
 				1A21929B26A574D90032A15D /* PortfolioListView.swift */,
+				1A21929D26A6C1020032A15D /* Sidebar.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -238,6 +241,7 @@
 				1A21928226A565F60032A15D /* Returns.xcdatamodeld in Sources */,
 				1A21928826A565F60032A15D /* Persistence.swift in Sources */,
 				1A21928426A565F60032A15D /* ReturnsApp.swift in Sources */,
+				1A21929E26A6C1020032A15D /* Sidebar.swift in Sources */,
 				1A21928626A565F60032A15D /* ContentView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
