@@ -15,6 +15,7 @@ struct PortfolioListView: View {
         sortDescriptors: [NSSortDescriptor(keyPath: \Item.timestamp, ascending: true)],
         animation: .default)
     private var items: FetchedResults<Item>
+    @State private var loadedItems: [Item] = []
 
     var body: some View {
         NavigationView {
@@ -26,15 +27,25 @@ struct PortfolioListView: View {
                                 .help("Toggle Sidebar")
                         }
                     }
+                    ToolbarItemGroup {
+                        Button(action: addItem) {
+                            Label("Add Item", systemImage: "plus")
+                        }
+                    }
                 }
                 .frame(minWidth: 220, alignment: .leading)
 
+            MonthlyRecordList(items: ["Abc", "Bbc"])
+
+            /*
             List {
                 ForEach(items) { item in
                     Text("Item at \(item.timestamp!, formatter: itemFormatter)")
                 }
                 .onDelete(perform: deleteItems)
-            }
+            }*/
+        }.onAppear {
+            //loadedItems = items.map { $0 }
         }
     }
 
