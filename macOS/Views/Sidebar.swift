@@ -10,7 +10,36 @@ import SwiftUI
 struct Sidebar: View {
     var body: some View {
         List {
-            Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+            Text("Portfolio #1")
+                .font(.subheadline)
+                .fontWeight(.semibold)
+                .foregroundColor(.secondary)
+
+            NavigationLink(
+                destination: Text("TODO")
+            ) {
+                Text(verbatim: "Account #1")
+            }
+            .padding(EdgeInsets(top: 2, leading: 10, bottom: 2, trailing: 0))
+
+            NavigationLink(
+                destination: Text("TODO")
+            ) {
+                Text(verbatim: "Account #2")
+            }
+            .padding(EdgeInsets(top: 2, leading: 10, bottom: 2, trailing: 0))
+
+            Text("Portfolio #2")
+                .font(.subheadline)
+                .fontWeight(.semibold)
+                .foregroundColor(.secondary)
+
+            NavigationLink(
+                destination: Text("TODO")
+            ) {
+                Text(verbatim: "Account #1")
+            }
+            .padding(EdgeInsets(top: 2, leading: 10, bottom: 2, trailing: 0))
         }
         .listStyle(.sidebar)
     }

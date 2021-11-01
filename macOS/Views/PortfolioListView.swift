@@ -15,7 +15,7 @@ struct PortfolioListView: View {
         sortDescriptors: [NSSortDescriptor(keyPath: \Item.timestamp, ascending: true)],
         animation: .default)
     private var items: FetchedResults<Item>
-    @State private var loadedItems: [Item] = []
+    @State private var loadedItems = [Item]()
 
     var body: some View {
         NavigationView {
@@ -35,7 +35,7 @@ struct PortfolioListView: View {
                 }
                 .frame(minWidth: 220, alignment: .leading)
 
-            MonthlyRecordList(items: ["Abc", "Bbc"])
+            MonthlyRecordList(items: $loadedItems)
 
             /*
             List {
@@ -45,7 +45,7 @@ struct PortfolioListView: View {
                 .onDelete(perform: deleteItems)
             }*/
         }.onAppear {
-            //loadedItems = items.map { $0 }
+            loadedItems = items.map { $0 }
         }
     }
 
@@ -61,6 +61,7 @@ struct PortfolioListView: View {
 
             do {
                 try viewContext.save()
+                loadedItems = items.map { $0 }
             } catch {
                 // Replace this implementation with code to handle the error appropriately.
                 // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.

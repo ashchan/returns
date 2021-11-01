@@ -11,7 +11,7 @@ import SwiftUI
 
 struct MonthlyRecordList: NSViewControllerRepresentable {
     typealias NSViewControllerType = MonthlyRecordTableController
-    var items = [String]()
+    @Binding var items: [Item]
 
     func makeNSViewController(context: Context) -> MonthlyRecordTableController {
         return MonthlyRecordTableController(items: items)
@@ -24,19 +24,21 @@ struct MonthlyRecordList: NSViewControllerRepresentable {
 
 struct EventList_Previews: PreviewProvider {
     static var previews: some View {
-        MonthlyRecordList(items: [])
+        MonthlyRecordList(items: .constant([]))
             .frame(width: 400, height: 300)
     }
 }
 
 final class MonthlyRecordTableController: NSViewController {
-    private var items: [String]
+    private var items: [Item]
 
     private let tableView: NSTableView = {
         let tableView = NSTableView()
 
-        tableView.usesAlternatingRowBackgroundColors = true
+        tableView.usesAlternatingRowBackgroundColors = false
         tableView.selectionHighlightStyle = .regular
+        tableView.style = .plain
+        tableView.gridStyleMask = [.solidHorizontalGridLineMask, .solidVerticalGridLineMask]
         tableView.intercellSpacing = NSSize(width: 0, height: 0)
 
         let columnMonth = NSTableColumn(identifier: .init(rawValue: "month"))
@@ -61,7 +63,14 @@ final class MonthlyRecordTableController: NSViewController {
     }()
     private let scrollView = NSScrollView()
 
-    init(items: [String]) {
+    private let itemFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .short
+        formatter.timeStyle = .medium
+        return formatter
+    }()
+
+    init(items: [Item]) {
         self.items = items
 
         super.init(nibName: nil, bundle: nil)
@@ -86,7 +95,8 @@ final class MonthlyRecordTableController: NSViewController {
         scrollView.hasVerticalScroller = true
     }
 
-    func reload(items: [String]) {
+    func reload(items: [Item]) {
+        self.items = items
         tableView.reloadData()
     }
 
@@ -99,18 +109,24 @@ final class MonthlyRecordTableController: NSViewController {
 
 extension MonthlyRecordTableController: NSTableViewDelegate {
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
-        let row = Text("Todo")
-        let view = NSHostingView(rootView: row)
+        let cell: Text
+        let item = items[row]
+        if tableColumn == tableView.tableColumns.first {
+            cell = Text("\(item.timestamp!, formatter: itemFormatter)")
+        } else {
+            cell = Text("0.0")
+        }
+        let view = NSHostingView(rootView: cell)
         return view
     }
 
     func tableView(_ tableView: NSTableView, heightOfRow row: Int) -> CGFloat {
-        32
+        28
     }
 }
 
 extension MonthlyRecordTableController: NSTableViewDataSource {
     func numberOfRows(in tableView: NSTableView) -> Int {
-        items.count * 100
+        items.count
     }
 }
