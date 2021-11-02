@@ -32,18 +32,18 @@ struct Sidebar: View {
                         Button(action: {
                             addAccount(to: portfolio)
                         }) {
-                            Text("Add Account")
+                            Text("New Account")
                         }
                         Divider()
                         Button(action: {
                             // TODO
                         }) {
-                            Text("Rename Portfolio")
+                            Text("Rename")
                         }
                         Button(action: {
                             delete(portfolio: portfolio)
                         }) {
-                            Text("Delete Portfolio")
+                            Text("Delete")
                         }
                     }
 
@@ -60,12 +60,12 @@ struct Sidebar: View {
                             Button(action: {
                                 // TODO
                             }) {
-                                Text("Rename Account")
+                                Text("Rename")
                             }
                             Button(action: {
                                 delete(account: account)
                             }) {
-                                Text("Delete Account")
+                                Text("Delete")
                             }
                         }
                     }
@@ -78,10 +78,10 @@ struct Sidebar: View {
             HStack {
                 Menu {
                     Button(action: addPortfolio) {
-                        Label("Add Portfolio", systemImage: "plus")
+                        Label("New Portfolio", systemImage: "plus")
                     }
                     Button(action: {}) {
-                        Label("Add Account", systemImage: "plus")
+                        Label("New Account", systemImage: "plus")
                     }
                 } label: {
                     Label("", systemImage: "plus")
