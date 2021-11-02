@@ -36,6 +36,11 @@ struct Sidebar: View {
                         }
                         Divider()
                         Button(action: {
+                            // TODO
+                        }) {
+                            Text("Rename Portfolio")
+                        }
+                        Button(action: {
                             delete(portfolio: portfolio)
                         }) {
                             Text("Delete Portfolio")
@@ -52,6 +57,11 @@ struct Sidebar: View {
                         }
                         .padding(EdgeInsets(top: 2, leading: 10, bottom: 2, trailing: 0))
                         .contextMenu {
+                            Button(action: {
+                                // TODO
+                            }) {
+                                Text("Rename Account")
+                            }
                             Button(action: {
                                 delete(account: account)
                             }) {

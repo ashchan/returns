@@ -11,9 +11,14 @@ struct PortfolioView: View {
     @ObservedObject var portfolio: Portfolio
 
     var body: some View {
-        Text("Portfolio View")
-        Text(portfolio.name!)
+        TextField("Name", text: Binding($portfolio.name)!)
             .navigationTitle(portfolio.name!)
+
+        HStack {
+            Text("Since:")
+            TextField("Since year", value: $portfolio.startYear, formatter: NumberFormatter())
+            TextField("Since month", value: $portfolio.startMonth, formatter: NumberFormatter())
+        }
     }
 }
 
