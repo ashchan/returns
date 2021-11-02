@@ -21,6 +21,7 @@
 		1A21929A26A574C00032A15D /* PortfolioListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A21929926A574C00032A15D /* PortfolioListView.swift */; };
 		1A21929C26A574D90032A15D /* PortfolioListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A21929B26A574D90032A15D /* PortfolioListView.swift */; };
 		1A21929E26A6C1020032A15D /* Sidebar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A21929D26A6C1020032A15D /* Sidebar.swift */; };
+		1A718C032731145F00B26288 /* PortfolioView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A718C022731145F00B26288 /* PortfolioView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +37,7 @@
 		1A21929926A574C00032A15D /* PortfolioListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PortfolioListView.swift; path = ../../../returns/iOS/Views/PortfolioListView.swift; sourceTree = "<group>"; };
 		1A21929B26A574D90032A15D /* PortfolioListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PortfolioListView.swift; path = ../../../returns/macOS/Views/PortfolioListView.swift; sourceTree = "<group>"; };
 		1A21929D26A6C1020032A15D /* Sidebar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Sidebar.swift; path = ../../../returns/macOS/Views/Sidebar.swift; sourceTree = "<group>"; };
+		1A718C022731145F00B26288 /* PortfolioView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortfolioView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -125,6 +127,7 @@
 			children = (
 				1A21929B26A574D90032A15D /* PortfolioListView.swift */,
 				1A21929D26A6C1020032A15D /* Sidebar.swift */,
+				1A718C022731145F00B26288 /* PortfolioView.swift */,
 				1A0484C4272E9BB60008E1F3 /* MonthlyRecordList.swift */,
 			);
 			path = Views;
@@ -247,6 +250,7 @@
 				1A21929E26A6C1020032A15D /* Sidebar.swift in Sources */,
 				1A21928626A565F60032A15D /* ContentView.swift in Sources */,
 				1A0484C5272E9BB60008E1F3 /* MonthlyRecordList.swift in Sources */,
+				1A718C032731145F00B26288 /* PortfolioView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

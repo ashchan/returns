@@ -8,51 +8,52 @@
 import SwiftUI
 
 struct Sidebar: View {
+    @Environment(\.managedObjectContext) private var viewContext
+    @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \Portfolio.createdAt, ascending: true)], animation: .default)
+    private var portfolios: FetchedResults<Portfolio>
+
+    @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \Item.timestamp, ascending: true)], animation: .default)
+    private var items: FetchedResults<Item>
+    @State private var loadedItems = [Item]()
+
     var body: some View {
         VStack {
             List {
-                Text("Portfolio #1")
-                    .font(.subheadline)
-                    .fontWeight(.semibold)
-                    .foregroundColor(.secondary)
-
-                NavigationLink(
-                    destination: Text("TODO")
-                ) {
-                    Text(verbatim: "Account #1")
-                }
-                .padding(EdgeInsets(top: 2, leading: 14, bottom: 2, trailing: 0))
-
-                NavigationLink(
-                    destination: Text("TODO")
-                ) {
-                    Text(verbatim: "Account #2")
-                }
-                .padding(EdgeInsets(top: 2, leading: 14, bottom: 2, trailing: 0))
-
-                Text("Portfolio #2")
-                    .font(.subheadline)
-                    .fontWeight(.semibold)
-                    .foregroundColor(.secondary)
+                ForEach(portfolios) { portfolio in
+                    NavigationLink(
+                        destination: PortfolioView(portfolio: portfolio)
+                    ) {
+                        Text(verbatim: portfolio.name!)
+                        .font(.subheadline)
+                        .fontWeight(.semibold)
+                        .foregroundColor(.primary)
+                    }
                     .contextMenu {
                         Button(action: {}) {
                             Text("Add Account")
                         }
                         Divider()
-                        Button(action: {}) {
+                        Button(action: {
+                            delete(portfolio: portfolio)
+                        }) {
                             Text("Delete Portfolio")
                         }
                     }
 
-                NavigationLink(
-                    destination: Text("TODO")
-                ) {
-                    Text(verbatim: "Account #1")
-                }
-                .padding(EdgeInsets(top: 2, leading: 10, bottom: 2, trailing: 0))
-                .contextMenu {
-                    Button(action: {}) {
-                        Text("Delete Account")
+                    NavigationLink(
+                        destination: MonthlyRecordList(portfolio: portfolio, items: $loadedItems)
+                            .navigationTitle("\(portfolio.name!) - Account #1")
+                    ) {
+                        Text(verbatim: "Account #1")
+                            .foregroundColor(.primary)
+                    }
+                    .padding(EdgeInsets(top: 2, leading: 10, bottom: 2, trailing: 0))
+                    .contextMenu {
+                        Button(action: {
+                            delete(portfolio: portfolio)
+                        }) {
+                            Text("Delete Account")
+                        }
                     }
                 }
             }
@@ -61,16 +62,8 @@ struct Sidebar: View {
             Spacer()
 
             HStack {
-                /*
-                Button(action: showNewMenu) {
-                    Label("", systemImage: "plus")
-                }
-                .buttonStyle(.plain)
-                .foregroundColor(.primary)
-                 */
-
                 Menu {
-                    Button(action: {}) {
+                    Button(action: addPortfolio) {
                         Label("Add Portfolio", systemImage: "plus")
                     }
                     Button(action: {}) {
@@ -85,6 +78,46 @@ struct Sidebar: View {
 
                 Spacer()
             }
+        }.onAppear {
+            loadedItems = items.map { $0 }
+        }
+    }
+}
+
+private extension Sidebar {
+    func addPortfolio() {
+        withAnimation {
+            let portfolio = Portfolio(context: viewContext)
+            portfolio.name = "Portfolio #\(portfolios.count + 1)"
+            portfolio.createdAt = Date()
+            let components = Calendar.current.dateComponents([.year, .month], from: Date())
+            portfolio.startYear = Int32(components.year!)
+            portfolio.startMonth = Int32(components.month!)
+
+            do {
+                try viewContext.save()
+                // loadedItems = items.map { $0 }
+            } catch {
+                // Replace this implementation with code to handle the error appropriately.
+                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+                let nsError = error as NSError
+                fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
+            }
+        }
+    }
+
+    func delete(portfolio: Portfolio) {
+        withAnimation {
+            viewContext.delete(portfolio)
+
+            do {
+                try viewContext.save()
+            } catch {
+                // Replace this implementation with code to handle the error appropriately.
+                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+                let nsError = error as NSError
+                fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
+            }
         }
     }
 }
@@ -92,5 +125,6 @@ struct Sidebar: View {
 struct Sidebar_Previews: PreviewProvider {
     static var previews: some View {
         Sidebar()
+            .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
     }
 }

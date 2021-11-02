@@ -11,6 +11,7 @@ import SwiftUI
 
 struct MonthlyRecordList: NSViewControllerRepresentable {
     typealias NSViewControllerType = MonthlyRecordTableController
+    @ObservedObject var portfolio: Portfolio
     @Binding var items: [Item]
 
     func makeNSViewController(context: Context) -> MonthlyRecordTableController {
@@ -22,9 +23,9 @@ struct MonthlyRecordList: NSViewControllerRepresentable {
     }
 }
 
-struct EventList_Previews: PreviewProvider {
+struct MonthlyRecordList_Previews: PreviewProvider {
     static var previews: some View {
-        MonthlyRecordList(items: .constant([]))
+        MonthlyRecordList(portfolio: Portfolio(), items: .constant([]))
             .frame(width: 400, height: 300)
     }
 }
