@@ -29,7 +29,9 @@ struct Sidebar: View {
                         .foregroundColor(.primary)
                     }
                     .contextMenu {
-                        Button(action: {}) {
+                        Button(action: {
+                            addAccount(to: portfolio)
+                        }) {
                             Text("Add Account")
                         }
                         Divider()
@@ -40,19 +42,21 @@ struct Sidebar: View {
                         }
                     }
 
-                    NavigationLink(
-                        destination: MonthlyRecordList(portfolio: portfolio, items: $loadedItems)
-                            .navigationTitle("\(portfolio.name!) - Account #1")
-                    ) {
-                        Text(verbatim: "Account #1")
-                            .foregroundColor(.primary)
-                    }
-                    .padding(EdgeInsets(top: 2, leading: 10, bottom: 2, trailing: 0))
-                    .contextMenu {
-                        Button(action: {
-                            delete(portfolio: portfolio)
-                        }) {
-                            Text("Delete Account")
+                    ForEach(portfolio.accounts?.allObjects as? [Account] ?? []) { account in
+                        NavigationLink(
+                            destination: MonthlyRecordList(portfolio: portfolio, items: $loadedItems)
+                                .navigationTitle("\(portfolio.name!) - \(account.name!)")
+                        ) {
+                            Text(verbatim: account.name!)
+                                .foregroundColor(.primary)
+                        }
+                        .padding(EdgeInsets(top: 2, leading: 10, bottom: 2, trailing: 0))
+                        .contextMenu {
+                            Button(action: {
+                                delete(account: account)
+                            }) {
+                                Text("Delete Account")
+                            }
                         }
                     }
                 }
@@ -94,9 +98,13 @@ private extension Sidebar {
             portfolio.startYear = Int32(components.year!)
             portfolio.startMonth = Int32(components.month!)
 
+            let account = Account(context: viewContext)
+            account.createdAt = Date()
+            account.name = "Account #1"
+            account.portfolio = portfolio
+
             do {
                 try viewContext.save()
-                // loadedItems = items.map { $0 }
             } catch {
                 // Replace this implementation with code to handle the error appropriately.
                 // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
@@ -109,6 +117,39 @@ private extension Sidebar {
     func delete(portfolio: Portfolio) {
         withAnimation {
             viewContext.delete(portfolio)
+
+            do {
+                try viewContext.save()
+            } catch {
+                // Replace this implementation with code to handle the error appropriately.
+                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+                let nsError = error as NSError
+                fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
+            }
+        }
+    }
+
+    func addAccount(to portfolio: Portfolio) {
+        withAnimation {
+            let account = Account(context: viewContext)
+            account.createdAt = Date()
+            account.portfolio = portfolio
+            account.name = "Account #\(portfolio.accounts?.count ?? 0 + 1)"
+
+            do {
+                try viewContext.save()
+            } catch {
+                // Replace this implementation with code to handle the error appropriately.
+                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+                let nsError = error as NSError
+                fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
+            }
+        }
+    }
+
+    func delete(account: Account) {
+        withAnimation {
+            viewContext.delete(account)
 
             do {
                 try viewContext.save()
