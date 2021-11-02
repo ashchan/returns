@@ -9,39 +9,83 @@ import SwiftUI
 
 struct Sidebar: View {
     var body: some View {
-        List {
-            Text("Portfolio #1")
-                .font(.subheadline)
-                .fontWeight(.semibold)
-                .foregroundColor(.secondary)
+        VStack {
+            List {
+                Text("Portfolio #1")
+                    .font(.subheadline)
+                    .fontWeight(.semibold)
+                    .foregroundColor(.secondary)
 
-            NavigationLink(
-                destination: Text("TODO")
-            ) {
-                Text(verbatim: "Account #1")
+                NavigationLink(
+                    destination: Text("TODO")
+                ) {
+                    Text(verbatim: "Account #1")
+                }
+                .padding(EdgeInsets(top: 2, leading: 14, bottom: 2, trailing: 0))
+
+                NavigationLink(
+                    destination: Text("TODO")
+                ) {
+                    Text(verbatim: "Account #2")
+                }
+                .padding(EdgeInsets(top: 2, leading: 14, bottom: 2, trailing: 0))
+
+                Text("Portfolio #2")
+                    .font(.subheadline)
+                    .fontWeight(.semibold)
+                    .foregroundColor(.secondary)
+                    .contextMenu {
+                        Button(action: {}) {
+                            Text("Add Account")
+                        }
+                        Divider()
+                        Button(action: {}) {
+                            Text("Delete Portfolio")
+                        }
+                    }
+
+                NavigationLink(
+                    destination: Text("TODO")
+                ) {
+                    Text(verbatim: "Account #1")
+                }
+                .padding(EdgeInsets(top: 2, leading: 10, bottom: 2, trailing: 0))
+                .contextMenu {
+                    Button(action: {}) {
+                        Text("Delete Account")
+                    }
+                }
             }
-            .padding(EdgeInsets(top: 2, leading: 10, bottom: 2, trailing: 0))
+            .listStyle(.sidebar)
 
-            NavigationLink(
-                destination: Text("TODO")
-            ) {
-                Text(verbatim: "Account #2")
+            Spacer()
+
+            HStack {
+                /*
+                Button(action: showNewMenu) {
+                    Label("", systemImage: "plus")
+                }
+                .buttonStyle(.plain)
+                .foregroundColor(.primary)
+                 */
+
+                Menu {
+                    Button(action: {}) {
+                        Label("Add Portfolio", systemImage: "plus")
+                    }
+                    Button(action: {}) {
+                        Label("Add Account", systemImage: "plus")
+                    }
+                } label: {
+                    Label("", systemImage: "plus")
+                }
+                .padding(EdgeInsets(top: 2, leading: 10, bottom: 2, trailing: 0))
+                .frame(width: 30, height: 30, alignment: .center)
+                .menuStyle(BorderlessButtonMenuStyle(showsMenuIndicator: false))
+
+                Spacer()
             }
-            .padding(EdgeInsets(top: 2, leading: 10, bottom: 2, trailing: 0))
-
-            Text("Portfolio #2")
-                .font(.subheadline)
-                .fontWeight(.semibold)
-                .foregroundColor(.secondary)
-
-            NavigationLink(
-                destination: Text("TODO")
-            ) {
-                Text(verbatim: "Account #1")
-            }
-            .padding(EdgeInsets(top: 2, leading: 10, bottom: 2, trailing: 0))
         }
-        .listStyle(.sidebar)
     }
 }
 
