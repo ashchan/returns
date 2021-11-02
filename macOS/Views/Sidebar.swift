@@ -42,7 +42,7 @@ struct Sidebar: View {
                         }
                     }
 
-                    ForEach(portfolio.accounts?.allObjects as? [Account] ?? []) { account in
+                    ForEach(portfolio.sortedAccounts) { account in
                         NavigationLink(
                             destination: MonthlyRecordList(portfolio: portfolio, items: $loadedItems)
                                 .navigationTitle("\(portfolio.name!) - \(account.name!)")

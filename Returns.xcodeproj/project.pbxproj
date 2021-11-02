@@ -22,6 +22,7 @@
 		1A21929C26A574D90032A15D /* PortfolioListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A21929B26A574D90032A15D /* PortfolioListView.swift */; };
 		1A21929E26A6C1020032A15D /* Sidebar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A21929D26A6C1020032A15D /* Sidebar.swift */; };
 		1A718C032731145F00B26288 /* PortfolioView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A718C022731145F00B26288 /* PortfolioView.swift */; };
+		1A718C06273127B500B26288 /* Portfolio.swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A718C05273127B500B26288 /* Portfolio.swift.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +39,7 @@
 		1A21929B26A574D90032A15D /* PortfolioListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PortfolioListView.swift; path = ../../../returns/macOS/Views/PortfolioListView.swift; sourceTree = "<group>"; };
 		1A21929D26A6C1020032A15D /* Sidebar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Sidebar.swift; path = ../../../returns/macOS/Views/Sidebar.swift; sourceTree = "<group>"; };
 		1A718C022731145F00B26288 /* PortfolioView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortfolioView.swift; sourceTree = "<group>"; };
+		1A718C05273127B500B26288 /* Portfolio.swift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Portfolio.swift.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,6 +94,7 @@
 		1A21929426A56BB70032A15D /* macOS */ = {
 			isa = PBXGroup;
 			children = (
+				1A718C04273127A100B26288 /* Models */,
 				1A21929826A574610032A15D /* Views */,
 				1A21929326A56B9C0032A15D /* Info.plist */,
 			);
@@ -131,6 +134,14 @@
 				1A0484C4272E9BB60008E1F3 /* MonthlyRecordList.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		1A718C04273127A100B26288 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				1A718C05273127B500B26288 /* Portfolio.swift.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -251,6 +262,7 @@
 				1A21928626A565F60032A15D /* ContentView.swift in Sources */,
 				1A0484C5272E9BB60008E1F3 /* MonthlyRecordList.swift in Sources */,
 				1A718C032731145F00B26288 /* PortfolioView.swift in Sources */,
+				1A718C06273127B500B26288 /* Portfolio.swift.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
