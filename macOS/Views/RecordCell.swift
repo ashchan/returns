@@ -7,9 +7,12 @@
 
 import SwiftUI
 
-struct EmptyCell: View {
-    var body: some View {
-        EmptyView()
+class EmptyCell: NSView {
+    override func draw(_ dirtyRect: NSRect) {
+        super.draw(dirtyRect)
+
+        NSColor.lightGray.setFill()
+        dirtyRect.fill()
     }
 }
 

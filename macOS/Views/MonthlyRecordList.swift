@@ -105,7 +105,7 @@ extension MonthlyRecordTableController: NSTableViewDelegate {
         let record = records[row]
         let identifier = RecordTableColumn(rawValue: tableColumn?.identifier.rawValue ?? "")
         if row == 0 && [.month, .contribution, .withdrawal].contains(identifier) {
-            return NSHostingView(rootView: EmptyCell())
+            return EmptyCell()
         }
         if identifier == .month {
             return NSHostingView(rootView: MonthCell(record: record))
