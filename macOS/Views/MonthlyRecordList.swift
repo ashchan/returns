@@ -29,6 +29,15 @@ struct MonthlyRecordList_Previews: PreviewProvider {
     }
 }
 
+enum RecordTableColumn: String, CaseIterable {
+    case month
+    case contribution
+    case withdrawal
+    case date
+    case balance
+    case notes
+}
+
 final class MonthlyRecordTableController: NSViewController {
     private var records: [Record]
 
@@ -41,34 +50,18 @@ final class MonthlyRecordTableController: NSViewController {
         tableView.gridStyleMask = [.solidHorizontalGridLineMask, .solidVerticalGridLineMask]
         tableView.intercellSpacing = NSSize(width: 0, height: 0)
 
-        let columnMonth = NSTableColumn(identifier: .init(rawValue: "month"))
-        columnMonth.headerCell.title = "Month"
-        tableView.addTableColumn(columnMonth)
-        let columnContribution = NSTableColumn(identifier: .init(rawValue: "contribution"))
-        columnContribution.headerCell.title = "Contribution"
-        tableView.addTableColumn(columnContribution)
-        let columnWithdrawal = NSTableColumn(identifier: .init(rawValue: "withdrawal"))
-        columnWithdrawal.headerCell.title = "Withdrawal"
-        tableView.addTableColumn(columnWithdrawal)
-        let columnDate = NSTableColumn(identifier: .init(rawValue: "date"))
-        columnDate.headerCell.title = "Date"
-        tableView.addTableColumn(columnDate)
-        let columnBalance = NSTableColumn(identifier: .init(rawValue: "balance"))
-        columnBalance.headerCell.title = "Balance"
-        tableView.addTableColumn(columnBalance)
+        for columnIdentifier in RecordTableColumn.allCases {
+            let column = NSTableColumn(identifier: .init(rawValue: columnIdentifier.rawValue))
+            column.headerCell.title = columnIdentifier.rawValue.capitalized
+            tableView.addTableColumn(column)
+        }
 
         tableView.action = #selector(onItemClicked)
 
         return tableView
     }()
-    private let scrollView = NSScrollView()
 
-    private let itemFormatter: DateFormatter = {
-        let formatter = DateFormatter()
-        formatter.dateStyle = .short
-        formatter.timeStyle = .medium
-        return formatter
-    }()
+    private let scrollView = NSScrollView()
 
     init(records: [Record]) {
         self.records = records
@@ -109,17 +102,26 @@ final class MonthlyRecordTableController: NSViewController {
 
 extension MonthlyRecordTableController: NSTableViewDelegate {
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
-        let cell: Text
         let record = records[row]
-        if tableColumn == tableView.tableColumns.first {
-            cell = Text(record.monthString)
-        } else if tableColumn == tableView.tableColumns[3] {
-            cell = Text(record.closeDateString)
-        } else {
-            cell = Text("0.0")
+        let identifier = RecordTableColumn(rawValue: tableColumn?.identifier.rawValue ?? "")
+        if row == 0 && [.month, .contribution, .withdrawal].contains(identifier) {
+            return NSHostingView(rootView: EmptyCell())
         }
-        let view = NSHostingView(rootView: cell)
-        return view
+        if identifier == .month {
+            return NSHostingView(rootView: MonthCell(record: record))
+        } else if identifier == .contribution {
+            return NSHostingView(rootView: BalanceCell(balance: record.contribution))
+        } else if identifier == .withdrawal {
+            return NSHostingView(rootView: BalanceCell(balance: record.withdrawal))
+        } else if identifier == .date {
+            return NSHostingView(rootView: DateCell(record: record))
+        } else if identifier == .balance {
+            return NSHostingView(rootView: BalanceCell(balance: record.balance))
+        } else if identifier == .notes {
+            return NSHostingView(rootView: NotesCell(record: record))
+        }
+
+        return NSHostingView(rootView: Text(""))
     }
 
     func tableView(_ tableView: NSTableView, heightOfRow row: Int) -> CGFloat {
