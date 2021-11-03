@@ -9,10 +9,6 @@ import SwiftUI
 
 struct PortfolioRow: View {
     @Environment(\.managedObjectContext) private var viewContext
-
-    @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \Item.timestamp, ascending: true)], animation: .default)
-    private var items: FetchedResults<Item>
-    @State private var loadedItems = [Item]()
     @State private var isHovering = false
     @State private var isCollapsed = false
 
@@ -39,9 +35,6 @@ struct PortfolioRow: View {
                     .buttonStyle(.plain)
                 }
             }
-            .onAppear(perform: {
-                loadedItems = items.map { $0 }
-            })
             .onHover(perform: { isHovering in
                 self.isHovering = isHovering
             })
@@ -67,7 +60,7 @@ struct PortfolioRow: View {
             if !isCollapsed {
                 ForEach(portfolio.sortedAccounts) { account in
                     NavigationLink(
-                        destination: MonthlyRecordList(portfolio: portfolio, items: $loadedItems)
+                        destination: MonthlyRecordList(account: account)
                             .navigationTitle("\(portfolio.name!) - \(account.name!)")
                     ) {
                         Text(verbatim: account.name!)

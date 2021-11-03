@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="19461" systemVersion="21A558" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithCloudKit="YES" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="19461" systemVersion="21C5021h" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithCloudKit="YES" userDefinedModelVersionIdentifier="">
     <entity name="Account" representedClassName="Account" syncable="YES" codeGenerationType="class">
         <attribute name="createdAt" attributeType="Date" defaultDateTimeInterval="657530340" usesScalarValueType="NO"/>
         <attribute name="name" attributeType="String" defaultValueString="Account #1"/>
         <relationship name="portfolio" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Portfolio" inverseName="accounts" inverseEntity="Portfolio"/>
-    </entity>
-    <entity name="Item" representedClassName="Item" syncable="YES" codeGenerationType="class">
-        <attribute name="timestamp" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <relationship name="records" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Record" inverseName="account" inverseEntity="Record"/>
     </entity>
     <entity name="Portfolio" representedClassName="Portfolio" syncable="YES" codeGenerationType="class">
         <attribute name="createdAt" attributeType="Date" defaultDateTimeInterval="657521760" usesScalarValueType="NO"/>
@@ -15,9 +13,17 @@
         <attribute name="startYear" attributeType="Integer 32" defaultValueString="2021" usesScalarValueType="YES"/>
         <relationship name="accounts" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Account" inverseName="portfolio" inverseEntity="Account"/>
     </entity>
+    <entity name="Record" representedClassName="Record" syncable="YES" codeGenerationType="class">
+        <attribute name="balance" optional="YES" attributeType="Decimal" defaultValueString="0.0"/>
+        <attribute name="contribution" optional="YES" attributeType="Decimal" defaultValueString="0.0"/>
+        <attribute name="notes" optional="YES" attributeType="String"/>
+        <attribute name="timestamp" attributeType="Date" defaultDateTimeInterval="657598800" usesScalarValueType="NO"/>
+        <attribute name="withdrawal" optional="YES" attributeType="Decimal" defaultValueString="0.0"/>
+        <relationship name="account" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Account" inverseName="records" inverseEntity="Account"/>
+    </entity>
     <elements>
-        <element name="Account" positionX="-41.5546875" positionY="297.890625" width="128" height="88"/>
-        <element name="Item" positionX="-63" positionY="-18" width="128" height="44"/>
+        <element name="Account" positionX="-41.5546875" positionY="297.890625" width="128" height="89"/>
         <element name="Portfolio" positionX="269.2109375" positionY="99.7734375" width="128" height="118"/>
+        <element name="Record" positionX="99" positionY="144" width="128" height="119"/>
     </elements>
 </model>
