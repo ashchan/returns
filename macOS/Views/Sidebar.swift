@@ -54,17 +54,7 @@ struct Sidebar: View {
 private extension Sidebar {
     func addPortfolio() {
         withAnimation {
-            let portfolio = Portfolio(context: viewContext)
-            portfolio.name = "Portfolio #\(portfolios.count + 1)"
-            portfolio.createdAt = Date()
-            let components = Calendar.current.dateComponents([.year, .month], from: Date())
-            portfolio.startYear = Int32(components.year!)
-            portfolio.startMonth = Int32(components.month!)
-
-            let account = Account(context: viewContext)
-            account.createdAt = Date()
-            account.name = "Account #1"
-            account.portfolio = portfolio
+            let _ = Portfolio.createPortfolio(context: viewContext)
 
             do {
                 try viewContext.save()

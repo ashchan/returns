@@ -28,6 +28,9 @@
 		1AF18E9D27324CFB008C9984 /* Record.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AF18E9C27324CFB008C9984 /* Record.swift */; };
 		1AF18EA027325121008C9984 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AF18E9F27325121008C9984 /* Date.swift */; };
 		1AF18EA127325121008C9984 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AF18E9F27325121008C9984 /* Date.swift */; };
+		1AF18EA227325853008C9984 /* Portfolio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A718C05273127B500B26288 /* Portfolio.swift */; };
+		1AF18EA327325856008C9984 /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AF18E9A27324CB2008C9984 /* Account.swift */; };
+		1AF18EA427325859008C9984 /* Record.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AF18E9C27324CFB008C9984 /* Record.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -83,6 +86,7 @@
 			isa = PBXGroup;
 			children = (
 				1AF18E9E27325112008C9984 /* Extensions */,
+				1A718C04273127A100B26288 /* Models */,
 				1A21929626A574520032A15D /* Views */,
 				1A21927226A565F50032A15D /* ReturnsApp.swift */,
 				1A21927426A565F50032A15D /* Persistence.swift */,
@@ -104,7 +108,6 @@
 		1A21929426A56BB70032A15D /* macOS */ = {
 			isa = PBXGroup;
 			children = (
-				1A718C04273127A100B26288 /* Models */,
 				1A21929826A574610032A15D /* Views */,
 				1A21929326A56B9C0032A15D /* Info.plist */,
 			);
@@ -265,8 +268,11 @@
 			files = (
 				1A21929A26A574C00032A15D /* PortfolioListView.swift in Sources */,
 				1AF18EA027325121008C9984 /* Date.swift in Sources */,
+				1AF18EA427325859008C9984 /* Record.swift in Sources */,
 				1A21928126A565F60032A15D /* Returns.xcdatamodeld in Sources */,
+				1AF18EA227325853008C9984 /* Portfolio.swift in Sources */,
 				1A21928726A565F60032A15D /* Persistence.swift in Sources */,
+				1AF18EA327325856008C9984 /* Account.swift in Sources */,
 				1A21928326A565F60032A15D /* ReturnsApp.swift in Sources */,
 				1A21928526A565F60032A15D /* ContentView.swift in Sources */,
 			);
