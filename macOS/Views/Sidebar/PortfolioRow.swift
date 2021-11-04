@@ -11,6 +11,8 @@ struct PortfolioRow: View {
     @Environment(\.managedObjectContext) private var viewContext
     @State private var isHovering = false
     @State private var isCollapsed = false
+    @State private var showingDeletePortfolioPrompt = false
+    @State private var showingDeleteAccountPrompt = false
 
     @ObservedObject var portfolio: Portfolio
 
@@ -46,6 +48,15 @@ struct PortfolioRow: View {
             .onHover(perform: { isHovering in
                 self.isHovering = isHovering
             })
+            .alert(isPresented: $showingDeletePortfolioPrompt) {
+                Alert(
+                    title: Text(portfolio.name ?? ""),
+                    message: Text("Are you sure you want to delete the portfolio?"),
+                    primaryButton: .default(Text("Delete")) {
+                        delete(portfolio: portfolio)
+                    },
+                    secondaryButton: .cancel())
+            }
             .contextMenu {
                 Button(action: {
                     addAccount(to: portfolio)
@@ -59,7 +70,7 @@ struct PortfolioRow: View {
                     Text("Rename")
                 }
                 Button(action: {
-                    delete(portfolio: portfolio)
+                    showingDeletePortfolioPrompt = true
                 }) {
                     Text("Delete")
                 }
@@ -75,6 +86,15 @@ struct PortfolioRow: View {
                             .foregroundColor(.primary)
                     }
                     .padding(EdgeInsets(top: 2, leading: 10, bottom: 2, trailing: 0))
+                    .alert(isPresented: $showingDeleteAccountPrompt) {
+                        Alert(
+                            title: Text(account.name!),
+                            message: Text("Are you sure you want to delete the account?"),
+                            primaryButton: .default(Text("Delete")) {
+                                delete(account: account)
+                            },
+                            secondaryButton: .cancel())
+                    }
                     .contextMenu {
                         Button(action: {
                             // TODO
@@ -82,7 +102,7 @@ struct PortfolioRow: View {
                             Text("Rename")
                         }
                         Button(action: {
-                            delete(account: account)
+                            showingDeleteAccountPrompt = true
                         }) {
                             Text("Delete")
                         }
