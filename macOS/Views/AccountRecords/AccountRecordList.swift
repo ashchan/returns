@@ -5,133 +5,131 @@
 //  Created by James Chen on 2021/10/31.
 //
 
-import Foundation
 import AppKit
 import SwiftUI
 
 struct AccountRecordList: NSViewControllerRepresentable {
-    typealias NSViewControllerType = MonthlyRecordTableController
+    typealias NSViewControllerType = TableViewController
+
+    @Environment(\.managedObjectContext) private var viewContext
     @ObservedObject var account: Account
 
-    func makeNSViewController(context: Context) -> MonthlyRecordTableController {
-        return MonthlyRecordTableController(records: account.sortedRecords)
+    func makeCoordinator() -> Coordinator {
+        Coordinator(self)
     }
 
-    func updateNSViewController(_ nsViewController: MonthlyRecordTableController, context: Context) {
-        nsViewController.reload(records: account.sortedRecords)
-    }
-}
-
-struct MonthlyRecordList_Previews: PreviewProvider {
-    static var previews: some View {
-        AccountRecordList(account: Account())
-            .frame(width: 400, height: 300)
-    }
-}
-
-enum RecordTableColumn: String, CaseIterable {
-    case month
-    case contribution
-    case withdrawal
-    case date
-    case balance
-    case notes
-}
-
-final class MonthlyRecordTableController: NSViewController {
-    private var records: [Record]
-
-    private let tableView: NSTableView = {
-        let tableView = NSTableView()
-
-        tableView.usesAlternatingRowBackgroundColors = false
-        tableView.selectionHighlightStyle = .none
-        tableView.style = .plain
-        tableView.gridStyleMask = [.solidHorizontalGridLineMask, .solidVerticalGridLineMask]
-        tableView.intercellSpacing = NSSize(width: 0, height: 0)
-
+    func makeNSViewController(context: Context) -> TableViewController {
+        let controller = TableViewController()
         for columnIdentifier in RecordTableColumn.allCases {
             let column = NSTableColumn(identifier: .init(rawValue: columnIdentifier.rawValue))
             column.headerCell.title = columnIdentifier.rawValue.capitalized
             column.headerCell.alignment = .center
-            tableView.addTableColumn(column)
+            controller.tableView.addTableColumn(column)
         }
-
-        tableView.action = #selector(onItemClicked)
-
-        return tableView
-    }()
-
-    private let scrollView = NSScrollView()
-
-    init(records: [Record]) {
-        self.records = records
-
-        super.init(nibName: nil, bundle: nil)
+        controller.tableView.delegate = context.coordinator
+        controller.tableView.dataSource = context.coordinator
+        return controller
     }
 
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-
-    override func loadView() {
-        view = scrollView
-    }
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        tableView.delegate = self
-        tableView.dataSource = self
-
-        scrollView.documentView = tableView
-        scrollView.autoresizingMask = [.width, .height]
-        scrollView.hasVerticalScroller = true
-    }
-
-    func reload(records: [Record]) {
-        self.records = records
-        tableView.reloadData()
-    }
-
-    @objc private func onItemClicked() {
-        if tableView.clickedRow < 0 {
-            return
-        }
+    func updateNSViewController(_ nsViewController: TableViewController, context: Context) {
+        nsViewController.tableView.reloadData()
     }
 }
 
-extension MonthlyRecordTableController: NSTableViewDelegate {
-    func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
-        let record = records[row]
-        let identifier = RecordTableColumn(rawValue: tableColumn?.identifier.rawValue ?? "")
-        if row == 0 && [.month, .contribution, .withdrawal].contains(identifier) {
-            return NSHostingView(rootView: NullCell())
-        }
-        if identifier == .month {
-            return NSHostingView(rootView: MonthCell(record: record))
-        } else if identifier == .contribution {
-            return NSHostingView(rootView: BalanceCell(balance: record.contribution))
-        } else if identifier == .withdrawal {
-            return NSHostingView(rootView: BalanceCell(balance: record.withdrawal))
-        } else if identifier == .date {
-            return NSHostingView(rootView: DateCell(record: record))
-        } else if identifier == .balance {
-            return NSHostingView(rootView: BalanceCell(balance: record.balance))
-        } else if identifier == .notes {
-            return NSHostingView(rootView: NotesCell(record: record))
-        }
-
-        return NSHostingView(rootView: Text(""))
+extension AccountRecordList {
+    enum RecordTableColumn: String, CaseIterable {
+        case month
+        case contribution
+        case withdrawal
+        case date
+        case balance
+        case notes
     }
 
-    func tableView(_ tableView: NSTableView, heightOfRow row: Int) -> CGFloat {
-        26
-    }
-}
+    class Coordinator: NSObject, NSTableViewDelegate, NSTableViewDataSource {
+        var parent: AccountRecordList
 
-extension MonthlyRecordTableController: NSTableViewDataSource {
-    func numberOfRows(in tableView: NSTableView) -> Int {
-        records.count
+        init(_ parent: AccountRecordList) {
+            self.parent = parent
+        }
+
+        // MARK: - NSTableViewDelegate
+        func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
+            let record = parent.account.sortedRecords[row]
+            guard let identifier = RecordTableColumn(rawValue: tableColumn?.identifier.rawValue ?? "") else {
+                return nil
+            }
+            let cell = createCell(record: record, columnId: identifier, row: row)
+            return NSHostingView(rootView: cell)
+        }
+
+        func tableView(_ tableView: NSTableView, heightOfRow row: Int) -> CGFloat {
+            26
+        }
+
+        // MARK: - NSTableViewDataSource
+        func numberOfRows(in tableView: NSTableView) -> Int {
+            parent.account.sortedRecords.count
+        }
+
+        // MARK: - Persistence
+        private func save(record: Record) {
+            do {
+                try parent.viewContext.save()
+            } catch {
+                let nsError = error as NSError
+                print("Unresolved error \(nsError), \(nsError.userInfo)")
+            }
+        }
+
+        private func update(balance: NSDecimalNumber, record: Record, column: RecordTableColumn) {
+            // TODO: validation and saving
+            // save(record: record)
+        }
+
+        private func update(notes: String, record: Record) {
+            if record.notes == nil || record.notes!.isEmpty {
+                if notes.isEmpty {
+                    return
+                }
+            }
+
+            if record.notes != notes {
+                record.notes = notes
+                save(record: record)
+            }
+        }
+
+        // MARK: - Cell Builder
+        @ViewBuilder
+        private func createCell(record: Record, columnId: RecordTableColumn, row: Int) -> some View {
+            if row == 0 && [.month, .contribution, .withdrawal].contains(columnId) {
+                NullCell()
+            } else if [.contribution, .withdrawal, .balance].contains(columnId) {
+                BalanceCell(balance: balance(for: columnId, of: record)) { newValue in
+                    self.update(balance: newValue, record: record, column: columnId)
+                }
+            } else if columnId == .month {
+                DateCell(date: record.monthString)
+            } else if columnId == .date {
+                DateCell(date: record.closeDateString)
+            } else if columnId == .notes {
+                NotesCell(notes: record.notes ?? "") { newValue in
+                    self.update(notes: newValue, record: record)
+                }
+            }
+        }
+
+        private func balance(for columnId: RecordTableColumn, of record: Record) -> NSDecimalNumber {
+            var result: NSDecimalNumber?
+            if columnId == .contribution {
+                result = record.contribution
+            } else if columnId == .withdrawal {
+                result = record.withdrawal
+            } else if columnId == .balance {
+                result = record.balance
+            }
+            return result ?? 0
+        }
     }
 }

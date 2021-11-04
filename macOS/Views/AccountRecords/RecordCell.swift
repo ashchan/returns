@@ -19,38 +19,41 @@ struct NullCell: View {
     }
 }
 
-struct MonthCell: View {
-    @State var record: Record
-
-    var body: some View {
-        Text(record.monthString)
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .background(Color("readonlyCellColor"))
-    }
-}
-
 struct DateCell: View {
-    @State var record: Record
+    var date: String
 
     var body: some View {
-        Text(record.closeDateString)
+        Text(date)
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .background(Color("readonlyCellColor"))
     }
 }
 
 struct BalanceCell: View {
-    var balance: NSDecimalNumber?
+    @State var balance: NSDecimalNumber
+    var onUpdate: (NSDecimalNumber) -> ()
 
     var body: some View {
-        Text((balance ?? 0).description)
+        TextField("", value: $balance, formatter: NumberFormatter(), onCommit:  {
+            onUpdate(balance)
+            // TODO
+        })
+            .textFieldStyle(.plain)
+            .multilineTextAlignment(.trailing)
+            .padding(4)
     }
 }
 
 struct NotesCell: View {
-    @State var record: Record
+    @State var notes: String
+    var onUpdate: (String) -> ()
 
     var body: some View {
-        Text(record.notes ?? "")
+        TextField("", text: $notes, onCommit:  {
+            onUpdate(notes)
+            // TODO
+        })
+            .textFieldStyle(.plain)
+            .padding(4)
     }
 }
