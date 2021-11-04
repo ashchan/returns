@@ -84,10 +84,19 @@ extension AccountRecordList {
 
         private func update(balance: NSDecimalNumber, record: Record, column: RecordTableColumn) {
             if column == .contribution {
+                if balance.isEqual(to: record.contribution) {
+                    return
+                }
                 record.contribution = balance
             } else if column == .withdrawal {
+                if balance.isEqual(to: record.withdrawal) {
+                    return
+                }
                 record.withdrawal = balance
             } else if column == .balance {
+                if balance.isEqual(to: record.balance) {
+                    return
+                }
                 record.balance = balance
             }
             // TODO: other validation before saving?
