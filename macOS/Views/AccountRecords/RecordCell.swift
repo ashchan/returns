@@ -7,12 +7,15 @@
 
 import SwiftUI
 
-class EmptyCell: NSView {
-    override func draw(_ dirtyRect: NSRect) {
-        super.draw(dirtyRect)
+// Cell that doesn't show anything nor allow editing.
+struct NullCell: View {
+    var color: Color? = Color("nullCellColor")
 
-        NSColor.lightGray.setFill()
-        dirtyRect.fill()
+    var body: some View {
+        HStack {
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(color ?? Color("nullCellColor"))
     }
 }
 
@@ -21,6 +24,8 @@ struct MonthCell: View {
 
     var body: some View {
         Text(record.monthString)
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .background(Color("readonlyCellColor"))
     }
 }
 
@@ -29,6 +34,8 @@ struct DateCell: View {
 
     var body: some View {
         Text(record.closeDateString)
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .background(Color("readonlyCellColor"))
     }
 }
 

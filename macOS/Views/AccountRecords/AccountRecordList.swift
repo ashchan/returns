@@ -1,5 +1,5 @@
 //
-//  MonthlyRecordList.swift
+//  AccountRecordList.swift
 //  Returns (macOS)
 //
 //  Created by James Chen on 2021/10/31.
@@ -9,7 +9,7 @@ import Foundation
 import AppKit
 import SwiftUI
 
-struct MonthlyRecordList: NSViewControllerRepresentable {
+struct AccountRecordList: NSViewControllerRepresentable {
     typealias NSViewControllerType = MonthlyRecordTableController
     @ObservedObject var account: Account
 
@@ -24,7 +24,7 @@ struct MonthlyRecordList: NSViewControllerRepresentable {
 
 struct MonthlyRecordList_Previews: PreviewProvider {
     static var previews: some View {
-        MonthlyRecordList(account: Account())
+        AccountRecordList(account: Account())
             .frame(width: 400, height: 300)
     }
 }
@@ -45,7 +45,7 @@ final class MonthlyRecordTableController: NSViewController {
         let tableView = NSTableView()
 
         tableView.usesAlternatingRowBackgroundColors = false
-        tableView.selectionHighlightStyle = .regular
+        tableView.selectionHighlightStyle = .none
         tableView.style = .plain
         tableView.gridStyleMask = [.solidHorizontalGridLineMask, .solidVerticalGridLineMask]
         tableView.intercellSpacing = NSSize(width: 0, height: 0)
@@ -53,6 +53,7 @@ final class MonthlyRecordTableController: NSViewController {
         for columnIdentifier in RecordTableColumn.allCases {
             let column = NSTableColumn(identifier: .init(rawValue: columnIdentifier.rawValue))
             column.headerCell.title = columnIdentifier.rawValue.capitalized
+            column.headerCell.alignment = .center
             tableView.addTableColumn(column)
         }
 
@@ -105,7 +106,7 @@ extension MonthlyRecordTableController: NSTableViewDelegate {
         let record = records[row]
         let identifier = RecordTableColumn(rawValue: tableColumn?.identifier.rawValue ?? "")
         if row == 0 && [.month, .contribution, .withdrawal].contains(identifier) {
-            return EmptyCell()
+            return NSHostingView(rootView: NullCell())
         }
         if identifier == .month {
             return NSHostingView(rootView: MonthCell(record: record))
@@ -125,7 +126,7 @@ extension MonthlyRecordTableController: NSTableViewDelegate {
     }
 
     func tableView(_ tableView: NSTableView, heightOfRow row: Int) -> CGFloat {
-        28
+        26
     }
 }
 

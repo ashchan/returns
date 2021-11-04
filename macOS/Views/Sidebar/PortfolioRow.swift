@@ -19,20 +19,28 @@ struct PortfolioRow: View {
             NavigationLink(
                 destination: PortfolioView(portfolio: portfolio)
             ) {
-                Text(verbatim: portfolio.name ?? "Portfolio")
-                    .font(.headline)
-                    .fontWeight(.semibold)
-                    .foregroundColor(.primary)
-                Spacer()
-                if isHovering {
-                    Button(action: {
-                        isCollapsed.toggle()
-                    }) {
-                        Image(systemName: isCollapsed ? "chevron.right" : "chevron.down")
-                            .foregroundColor(.gray)
+                ZStack {
+                    HStack {
+                        Text(verbatim: portfolio.name ?? "Portfolio")
+                            .font(.headline)
+                            .fontWeight(.semibold)
+                            .foregroundColor(.primary)
+                        Spacer()
                     }
-                    .frame(width: 30, height: 24, alignment: .center)
-                    .buttonStyle(.plain)
+                    HStack {
+                        Spacer()
+
+                        if isHovering {
+                            Button(action: {
+                                isCollapsed.toggle()
+                            }) {
+                                Image(systemName: isCollapsed ? "chevron.right" : "chevron.down")
+                                    .foregroundColor(.gray)
+                            }
+                            .frame(width: 20, height: 20, alignment: .center)
+                            .buttonStyle(.plain)
+                        }
+                    }
                 }
             }
             .onHover(perform: { isHovering in
@@ -60,7 +68,7 @@ struct PortfolioRow: View {
             if !isCollapsed {
                 ForEach(portfolio.sortedAccounts) { account in
                     NavigationLink(
-                        destination: MonthlyRecordList(account: account)
+                        destination: AccountRecordList(account: account)
                             .navigationTitle("\(portfolio.name!) - \(account.name!)")
                     ) {
                         Text(verbatim: account.name!)
