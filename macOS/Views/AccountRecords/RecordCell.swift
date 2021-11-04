@@ -31,17 +31,55 @@ struct DateCell: View {
 
 struct BalanceCell: View {
     @State var balance: NSDecimalNumber
+    @State private var text: String = ""
     var onUpdate: (NSDecimalNumber) -> ()
 
     var body: some View {
-        TextField("", value: $balance, formatter: NumberFormatter(), onCommit:  {
-            onUpdate(balance)
-            // TODO
+        return TextField("", text: $text, onCommit:  {
+            validate(newText: text)
         })
             .textFieldStyle(.plain)
             .multilineTextAlignment(.trailing)
             .padding(4)
+            .onAppear {
+                update(balance: balance)
+            }
     }
+
+    func update(balance: NSDecimalNumber) {
+        self.balance = balance
+        text = Self.currencyFormatter.string(from: balance) ?? Self.currencyFormatter.string(from: 0)!
+    }
+
+    func validate(newText: String) {
+        let trimmed = newText
+            .replacingOccurrences(of: Self.currencyFormatter.currencySymbol, with: "")
+            .replacingOccurrences(of: Self.currencyFormatter.currencyGroupingSeparator, with: "")
+        // TODO: Other trimming?
+        if let newValue = Self.currencyInputFormatter.number(from: trimmed) as? NSDecimalNumber {
+            update(balance: newValue)
+            onUpdate(newValue)
+        } else {
+            update(balance: balance)
+        }
+    }
+
+    static var currencyFormatter: NumberFormatter = {
+        let formatter = NumberFormatter()
+        formatter.generatesDecimalNumbers = true
+        formatter.numberStyle = .currency
+        formatter.maximumFractionDigits = 2
+        formatter.minimumFractionDigits = 2
+        return formatter
+    }()
+
+    static var currencyInputFormatter: NumberFormatter = {
+        let formatter = NumberFormatter()
+        formatter.generatesDecimalNumbers = true
+        formatter.maximumFractionDigits = 2
+        formatter.minimumFractionDigits = 2
+        return formatter
+    }()
 }
 
 struct NotesCell: View {
@@ -51,7 +89,6 @@ struct NotesCell: View {
     var body: some View {
         TextField("", text: $notes, onCommit:  {
             onUpdate(notes)
-            // TODO
         })
             .textFieldStyle(.plain)
             .padding(4)
