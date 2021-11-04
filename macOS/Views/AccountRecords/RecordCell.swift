@@ -55,6 +55,7 @@ struct BalanceCell: View {
         let trimmed = newText
             .replacingOccurrences(of: Self.currencyFormatter.currencySymbol, with: "")
             .replacingOccurrences(of: Self.currencyFormatter.currencyGroupingSeparator, with: "")
+            .replacingOccurrences(of: " ", with: "")
         // TODO: Other trimming?
         if let newValue = Self.currencyInputFormatter.number(from: trimmed) as? NSDecimalNumber {
             update(balance: newValue)
@@ -66,6 +67,7 @@ struct BalanceCell: View {
 
     static var currencyFormatter: NumberFormatter = {
         let formatter = NumberFormatter()
+        // formatter.locale = Locale(identifier: "fr_FR") // TODO: set current locale or user selected one
         formatter.generatesDecimalNumbers = true
         formatter.numberStyle = .currency
         formatter.maximumFractionDigits = 2
@@ -75,6 +77,7 @@ struct BalanceCell: View {
 
     static var currencyInputFormatter: NumberFormatter = {
         let formatter = NumberFormatter()
+        // formatter.locale = Locale(identifier: "fr_FR") // TODO: set current locale or user selected one
         formatter.generatesDecimalNumbers = true
         formatter.maximumFractionDigits = 2
         formatter.minimumFractionDigits = 2
