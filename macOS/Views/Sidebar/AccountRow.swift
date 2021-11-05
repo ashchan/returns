@@ -11,6 +11,7 @@ import Combine
 
 struct AccountRow: View {
     @Environment(\.managedObjectContext) private var viewContext
+    @ObservedObject var portfolio: Portfolio
     @ObservedObject var account: Account
     @State private var showingDeletePrompt = false
     @State private var showingRenameSheet = false
@@ -18,7 +19,7 @@ struct AccountRow: View {
     var body: some View {
         NavigationLink(
             destination: AccountRecordList(account: account)
-                .navigationTitle("\(account.portfolio?.name ?? "") - \(account.name ?? "")")
+                .navigationTitle("\(portfolio.name ?? "") - \(account.name ?? "")")
         ) {
             Text(verbatim: account.name ?? "")
                 .foregroundColor(.primary)
@@ -78,11 +79,11 @@ extension AccountRow {
 
 struct AccountRow_Previews: PreviewProvider {
     static var previews: some View {
-        AccountRow(account: testAccount)
+        AccountRow(portfolio: testAccount.portfolio!, account: testAccount)
             .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
     }
 
-    static var testAccount: Account {
+    static var testAccount: Account = {
         let context = PersistenceController.preview.container.viewContext
         let portfolio = Portfolio(context: context)
         portfolio.name = "My Portfolio"
@@ -90,5 +91,5 @@ struct AccountRow_Previews: PreviewProvider {
         account.name = "My Account"
         account.portfolio = portfolio
         return account
-    }
+    }()
 }

@@ -77,7 +77,7 @@ struct PortfolioRow: View {
 
             if !isCollapsed {
                 ForEach(portfolio.sortedAccounts) { account in
-                    AccountRow(account: account)
+                    AccountRow(portfolio: portfolio, account: account)
                 }
             }
         }
@@ -100,7 +100,6 @@ private extension PortfolioRow {
     }
 
     func rename(portfolio: Portfolio, name: String) {
-        // TODO: FIXME: accounts list not updated
         portfolio.name = name
 
         do {
