@@ -58,7 +58,7 @@ struct PortfolioRow: View {
                     secondaryButton: .cancel())
             }
             .sheet(isPresented: $showingRenameSheet) {
-                RenameSheet(name: portfolio.name ?? "", label: "Portfolio name:") { newName in
+                RenameSheet(name: portfolio.name ?? "", label: "Portfolio Name:") { newName in
                     rename(portfolio: portfolio, name: newName)
                 }
             }

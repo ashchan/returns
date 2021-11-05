@@ -34,7 +34,7 @@ struct AccountRow: View {
                 secondaryButton: .cancel())
         }
         .sheet(isPresented: $showingRenameSheet) {
-            RenameSheet(name: account.name ?? "", label: "Account name:") { newName in
+            RenameSheet(name: account.name ?? "", label: "Account Name:") { newName in
                 rename(account: account, name: newName)
             }
         }

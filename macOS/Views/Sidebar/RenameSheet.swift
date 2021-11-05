@@ -29,10 +29,12 @@ struct RenameSheet: View {
                 Button("Cancel") {
                     dismiss()
                 }
+                .keyboardShortcut(.cancelAction)
                 Button("Save") {
                     dismiss()
                     onSave?(name)
                 }
+                .keyboardShortcut(.defaultAction)
             }
         }
         .padding(20)
