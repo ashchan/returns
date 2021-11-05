@@ -19,7 +19,8 @@ struct AccountRow: View {
     var body: some View {
         NavigationLink(
             destination: AccountRecordList(account: account)
-                .navigationTitle("\(portfolio.name ?? "") - \(account.name ?? "")")
+                .navigationTitle(account.name ?? "")
+                .navigationSubtitle("Portfolio: \(portfolio.name ?? "")")
         ) {
             Text(verbatim: account.name ?? "")
                 .foregroundColor(.primary)
@@ -40,9 +41,10 @@ struct AccountRow: View {
             }
         }
         .contextMenu {
-            Button("Rename") {
+            Button("Rename...") {
                 showingRenameSheet = true
             }
+            Divider()
             Button("Delete") {
                 showingDeletePrompt = true
             }

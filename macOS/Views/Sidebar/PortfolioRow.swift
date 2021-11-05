@@ -13,13 +13,14 @@ struct PortfolioRow: View {
     @State private var isCollapsed = false
     @State private var showingDeletePrompt = false
     @State private var showingRenameSheet = false
+    @State private var showingConfigureSheet = false
 
     @ObservedObject var portfolio: Portfolio
 
     var body: some View {
         Group {
             NavigationLink(
-                destination: PortfolioView(portfolio: portfolio)
+                destination: PortfolioView(portfolio: portfolio, showingConfigureSheet: $showingConfigureSheet)
             ) {
                 ZStack {
                     HStack {
@@ -62,14 +63,23 @@ struct PortfolioRow: View {
                     rename(portfolio: portfolio, name: newName)
                 }
             }
+            .sheet(isPresented: $showingConfigureSheet) {
+                ConfigurePortfolioView() {
+                    // TODO
+                }
+            }
             .contextMenu {
                 Button("New Account") {
                     addAccount(to: portfolio)
                 }
                 Divider()
-                Button("Rename") {
+                Button("Configure...") {
+                    showingConfigureSheet = true
+                }
+                Button("Rename...") {
                     showingRenameSheet = true
                 }
+                Divider()
                 Button("Delete") {
                     showingDeletePrompt = true
                 }

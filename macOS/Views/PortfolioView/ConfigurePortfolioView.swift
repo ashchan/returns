@@ -1,5 +1,5 @@
 //
-//  RenameAccountSheet.swift
+//  ConfigurePortfolioView.swift
 //  Returns (macOS)
 //
 //  Created by James Chen on 2021/11/05.
@@ -7,19 +7,15 @@
 
 import SwiftUI
 
-struct RenameSheet: View {
+struct ConfigurePortfolioView: View {
     @Environment(\.presentationMode) var presentationMode
-    @State var name: String
-    var label: String = "Name:"
-    var onSave: ((String) -> Void)?
+    var onSave: (() -> Void)? // TODO: parameter
 
     var body: some View {
         VStack {
             HStack {
-                Text(label)
-                TextField("", text: $name, onCommit: {
-                    validate()
-                })
+                Text("Configure Portfolio: TODO")
+                Spacer()
             }
 
             Spacer()
@@ -32,7 +28,7 @@ struct RenameSheet: View {
                 .keyboardShortcut(.cancelAction)
                 Button("Save") {
                     dismiss()
-                    onSave?(name)
+                    onSave?()
                 }
                 .keyboardShortcut(.defaultAction)
             }
@@ -42,20 +38,14 @@ struct RenameSheet: View {
     }
 }
 
-private extension RenameSheet {
-    func validate() {
-        if name.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
-            name = "New name"
-        }
-    }
-
+private extension ConfigurePortfolioView {
     func dismiss() {
         presentationMode.wrappedValue.dismiss()
     }
 }
 
-struct RenameAccountSheet_Previews: PreviewProvider {
+struct ConfigurePortfolioView_Previews: PreviewProvider {
     static var previews: some View {
-        RenameSheet(name: "Name #1")
+        ConfigurePortfolioView()
     }
 }

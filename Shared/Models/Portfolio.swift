@@ -20,6 +20,17 @@ extension Portfolio {
         let components = DateComponents(year: Int(startYear), month: Int(startMonth))
         return Calendar.current.date(from: components)!
     }
+
+    var sinceString: String {
+        Self.monthFormatter.string(from: since)
+    }
+
+    static let monthFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MMMM yyyy"
+        return formatter
+    }()
+
 }
 
 // Create a new portfolio
