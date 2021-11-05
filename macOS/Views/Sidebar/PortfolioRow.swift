@@ -11,8 +11,7 @@ struct PortfolioRow: View {
     @Environment(\.managedObjectContext) private var viewContext
     @State private var isHovering = false
     @State private var isCollapsed = false
-    @State private var showingDeletePortfolioPrompt = false
-    @State private var showingDeleteAccountPrompt = false
+    @State private var showingDeletePrompt = false
 
     @ObservedObject var portfolio: Portfolio
 
@@ -48,7 +47,7 @@ struct PortfolioRow: View {
             .onHover(perform: { isHovering in
                 self.isHovering = isHovering
             })
-            .alert(isPresented: $showingDeletePortfolioPrompt) {
+            .alert(isPresented: $showingDeletePrompt) {
                 Alert(
                     title: Text(portfolio.name ?? ""),
                     message: Text("Are you sure you want to delete the portfolio?"),
@@ -70,7 +69,7 @@ struct PortfolioRow: View {
                     Text("Rename")
                 }
                 Button(action: {
-                    showingDeletePortfolioPrompt = true
+                    showingDeletePrompt = true
                 }) {
                     Text("Delete")
                 }
@@ -78,35 +77,7 @@ struct PortfolioRow: View {
 
             if !isCollapsed {
                 ForEach(portfolio.sortedAccounts) { account in
-                    NavigationLink(
-                        destination: AccountRecordList(account: account)
-                            .navigationTitle("\(portfolio.name!) - \(account.name!)")
-                    ) {
-                        Text(verbatim: account.name!)
-                            .foregroundColor(.primary)
-                    }
-                    .padding(EdgeInsets(top: 2, leading: 10, bottom: 2, trailing: 0))
-                    .alert(isPresented: $showingDeleteAccountPrompt) {
-                        Alert(
-                            title: Text(account.name!),
-                            message: Text("Are you sure you want to delete the account?"),
-                            primaryButton: .default(Text("Delete")) {
-                                delete(account: account)
-                            },
-                            secondaryButton: .cancel())
-                    }
-                    .contextMenu {
-                        Button(action: {
-                            // TODO
-                        }) {
-                            Text("Rename")
-                        }
-                        Button(action: {
-                            showingDeleteAccountPrompt = true
-                        }) {
-                            Text("Delete")
-                        }
-                    }
+                    AccountRow(account: account)
                 }
             }
         }
@@ -114,6 +85,7 @@ struct PortfolioRow: View {
 }
 
 private extension PortfolioRow {
+    // TODO: update sidebar selection
     func delete(portfolio: Portfolio) {
         withAnimation {
             viewContext.delete(portfolio)
@@ -133,19 +105,6 @@ private extension PortfolioRow {
             account.createdAt = Date()
             account.portfolio = portfolio
             account.name = "Account #\(portfolio.accounts?.count ?? 0 + 1)"
-
-            do {
-                try viewContext.save()
-            } catch {
-                let nsError = error as NSError
-                print("Unresolved error \(nsError), \(nsError.userInfo)")
-            }
-        }
-    }
-
-    func delete(account: Account) {
-        withAnimation {
-            viewContext.delete(account)
 
             do {
                 try viewContext.save()
