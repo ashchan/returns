@@ -118,7 +118,20 @@ private extension PortfolioRow {
 
 struct PortfolioRow_Previews: PreviewProvider {
     static var previews: some View {
-        PortfolioRow(portfolio: Portfolio())
+        PortfolioRow(portfolio: testPortfolio)
             .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+    }
+
+    static var testPortfolio: Portfolio {
+        let context = PersistenceController.preview.container.viewContext
+        let portfolio = Portfolio(context: context)
+        portfolio.name = "My Portfolio"
+        var account = Account(context: context)
+        account.name = "My Account #1"
+        account.portfolio = portfolio
+        account = Account(context: context)
+        account.name = "My Account #2"
+        account.portfolio = portfolio
+        return portfolio
     }
 }

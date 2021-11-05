@@ -73,6 +73,17 @@ extension AccountRow {
 
 struct AccountRow_Previews: PreviewProvider {
     static var previews: some View {
-        AccountRow(account: Account())
+        AccountRow(account: testAccount)
+            .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+    }
+
+    static var testAccount: Account {
+        let context = PersistenceController.preview.container.viewContext
+        let portfolio = Portfolio(context: context)
+        portfolio.name = "My Portfolio"
+        let account = Account(context: context)
+        account.name = "My Account"
+        account.portfolio = portfolio
+        return account
     }
 }

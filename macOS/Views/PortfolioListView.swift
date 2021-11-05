@@ -36,5 +36,6 @@ struct PortfolioListView: View {
 struct PortfolioListView_Previews: PreviewProvider {
     static var previews: some View {
         PortfolioListView()
+            .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
     }
 }
