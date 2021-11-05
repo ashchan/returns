@@ -59,8 +59,8 @@ private extension Sidebar {
             do {
                 try viewContext.save()
             } catch {
-                let nsError = error as NSError
-                print("Unresolved error \(nsError), \(nsError.userInfo)")
+                viewContext.rollback()
+                print("Failed to save, error \(error)")
             }
         }
     }
@@ -75,8 +75,8 @@ private extension Sidebar {
             do {
                 try viewContext.save()
             } catch {
-                let nsError = error as NSError
-                print("Unresolved error \(nsError), \(nsError.userInfo)")
+                viewContext.rollback()
+                print("Failed to save, error \(error)")
             }
         }
     }

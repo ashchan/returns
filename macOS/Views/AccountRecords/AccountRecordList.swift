@@ -77,8 +77,8 @@ extension AccountRecordList {
             do {
                 try parent.viewContext.save()
             } catch {
-                let nsError = error as NSError
-                print("Unresolved error \(nsError), \(nsError.userInfo)")
+                parent.viewContext.rollback()
+                print("Failed to save, error \(error)")
             }
         }
 
