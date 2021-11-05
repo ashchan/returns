@@ -13,22 +13,15 @@ struct AccountRow: View {
     @Environment(\.managedObjectContext) private var viewContext
     @ObservedObject var account: Account
     @State private var showingDeletePrompt = false
-    @State private var isRenaming = false
-    
+    @State private var showingRenameSheet = false
+
     var body: some View {
         NavigationLink(
             destination: AccountRecordList(account: account)
                 .navigationTitle("\(account.portfolio?.name ?? "") - \(account.name ?? "")")
         ) {
-            if isRenaming {
-                TextField("Account name", text: Binding($account.name)!, onCommit: {
-                    isRenaming = false
-                    // TODO: save
-                })
-            } else {
-                Text(verbatim: account.name ?? "")
-                    .foregroundColor(.primary)
-            }
+            Text(verbatim: account.name ?? "")
+                .foregroundColor(.primary)
         }
         .padding(EdgeInsets(top: 2, leading: 10, bottom: 2, trailing: 0))
         .alert(isPresented: $showingDeletePrompt) {
@@ -40,22 +33,34 @@ struct AccountRow: View {
                 },
                 secondaryButton: .cancel())
         }
-        .contextMenu {
-            Button(action: {
-                isRenaming = true
-            }) {
-                Text("Rename")
+        .sheet(isPresented: $showingRenameSheet) {
+            RenameSheet(name: account.name ?? "", label: "Account name:") { newName in
+                rename(account: account, name: newName)
             }
-            Button(action: {
+        }
+        .contextMenu {
+            Button("Rename") {
+                showingRenameSheet = true
+            }
+            Button("Delete") {
                 showingDeletePrompt = true
-            }) {
-                Text("Delete")
             }
         }
     }
 }
 
 extension AccountRow {
+    func rename(account: Account, name: String) {
+        account.name = name
+
+        do {
+            try viewContext.save()
+        } catch {
+            let nsError = error as NSError
+            print("Unresolved error \(nsError), \(nsError.userInfo)")
+        }
+    }
+
     func delete(account: Account) {
         // TODO: update sidebar selection
         withAnimation {

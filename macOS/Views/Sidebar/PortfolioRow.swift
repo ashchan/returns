@@ -12,6 +12,7 @@ struct PortfolioRow: View {
     @State private var isHovering = false
     @State private var isCollapsed = false
     @State private var showingDeletePrompt = false
+    @State private var showingRenameSheet = false
 
     @ObservedObject var portfolio: Portfolio
 
@@ -56,22 +57,21 @@ struct PortfolioRow: View {
                     },
                     secondaryButton: .cancel())
             }
+            .sheet(isPresented: $showingRenameSheet) {
+                RenameSheet(name: portfolio.name ?? "", label: "Portfolio name:") { newName in
+                    rename(portfolio: portfolio, name: newName)
+                }
+            }
             .contextMenu {
-                Button(action: {
+                Button("New Account") {
                     addAccount(to: portfolio)
-                }) {
-                    Text("New Account")
                 }
                 Divider()
-                Button(action: {
-                    // TODO
-                }) {
-                    Text("Rename")
+                Button("Rename") {
+                    showingRenameSheet = true
                 }
-                Button(action: {
+                Button("Delete") {
                     showingDeletePrompt = true
-                }) {
-                    Text("Delete")
                 }
             }
 
@@ -98,6 +98,18 @@ private extension PortfolioRow {
             }
         }
     }
+
+    func rename(portfolio: Portfolio, name: String) {
+        // TODO: FIXME: accounts list not updated
+        portfolio.name = name
+
+        do {
+            try viewContext.save()
+        } catch {
+            let nsError = error as NSError
+            print("Unresolved error \(nsError), \(nsError.userInfo)")
+        }
+}
 
     func addAccount(to portfolio: Portfolio) {
         withAnimation {

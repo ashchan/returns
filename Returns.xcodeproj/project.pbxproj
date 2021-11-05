@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1A0484C5272E9BB60008E1F3 /* AccountRecordList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A0484C4272E9BB60008E1F3 /* AccountRecordList.swift */; };
+		1A0CCDCF2734BCD5008844F2 /* RenameSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A0CCDCE2734BCD5008844F2 /* RenameSheet.swift */; };
 		1A10191A2733A9D60058D817 /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A1019192733A9D60058D817 /* TableViewController.swift */; };
 		1A21928126A565F60032A15D /* Returns.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1A21927026A565F50032A15D /* Returns.xcdatamodeld */; };
 		1A21928226A565F60032A15D /* Returns.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1A21927026A565F50032A15D /* Returns.xcdatamodeld */; };
@@ -38,6 +39,7 @@
 
 /* Begin PBXFileReference section */
 		1A0484C4272E9BB60008E1F3 /* AccountRecordList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountRecordList.swift; sourceTree = "<group>"; };
+		1A0CCDCE2734BCD5008844F2 /* RenameSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RenameSheet.swift; sourceTree = "<group>"; };
 		1A1019192733A9D60058D817 /* TableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
 		1A21927126A565F50032A15D /* Shared.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Shared.xcdatamodel; sourceTree = "<group>"; };
 		1A21927226A565F50032A15D /* ReturnsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReturnsApp.swift; sourceTree = "<group>"; };
@@ -171,6 +173,7 @@
 				1A21929D26A6C1020032A15D /* Sidebar.swift */,
 				1AF18E9827321174008C9984 /* PortfolioRow.swift */,
 				1A966C722734A06700B0CA93 /* AccountRow.swift */,
+				1A0CCDCE2734BCD5008844F2 /* RenameSheet.swift */,
 			);
 			path = Sidebar;
 			sourceTree = "<group>";
@@ -318,6 +321,7 @@
 				1A966C732734A06700B0CA93 /* AccountRow.swift in Sources */,
 				1A21929C26A574D90032A15D /* PortfolioListView.swift in Sources */,
 				1AF18E9B27324CB2008C9984 /* Account.swift in Sources */,
+				1A0CCDCF2734BCD5008844F2 /* RenameSheet.swift in Sources */,
 				1AF18E9D27324CFB008C9984 /* Record.swift in Sources */,
 				1A21928226A565F60032A15D /* Returns.xcdatamodeld in Sources */,
 				1A21928826A565F60032A15D /* Persistence.swift in Sources */,
