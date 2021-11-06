@@ -25,6 +25,10 @@
 		1A21929E26A6C1020032A15D /* Sidebar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A21929D26A6C1020032A15D /* Sidebar.swift */; };
 		1A466BE527328CB5003FE54A /* RecordCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A466BE427328CB5003FE54A /* RecordCell.swift */; };
 		1A6AD1BD273683FB004FA67B /* Money in Frameworks */ = {isa = PBXBuildFile; productRef = 1A6AD1BC273683FB004FA67B /* Money */; };
+		1A6AD1C027368471004FA67B /* Money in Frameworks */ = {isa = PBXBuildFile; productRef = 1A6AD1BF27368471004FA67B /* Money */; };
+		1A6AD1C22736847F004FA67B /* Currency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A6AD1C12736847F004FA67B /* Currency.swift */; };
+		1A6AD1C32736847F004FA67B /* Currency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A6AD1C12736847F004FA67B /* Currency.swift */; };
+		1A6AD1C627368A81004FA67B /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A6AD1C527368A81004FA67B /* SettingsView.swift */; };
 		1A718C032731145F00B26288 /* PortfolioView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A718C022731145F00B26288 /* PortfolioView.swift */; };
 		1A718C06273127B500B26288 /* Portfolio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A718C05273127B500B26288 /* Portfolio.swift */; };
 		1A966C732734A06700B0CA93 /* AccountRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A966C722734A06700B0CA93 /* AccountRow.swift */; };
@@ -55,6 +59,8 @@
 		1A21929B26A574D90032A15D /* PortfolioListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortfolioListView.swift; sourceTree = "<group>"; };
 		1A21929D26A6C1020032A15D /* Sidebar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sidebar.swift; sourceTree = "<group>"; };
 		1A466BE427328CB5003FE54A /* RecordCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordCell.swift; sourceTree = "<group>"; };
+		1A6AD1C12736847F004FA67B /* Currency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Currency.swift; sourceTree = "<group>"; };
+		1A6AD1C527368A81004FA67B /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		1A718C022731145F00B26288 /* PortfolioView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortfolioView.swift; sourceTree = "<group>"; };
 		1A718C05273127B500B26288 /* Portfolio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Portfolio.swift; sourceTree = "<group>"; };
 		1A966C722734A06700B0CA93 /* AccountRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountRow.swift; sourceTree = "<group>"; };
@@ -70,6 +76,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1A6AD1C027368471004FA67B /* Money in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -91,6 +98,7 @@
 				1A21929426A56BB70032A15D /* macOS */,
 				1A21929526A572FC0032A15D /* iOS */,
 				1A21927B26A565F60032A15D /* Products */,
+				1A6AD1BE27368471004FA67B /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -154,11 +162,27 @@
 			isa = PBXGroup;
 			children = (
 				1A21929B26A574D90032A15D /* PortfolioListView.swift */,
+				1A6AD1C427368A6D004FA67B /* Settings */,
 				1A9CF8A827335CE40051199A /* Sidebar */,
 				1A9CF8A927335CFE0051199A /* PortfolioView */,
 				1A9CF8AA27335D140051199A /* AccountRecords */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		1A6AD1BE27368471004FA67B /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		1A6AD1C427368A6D004FA67B /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				1A6AD1C527368A81004FA67B /* SettingsView.swift */,
+			);
+			path = Settings;
 			sourceTree = "<group>";
 		};
 		1A718C04273127A100B26288 /* Models */ = {
@@ -167,6 +191,7 @@
 				1A718C05273127B500B26288 /* Portfolio.swift */,
 				1AF18E9A27324CB2008C9984 /* Account.swift */,
 				1AF18E9C27324CFB008C9984 /* Record.swift */,
+				1A6AD1C12736847F004FA67B /* Currency.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -225,6 +250,9 @@
 			dependencies = (
 			);
 			name = "Returns (iOS)";
+			packageProductDependencies = (
+				1A6AD1BF27368471004FA67B /* Money */,
+			);
 			productName = "Returns (iOS)";
 			productReference = 1A21927A26A565F60032A15D /* Returns.app */;
 			productType = "com.apple.product-type.application";
@@ -319,6 +347,7 @@
 				1A21928126A565F60032A15D /* Returns.xcdatamodeld in Sources */,
 				1AF18EA227325853008C9984 /* Portfolio.swift in Sources */,
 				1A21928726A565F60032A15D /* Persistence.swift in Sources */,
+				1A6AD1C22736847F004FA67B /* Currency.swift in Sources */,
 				1AF18EA327325856008C9984 /* Account.swift in Sources */,
 				1A21928326A565F60032A15D /* ReturnsApp.swift in Sources */,
 				1A21928526A565F60032A15D /* ContentView.swift in Sources */,
@@ -339,9 +368,11 @@
 				1A21928826A565F60032A15D /* Persistence.swift in Sources */,
 				1A21928426A565F60032A15D /* ReturnsApp.swift in Sources */,
 				1A21929E26A6C1020032A15D /* Sidebar.swift in Sources */,
+				1A6AD1C32736847F004FA67B /* Currency.swift in Sources */,
 				1A21928626A565F60032A15D /* ContentView.swift in Sources */,
 				1A0484C5272E9BB60008E1F3 /* AccountRecordList.swift in Sources */,
 				1A718C032731145F00B26288 /* PortfolioView.swift in Sources */,
+				1A6AD1C627368A81004FA67B /* SettingsView.swift in Sources */,
 				1A466BE527328CB5003FE54A /* RecordCell.swift in Sources */,
 				1A718C06273127B500B26288 /* Portfolio.swift in Sources */,
 				1AF18EA127325121008C9984 /* Date.swift in Sources */,
@@ -632,6 +663,11 @@
 
 /* Begin XCSwiftPackageProductDependency section */
 		1A6AD1BC273683FB004FA67B /* Money */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1A6AD1BB273683FB004FA67B /* XCRemoteSwiftPackageReference "Money" */;
+			productName = Money;
+		};
+		1A6AD1BF27368471004FA67B /* Money */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 1A6AD1BB273683FB004FA67B /* XCRemoteSwiftPackageReference "Money" */;
 			productName = Money;
