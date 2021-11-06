@@ -12,7 +12,8 @@ struct Currency {
     let type: CurrencyType.Type
 
     var name: String {
-        type.name
+        Locale.current.localizedString(forCurrencyCode: type.code) ?? type.name
+        // type.name
     }
 }
 
