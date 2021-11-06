@@ -24,6 +24,7 @@
 		1A21929C26A574D90032A15D /* PortfolioListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A21929B26A574D90032A15D /* PortfolioListView.swift */; };
 		1A21929E26A6C1020032A15D /* Sidebar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A21929D26A6C1020032A15D /* Sidebar.swift */; };
 		1A466BE527328CB5003FE54A /* RecordCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A466BE427328CB5003FE54A /* RecordCell.swift */; };
+		1A6AD1BD273683FB004FA67B /* Money in Frameworks */ = {isa = PBXBuildFile; productRef = 1A6AD1BC273683FB004FA67B /* Money */; };
 		1A718C032731145F00B26288 /* PortfolioView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A718C022731145F00B26288 /* PortfolioView.swift */; };
 		1A718C06273127B500B26288 /* Portfolio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A718C05273127B500B26288 /* Portfolio.swift */; };
 		1A966C732734A06700B0CA93 /* AccountRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A966C722734A06700B0CA93 /* AccountRow.swift */; };
@@ -76,6 +77,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1A6AD1BD273683FB004FA67B /* Money in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -240,6 +242,9 @@
 			dependencies = (
 			);
 			name = "Returns (macOS)";
+			packageProductDependencies = (
+				1A6AD1BC273683FB004FA67B /* Money */,
+			);
 			productName = "Returns (macOS)";
 			productReference = 1A21928026A565F60032A15D /* Returns.app */;
 			productType = "com.apple.product-type.application";
@@ -271,6 +276,9 @@
 				Base,
 			);
 			mainGroup = 1A21926A26A565F50032A15D;
+			packageReferences = (
+				1A6AD1BB273683FB004FA67B /* XCRemoteSwiftPackageReference "Money" */,
+			);
 			productRefGroup = 1A21927B26A565F60032A15D /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -610,6 +618,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		1A6AD1BB273683FB004FA67B /* XCRemoteSwiftPackageReference "Money" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Flight-School/Money";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		1A6AD1BC273683FB004FA67B /* Money */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1A6AD1BB273683FB004FA67B /* XCRemoteSwiftPackageReference "Money" */;
+			productName = Money;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		1A21927026A565F50032A15D /* Returns.xcdatamodeld */ = {
