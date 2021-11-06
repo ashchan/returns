@@ -35,8 +35,10 @@ struct BalanceCell: View {
     var onUpdate: (NSDecimalNumber) -> ()
 
     var body: some View {
-        return TextField("", text: $text, onCommit:  {
-            validate(newText: text)
+        return TextField("", text: $text, onEditingChanged: { begin in
+            if !begin {
+                validate(newText: text)
+            }
         })
             .textFieldStyle(.plain)
             .multilineTextAlignment(.trailing)
@@ -90,8 +92,10 @@ struct NotesCell: View {
     var onUpdate: (String) -> ()
 
     var body: some View {
-        TextField("", text: $notes, onCommit:  {
-            onUpdate(notes)
+        TextField("", text: $notes, onEditingChanged: { begin in
+            if !begin {
+                onUpdate(notes)
+            }
         })
             .textFieldStyle(.plain)
             .padding(4)
