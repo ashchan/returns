@@ -147,8 +147,7 @@ private extension PortfolioRow {
 
         do {
             try viewContext.save()
-            portfolioSettings.portfolio = portfolio
-            portfolio.dataUpdated()
+            portfolioSettings.update()
         } catch {
             viewContext.rollback()
             print("Failed to save, error \(error)")

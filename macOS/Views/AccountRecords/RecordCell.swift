@@ -36,6 +36,7 @@ struct BalanceCell: View {
     var onUpdate: (NSDecimalNumber) -> ()
 
     var body: some View {
+        Group{
         TextField("", text: $text, onEditingChanged: { begin in
             if !begin {
                 validate(newText: text)
@@ -47,19 +48,20 @@ struct BalanceCell: View {
             .onAppear {
                 update(balance: balance)
             }
+        }
     }
 
     func update(balance: NSDecimalNumber) {
         self.balance = balance
-        text = portfolioSettings.currencyOutputFormatter.string(from: balance) ?? portfolioSettings.currencyOutputFormatter.string(from: 0)!
+        text = portfolioSettings.currencyFormatter.outputFormatter.string(from: balance) ?? portfolioSettings.currencyFormatter.outputFormatter.string(from: 0)!
     }
 
     func validate(newText: String) {
         let trimmed = newText
-            .replacingOccurrences(of: portfolioSettings.currencyOutputFormatter.currencySymbol, with: "")
-            .replacingOccurrences(of: portfolioSettings.currencyOutputFormatter.currencyGroupingSeparator, with: "")
+            .replacingOccurrences(of: portfolioSettings.currencyFormatter.outputFormatter.currencySymbol, with: "")
+            .replacingOccurrences(of: portfolioSettings.currencyFormatter.outputFormatter.currencyGroupingSeparator, with: "")
             .replacingOccurrences(of: " ", with: "")
-        if let newValue = portfolioSettings.currencyInputFormatter.number(from: trimmed) as? NSDecimalNumber {
+        if let newValue = portfolioSettings.currencyFormatter.inputFormatter.number(from: trimmed) as? NSDecimalNumber {
             update(balance: newValue)
             onUpdate(newValue)
         } else {

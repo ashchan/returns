@@ -12,17 +12,11 @@ struct AccountRecordList: NSViewControllerRepresentable {
     typealias NSViewControllerType = TableViewController
 
     @Environment(\.managedObjectContext) private var viewContext
+    @EnvironmentObject var portfolioSettings: PortfolioSettings
     @ObservedObject var account: Account
 
     func makeCoordinator() -> Coordinator {
-        let coordinator = Coordinator(self)
-        // TODO: remove this after implementing accounts update on portfolio change
-        NotificationCenter.default.addObserver(
-            coordinator,
-            selector: #selector(Coordinator.portfolioUpdated(_:)),
-            name: .portfolioDataUpdated,
-            object: nil)
-        return coordinator
+        return Coordinator(self)
     }
 
     func makeNSViewController(context: Context) -> TableViewController {
@@ -60,16 +54,6 @@ extension AccountRecordList {
             self.parent = parent
         }
 
-        @objc
-        func portfolioUpdated(_ notification: Notification) {
-            if let portfolio = notification.object as? Portfolio {
-                if portfolio == parent.account.portfolio {
-                    // Notify AccountRecordList to update view controller
-                    parent.account.objectWillChange.send()
-                }
-            }
-        }
-
         // MARK: - NSTableViewDelegate
         func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
             let record = parent.account.sortedRecords[row]
@@ -77,6 +61,7 @@ extension AccountRecordList {
                 return nil
             }
             let cell = createCell(record: record, columnId: identifier, row: row)
+                .environmentObject(parent.portfolioSettings)
             return NSHostingView(rootView: cell)
         }
 
