@@ -65,8 +65,8 @@ struct PortfolioRow: View {
                 }
             }
             .sheet(isPresented: $showingConfigureSheet) {
-                ConfigurePortfolioView() {
-                    // TODO
+                ConfigurePortfolioView(currencyCode: portfolio.currencyCode ?? "") { currencyCode in
+                    configure(portfolio: portfolio, currencyCode: currencyCode)
                 }
             }
             .contextMenu {
@@ -123,7 +123,7 @@ private extension PortfolioRow {
             viewContext.rollback()
             print("Failed to save, error \(error)")
         }
-}
+    }
 
     func addAccount(to portfolio: Portfolio) {
         withAnimation {
@@ -139,6 +139,18 @@ private extension PortfolioRow {
                 viewContext.rollback()
                 print("Failed to save, error \(error)")
             }
+        }
+    }
+
+    func configure(portfolio: Portfolio, currencyCode: String) {
+        portfolio.currencyCode = currencyCode
+
+        do {
+            try viewContext.save()
+            portfolioSettings.portfolio = portfolio
+        } catch {
+            viewContext.rollback()
+            print("Failed to save, error \(error)")
         }
     }
 }

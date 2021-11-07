@@ -21,6 +21,8 @@ class PortfolioSettings: ObservableObject {
 
     func updateCurrencyInputFormatter() {
         guard let currency = portfolio?.currency else {
+            currencyInputFormatter = NumberFormatter()
+            currencyInputFormatter.generatesDecimalNumbers = true
             return
         }
 
@@ -28,11 +30,13 @@ class PortfolioSettings: ObservableObject {
         currencyInputFormatter.currencyCode = currency.code
         currencyInputFormatter.currencySymbol = currency.symbol
         currencyInputFormatter.maximumFractionDigits = currency.minorUnit
-        // currencyInputFormatter.minimumFractionDigits = 0
     }
 
     func updateCurrencyOutputFormatter() {
         guard let currency = portfolio?.currency else {
+            currencyOutputFormatter = NumberFormatter()
+            currencyOutputFormatter.generatesDecimalNumbers = true
+            currencyOutputFormatter.numberStyle = .currency
             return
         }
 
@@ -41,6 +45,5 @@ class PortfolioSettings: ObservableObject {
         currencyOutputFormatter.currencyCode = currency.code
         currencyOutputFormatter.currencySymbol = currency.symbol
         currencyOutputFormatter.maximumFractionDigits = currency.minorUnit
-        // currencyOutputFormatter.minimumFractionDigits = 0
     }
 }

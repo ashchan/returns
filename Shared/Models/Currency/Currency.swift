@@ -40,8 +40,22 @@ extension Currency {
         Currency(type: USD.self)
     }
 
+    static func from(code: String) -> Currency? {
+        if let crypto = cryptocurrencies.first(where: { c in
+            c.code == code
+        }) {
+            return crypto
+        }
+
+        if let type = iso4217Currency(for: code) {
+            return Currency(type: type)
+        }
+
+        return nil
+    }
+
     static var allCurrencies: [Currency] = {
-        popularCurrencies + otherCurrencies
+        popularCurrencies + cryptocurrencies + otherCurrencies
     }()
 
     static var popularCurrencies: [Currency] = {
@@ -55,6 +69,15 @@ extension Currency {
             Currency(type: CNY.self),
         ]
         return popular
+    }()
+
+    static var cryptocurrencies: [Currency] = {
+        let crypto = [
+            Currency(type: BTC.self),
+            Currency(type: ETH.self),
+            Currency(type: LTC.self)
+        ]
+        return crypto
     }()
 
     static var otherCurrencies: [Currency] = {

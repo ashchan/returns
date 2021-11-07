@@ -10,7 +10,11 @@ import Foundation
 final class CurrencySymbol {
     // code: symbols
     private static var cached: [String: [String]] = {
-        var cache: [String: [String]] = [:]
+        var cache: [String: [String]] = [
+            BTC.code: [BTC.symbol],
+            ETH.code: [ETH.symbol],
+            LTC.code: [LTC.symbol]
+        ]
         let currencyCodes = Set(Locale.commonISOCurrencyCodes)
 
         for locale in Locale.availableIdentifiers.map(Locale.init(identifier:)) {

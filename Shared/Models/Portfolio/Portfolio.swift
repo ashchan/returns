@@ -25,8 +25,8 @@ extension Portfolio {
         Self.monthFormatter.string(from: since)
     }
 
-    var currency: Currency {
-        Currency.default // TODO: read from db
+    var currency: Currency? {
+        Currency.from(code: currencyCode ?? "")
     }
 
     static let monthFormatter: DateFormatter = {

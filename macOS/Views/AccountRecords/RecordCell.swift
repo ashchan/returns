@@ -36,7 +36,7 @@ struct BalanceCell: View {
     var onUpdate: (NSDecimalNumber) -> ()
 
     var body: some View {
-        return TextField("", text: $text, onEditingChanged: { begin in
+        TextField("", text: $text, onEditingChanged: { begin in
             if !begin {
                 validate(newText: text)
             }
