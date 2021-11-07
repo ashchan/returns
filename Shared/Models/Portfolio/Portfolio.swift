@@ -34,6 +34,8 @@ extension Portfolio {
     }
 
     func dataUpdated() {
+        // TODO: if changes affect accounts (like start month/year change would
+        //    rebuild all records), there should be no need for this.
         NotificationCenter.default.post(name: .portfolioDataUpdated, object: self)
     }
 

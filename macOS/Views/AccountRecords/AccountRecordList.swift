@@ -16,6 +16,7 @@ struct AccountRecordList: NSViewControllerRepresentable {
 
     func makeCoordinator() -> Coordinator {
         let coordinator = Coordinator(self)
+        // TODO: remove this after implementing accounts update on portfolio change
         NotificationCenter.default.addObserver(
             coordinator,
             selector: #selector(Coordinator.portfolioUpdated(_:)),
