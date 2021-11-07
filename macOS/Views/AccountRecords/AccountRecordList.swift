@@ -15,7 +15,13 @@ struct AccountRecordList: NSViewControllerRepresentable {
     @ObservedObject var account: Account
 
     func makeCoordinator() -> Coordinator {
-        Coordinator(self)
+        let coordinator = Coordinator(self)
+        NotificationCenter.default.addObserver(
+            coordinator,
+            selector: #selector(Coordinator.portfolioUpdated(_:)),
+            name: .portfolioDataUpdated,
+            object: nil)
+        return coordinator
     }
 
     func makeNSViewController(context: Context) -> TableViewController {
@@ -51,6 +57,16 @@ extension AccountRecordList {
 
         init(_ parent: AccountRecordList) {
             self.parent = parent
+        }
+
+        @objc
+        func portfolioUpdated(_ notification: Notification) {
+            if let portfolio = notification.object as? Portfolio {
+                if portfolio == parent.account.portfolio {
+                    // Notify AccountRecordList to update view controller
+                    parent.account.objectWillChange.send()
+                }
+            }
         }
 
         // MARK: - NSTableViewDelegate

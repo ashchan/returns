@@ -8,6 +8,10 @@
 import Foundation
 import CoreData
 
+extension NSNotification.Name {
+    static let portfolioDataUpdated = NSNotification.Name("portfolioDataUPdated")
+}
+
 extension Portfolio {
     var sortedAccounts: [Account] {
         let set = accounts as? Set<Account> ?? []
@@ -27,6 +31,10 @@ extension Portfolio {
 
     var currency: Currency? {
         Currency.from(code: currencyCode ?? "")
+    }
+
+    func dataUpdated() {
+        NotificationCenter.default.post(name: .portfolioDataUpdated, object: self)
     }
 
     static let monthFormatter: DateFormatter = {
