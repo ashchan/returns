@@ -9,6 +9,7 @@ import SwiftUI
 
 struct PortfolioRow: View {
     @Environment(\.managedObjectContext) private var viewContext
+    @StateObject var portfolioSettings = PortfolioSettings()
     @State private var isHovering = false
     @State private var isCollapsed = false
     @State private var showingDeletePrompt = false
@@ -88,8 +89,12 @@ struct PortfolioRow: View {
             if !isCollapsed {
                 ForEach(portfolio.sortedAccounts) { account in
                     AccountRow(portfolio: portfolio, account: account)
+                        .environmentObject(portfolioSettings)
                 }
             }
+        }
+        .onAppear {
+            portfolioSettings.portfolio = portfolio
         }
     }
 }

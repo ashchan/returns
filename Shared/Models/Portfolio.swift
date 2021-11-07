@@ -25,12 +25,15 @@ extension Portfolio {
         Self.monthFormatter.string(from: since)
     }
 
+    var currency: Currency {
+        Currency.default // TODO: read from db
+    }
+
     static let monthFormatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateFormat = "MMMM yyyy"
         return formatter
     }()
-
 }
 
 // Create a new portfolio

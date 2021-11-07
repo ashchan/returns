@@ -15,6 +15,10 @@ struct Currency {
     var name: String {
         Locale.current.localizedString(forCurrencyCode: type.code) ?? type.name
     }
+    var symbol: String {
+        CurrencySymbol.symbol(for: code)
+    }
+    var minorUnit: Int { type.minorUnit }
 }
 
 extension Currency: Identifiable {

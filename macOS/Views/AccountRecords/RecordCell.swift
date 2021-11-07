@@ -30,6 +30,7 @@ struct DateCell: View {
 }
 
 struct BalanceCell: View {
+    @EnvironmentObject var portfolioSettings: PortfolioSettings
     @State var balance: NSDecimalNumber
     @State private var text: String = ""
     var onUpdate: (NSDecimalNumber) -> ()
@@ -50,43 +51,21 @@ struct BalanceCell: View {
 
     func update(balance: NSDecimalNumber) {
         self.balance = balance
-        text = Self.currencyFormatter.string(from: balance) ?? Self.currencyFormatter.string(from: 0)!
+        text = portfolioSettings.currencyOutputFormatter.string(from: balance) ?? portfolioSettings.currencyOutputFormatter.string(from: 0)!
     }
 
     func validate(newText: String) {
         let trimmed = newText
-            .replacingOccurrences(of: Self.currencyFormatter.currencySymbol, with: "")
-            .replacingOccurrences(of: Self.currencyFormatter.currencyGroupingSeparator, with: "")
+            .replacingOccurrences(of: portfolioSettings.currencyOutputFormatter.currencySymbol, with: "")
+            .replacingOccurrences(of: portfolioSettings.currencyOutputFormatter.currencyGroupingSeparator, with: "")
             .replacingOccurrences(of: " ", with: "")
-        // TODO: Other trimming?
-        if let newValue = Self.currencyInputFormatter.number(from: trimmed) as? NSDecimalNumber {
+        if let newValue = portfolioSettings.currencyInputFormatter.number(from: trimmed) as? NSDecimalNumber {
             update(balance: newValue)
             onUpdate(newValue)
         } else {
             update(balance: balance)
         }
     }
-
-    static var currencyFormatter: NumberFormatter = {
-        let formatter = NumberFormatter()
-        // formatter.locale = Locale(identifier: "fr_CA") // TODO: set current locale or user selected one
-        // formatter.currencySymbol = "$" // TODO: set symbol to portfolio's preferred currency's
-        formatter.generatesDecimalNumbers = true
-        formatter.numberStyle = .currency
-        formatter.maximumFractionDigits = 2
-        formatter.minimumFractionDigits = 2
-        return formatter
-    }()
-
-    static var currencyInputFormatter: NumberFormatter = {
-        let formatter = NumberFormatter()
-        // formatter.locale = Locale(identifier: "fr_FR") // TODO: set current locale or user selected one
-        // formatter.currencySymbol = "$" // TODO: set symbol to portfolio's preferred currency's
-        formatter.generatesDecimalNumbers = true
-        formatter.maximumFractionDigits = 2
-        formatter.minimumFractionDigits = 2
-        return formatter
-    }()
 }
 
 struct NotesCell: View {

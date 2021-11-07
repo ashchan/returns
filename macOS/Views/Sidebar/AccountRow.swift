@@ -11,6 +11,7 @@ import Combine
 
 struct AccountRow: View {
     @Environment(\.managedObjectContext) private var viewContext
+    @EnvironmentObject var portfolioSettings: PortfolioSettings
     @ObservedObject var portfolio: Portfolio
     @ObservedObject var account: Account
     @State private var showingDeletePrompt = false
@@ -21,6 +22,7 @@ struct AccountRow: View {
             destination: AccountRecordList(account: account)
                 .navigationTitle(account.name ?? "")
                 .navigationSubtitle("Portfolio: \(portfolio.name ?? "")")
+                .environmentObject(portfolioSettings)
         ) {
             Text(verbatim: account.name ?? "")
                 .foregroundColor(.primary)

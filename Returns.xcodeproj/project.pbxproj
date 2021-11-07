@@ -10,6 +10,8 @@
 		1A0484C5272E9BB60008E1F3 /* AccountRecordList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A0484C4272E9BB60008E1F3 /* AccountRecordList.swift */; };
 		1A0CCDCF2734BCD5008844F2 /* RenameSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A0CCDCE2734BCD5008844F2 /* RenameSheet.swift */; };
 		1A10191A2733A9D60058D817 /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A1019192733A9D60058D817 /* TableViewController.swift */; };
+		1A15839C27375D6500F118F1 /* PortfolioSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A15839B27375D6500F118F1 /* PortfolioSettings.swift */; };
+		1A15839D27375D6500F118F1 /* PortfolioSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A15839B27375D6500F118F1 /* PortfolioSettings.swift */; };
 		1A21928126A565F60032A15D /* Returns.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1A21927026A565F50032A15D /* Returns.xcdatamodeld */; };
 		1A21928226A565F60032A15D /* Returns.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1A21927026A565F50032A15D /* Returns.xcdatamodeld */; };
 		1A21928326A565F60032A15D /* ReturnsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A21927226A565F50032A15D /* ReturnsApp.swift */; };
@@ -49,6 +51,7 @@
 		1A0484C4272E9BB60008E1F3 /* AccountRecordList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountRecordList.swift; sourceTree = "<group>"; };
 		1A0CCDCE2734BCD5008844F2 /* RenameSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RenameSheet.swift; sourceTree = "<group>"; };
 		1A1019192733A9D60058D817 /* TableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
+		1A15839B27375D6500F118F1 /* PortfolioSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortfolioSettings.swift; sourceTree = "<group>"; };
 		1A21927126A565F50032A15D /* Shared.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Shared.xcdatamodel; sourceTree = "<group>"; };
 		1A21927226A565F50032A15D /* ReturnsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReturnsApp.swift; sourceTree = "<group>"; };
 		1A21927326A565F50032A15D /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -192,6 +195,7 @@
 			isa = PBXGroup;
 			children = (
 				1A718C05273127B500B26288 /* Portfolio.swift */,
+				1A15839B27375D6500F118F1 /* PortfolioSettings.swift */,
 				1AF18E9A27324CB2008C9984 /* Account.swift */,
 				1AF18E9C27324CFB008C9984 /* Record.swift */,
 				1A6AD1C12736847F004FA67B /* Currency.swift */,
@@ -346,6 +350,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1A21929A26A574C00032A15D /* PortfolioListView.swift in Sources */,
+				1A15839C27375D6500F118F1 /* PortfolioSettings.swift in Sources */,
 				1AF18EA027325121008C9984 /* Date.swift in Sources */,
 				1AF18EA427325859008C9984 /* Record.swift in Sources */,
 				1A21928126A565F60032A15D /* Returns.xcdatamodeld in Sources */,
@@ -368,6 +373,7 @@
 				1ABDFD652735240B00959FA8 /* ConfigurePortfolioView.swift in Sources */,
 				1A5F38F82736C60600105DD3 /* CurrencySymbol.swift in Sources */,
 				1AF18E9B27324CB2008C9984 /* Account.swift in Sources */,
+				1A15839D27375D6500F118F1 /* PortfolioSettings.swift in Sources */,
 				1A0CCDCF2734BCD5008844F2 /* RenameSheet.swift in Sources */,
 				1AF18E9D27324CFB008C9984 /* Record.swift in Sources */,
 				1A21928226A565F60032A15D /* Returns.xcdatamodeld in Sources */,
