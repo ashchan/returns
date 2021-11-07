@@ -11,14 +11,14 @@ import Money
 struct Currency {
     let type: CurrencyType.Type
 
+    var code: String { type.code }
     var name: String {
         Locale.current.localizedString(forCurrencyCode: type.code) ?? type.name
-        // type.name
     }
 }
 
 extension Currency: Identifiable {
-    var id: String { type.code }
+    var id: String { code }
 }
 
 extension Currency: Hashable {
@@ -210,6 +210,8 @@ extension Currency {
             Currency(type: ZMW.self),
             Currency(type: ZWL.self)
         ]
-        return others
+        return others.filter { currency in
+            !CurrencySymbol.symbol(for: currency.code).isEmpty
+        }
     }()
 }

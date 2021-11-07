@@ -8,19 +8,23 @@
 import Foundation
 
 final class CurrencySymbol {
-    static var shared = CurrencySymbol()
-    var cached: [String: String] = [:]
+    // code: symbols
+    private static var cached: [String: [String]] = {
+        var cache: [String: [String]] = [:]
+        let currencyCodes = Set(Locale.commonISOCurrencyCodes)
 
-    private init() {
-        let formatter = NumberFormatter()
-        formatter.numberStyle = .currency
-        for currency in Currency.allCurrencies {
-            formatter.currencyCode = currency.id
-            cached[currency.id] = formatter.currencySymbol
+        for locale in Locale.availableIdentifiers.map(Locale.init(identifier:)) {
+            guard let currencyCode = locale.currencyCode, let currencySymbol = locale.currencySymbol else {
+                continue
+            }
+            if currencyCodes.contains(currencyCode) {
+                cache[currencyCode, default: []].insert(currencySymbol, at: 0)
+            }
         }
-    }
+        return cache
+    }()
 
-    func symbol(for currencyCode: String) -> String {
-        return cached[currencyCode] ?? ""
+    static func symbol(for currencyCode: String) -> String {
+        return (cached[currencyCode] ?? []).min { $0.count < $1.count } ?? ""
     }
 }

@@ -69,7 +69,8 @@ struct BalanceCell: View {
 
     static var currencyFormatter: NumberFormatter = {
         let formatter = NumberFormatter()
-        // formatter.locale = Locale(identifier: "fr_FR") // TODO: set current locale or user selected one
+        // formatter.locale = Locale(identifier: "fr_CA") // TODO: set current locale or user selected one
+        // formatter.currencySymbol = "$" // TODO: set symbol to portfolio's preferred currency's
         formatter.generatesDecimalNumbers = true
         formatter.numberStyle = .currency
         formatter.maximumFractionDigits = 2
@@ -80,6 +81,7 @@ struct BalanceCell: View {
     static var currencyInputFormatter: NumberFormatter = {
         let formatter = NumberFormatter()
         // formatter.locale = Locale(identifier: "fr_FR") // TODO: set current locale or user selected one
+        // formatter.currencySymbol = "$" // TODO: set symbol to portfolio's preferred currency's
         formatter.generatesDecimalNumbers = true
         formatter.maximumFractionDigits = 2
         formatter.minimumFractionDigits = 2
