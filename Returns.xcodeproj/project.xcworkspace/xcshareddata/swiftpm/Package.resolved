@@ -9,6 +9,24 @@
           "revision": "acc8e571313df5be647a009c04a50b419fb3455f",
           "version": "1.3.0"
         }
+      },
+      {
+        "package": "Charts",
+        "repositoryURL": "https://github.com/spacenation/swiftui-charts",
+        "state": {
+          "branch": null,
+          "revision": "b044e7eb04d0026490eecb115f4fc07197dad942",
+          "version": "1.1.0"
+        }
+      },
+      {
+        "package": "Shapes",
+        "repositoryURL": "https://github.com/spacenation/swiftui-shapes.git",
+        "state": {
+          "branch": null,
+          "revision": "c58b15c37eae9bd20525c6daa93a06a689ca75cb",
+          "version": "1.1.0"
+        }
       }
     ]
   },
