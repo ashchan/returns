@@ -9,34 +9,75 @@ import SwiftUI
 
 struct ConfigurePortfolioView: View {
     @Environment(\.presentationMode) var presentationMode
-    @State var currencyCode = ""
+    @State var config: PortfolioConfig
 
-    // Parameters: currencyCode
-    // TODO: other params
-    var onSave: ((String) -> Void)?
+    var onSave: ((PortfolioConfig) -> Void)?
+
+    private let dateFormatter = DateFormatter()
 
     var body: some View {
         VStack {
             HStack {
                 Text("Configure Portfolio")
-                    .font(.title)
+                    .font(.headline)
                 Spacer()
             }
 
-            Picker("Currency:", selection: $currencyCode) {
-                Text("System Default").tag("")
-                Divider()
-                ForEach(Currency.popularCurrencies, id: \.self) { currency in
-                    currencyItem(for: currency)
+            HStack {
+                Text("Start:")
+                    .frame(minWidth: 80, alignment: .trailing)
+                TextField(
+                    "Year",
+                    value: $config.startYear,
+                    formatter: NumberFormatter()
+                ) { began in
+                    if !began {
+                        validateYear()
+                    }
                 }
-                Divider()
-                ForEach(Currency.cryptocurrencies, id: \.self) { currency in
-                    currencyItem(for: currency)
+                .textFieldStyle(.roundedBorder)
+                Picker("Start:", selection: $config.startMonth) {
+                    ForEach(1 ..< 13) { month in
+                        monthItem(for: month)
+                    }
                 }
-                Divider()
-                ForEach(Currency.otherCurrencies, id: \.self) { currency in
-                    currencyItem(for: currency)
+                .labelsHidden()
+            }
+
+            HStack {
+                Text("Currency:")
+                    .frame(minWidth: 80, alignment: .trailing)
+                Picker("Currency:", selection: $config.currencyCode) {
+                    Text("System Default").tag("")
+                    Divider()
+                    ForEach(Currency.popularCurrencies, id: \.self) { currency in
+                        currencyItem(for: currency)
+                    }
+                    Divider()
+                    ForEach(Currency.cryptocurrencies, id: \.self) { currency in
+                        currencyItem(for: currency)
+                    }
+                    Divider()
+                    ForEach(Currency.otherCurrencies, id: \.self) { currency in
+                        currencyItem(for: currency)
+                    }
                 }
+                .labelsHidden()
+            }
+
+            HStack {
+                Text("Name:")
+                    .frame(minWidth: 80, alignment: .trailing)
+                TextField(
+                    "Portfolio Name",
+                    text: $config.name,
+                    onEditingChanged: { began in
+                        if !began {
+                            validateName()
+                        }
+                    }
+                )
+                .textFieldStyle(.roundedBorder)
             }
 
             Spacer()
@@ -48,25 +89,43 @@ struct ConfigurePortfolioView: View {
                 }
                 .keyboardShortcut(.cancelAction)
                 Button("Save") {
+                    validateYear()
+                    validateName()
                     dismiss()
-                    onSave?(currencyCode)
+                    onSave?(config)
                 }
                 .keyboardShortcut(.defaultAction)
             }
         }
         .padding(20)
-        .frame(width: 400, height: 220)
+        .frame(width: 400, height: 200)
     }
 }
 
 private extension ConfigurePortfolioView {
-    private func currencyItem(for currency: Currency) -> some View {
+    func monthItem(for month: Int) -> some View {
+        Text(dateFormatter.standaloneMonthSymbols[month - 1]).tag(month)
+    }
+
+    func currencyItem(for currency: Currency) -> some View {
         Text("\(currency.code) - \(currency.name) (\(symbol(for: currency.code)))")
             .tag(currency.code)
     }
 
-    private func symbol(for code: String) -> String {
+    func symbol(for code: String) -> String {
         CurrencySymbol.symbol(for: code)
+    }
+
+    func validateYear() {
+        if config.startYear < 1900 || config.startYear > PortfolioConfig.currentYear {
+            config.startYear = PortfolioConfig.defaultYear
+        }
+    }
+
+    func validateName() {
+        if config.name.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+            config.name = "New Portfolio"
+        }
     }
 
     func dismiss() {
@@ -76,6 +135,6 @@ private extension ConfigurePortfolioView {
 
 struct ConfigurePortfolioView_Previews: PreviewProvider {
     static var previews: some View {
-        ConfigurePortfolioView(currencyCode: "USD")
+        ConfigurePortfolioView(config: PortfolioConfig(startYear: 2021, startMonth: 1, currencyCode: ""))
     }
 }

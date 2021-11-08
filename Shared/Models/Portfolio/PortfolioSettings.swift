@@ -7,6 +7,7 @@
 
 import Foundation
 
+// @EnvironmentObject to hold currency formatters, etc.
 class PortfolioSettings: ObservableObject {
     let currencyFormatter = CurrencyFormatter()
     @Published var updatedAt = Date()

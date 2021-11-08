@@ -13,7 +13,6 @@ struct PortfolioRow: View {
     @State private var isHovering = false
     @State private var isCollapsed = false
     @State private var showingDeletePrompt = false
-    @State private var showingRenameSheet = false
     @State private var showingConfigureSheet = false
 
     @ObservedObject var portfolio: Portfolio
@@ -59,14 +58,9 @@ struct PortfolioRow: View {
                     },
                     secondaryButton: .cancel())
             }
-            .sheet(isPresented: $showingRenameSheet) {
-                RenameSheet(name: portfolio.name ?? "", label: "Portfolio Name:") { newName in
-                    rename(portfolio: portfolio, name: newName)
-                }
-            }
             .sheet(isPresented: $showingConfigureSheet) {
-                ConfigurePortfolioView(currencyCode: portfolio.currencyCode ?? "") { currencyCode in
-                    configure(portfolio: portfolio, currencyCode: currencyCode)
+                ConfigurePortfolioView(config: portfolio.config) { config in
+                    configure(portfolio: portfolio, config: config)
                 }
             }
             .contextMenu {
@@ -76,9 +70,6 @@ struct PortfolioRow: View {
                 Divider()
                 Button("Configure...") {
                     showingConfigureSheet = true
-                }
-                Button("Rename...") {
-                    showingRenameSheet = true
                 }
                 Divider()
                 Button("Delete") {
@@ -114,17 +105,7 @@ private extension PortfolioRow {
         }
     }
 
-    func rename(portfolio: Portfolio, name: String) {
-        portfolio.name = name
-
-        do {
-            try viewContext.save()
-        } catch {
-            viewContext.rollback()
-            print("Failed to save, error \(error)")
-        }
-    }
-
+    // TODO: update sidebar selection
     func addAccount(to portfolio: Portfolio) {
         withAnimation {
             let account = Account(context: viewContext)
@@ -142,8 +123,8 @@ private extension PortfolioRow {
         }
     }
 
-    func configure(portfolio: Portfolio, currencyCode: String) {
-        portfolio.currencyCode = currencyCode
+    func configure(portfolio: Portfolio, config: PortfolioConfig) {
+        portfolio.update(config: config)
 
         do {
             try viewContext.save()

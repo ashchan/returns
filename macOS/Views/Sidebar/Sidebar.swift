@@ -11,6 +11,7 @@ struct Sidebar: View {
     @Environment(\.managedObjectContext) private var viewContext
     @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \Portfolio.createdAt, ascending: true)], animation: .default)
     private var portfolios: FetchedResults<Portfolio>
+    @State private var showingNewPortfolioSheet = false
 
     var body: some View {
         VStack {
@@ -25,7 +26,9 @@ struct Sidebar: View {
 
             HStack {
                 Menu {
-                    Button(action: addPortfolio) {
+                    Button(action: {
+                        showingNewPortfolioSheet = true
+                    }) {
                         Label("New Portfolio", systemImage: "plus")
                     }
                     Button(action: {
@@ -43,8 +46,15 @@ struct Sidebar: View {
 
                 Spacer()
             }
+        }
+        .sheet(isPresented: $showingNewPortfolioSheet) {
+            ConfigurePortfolioView(config: PortfolioConfig.defaultConfig()) { config in
+                addPortfolio(config: config)
+            }
         }.contextMenu {
-            Button(action: addPortfolio) {
+            Button(action: {
+                showingNewPortfolioSheet = true
+            }) {
                 Label("New Portfolio", systemImage: "plus")
             }
         }
@@ -52,9 +62,10 @@ struct Sidebar: View {
 }
 
 private extension Sidebar {
-    func addPortfolio() {
+    // TODO: update sidebar selection
+    func addPortfolio(config: PortfolioConfig) {
         withAnimation {
-            let _ = Portfolio.createPortfolio(context: viewContext)
+            let _ = Portfolio.createPortfolio(context: viewContext, config: config)
 
             do {
                 try viewContext.save()
@@ -65,6 +76,7 @@ private extension Sidebar {
         }
     }
 
+    // TODO: update sidebar selection
     func addAccount(to portfolio: Portfolio) {
         withAnimation {
             let account = Account(context: viewContext)

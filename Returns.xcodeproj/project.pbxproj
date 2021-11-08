@@ -41,6 +41,8 @@
 		1A718C06273127B500B26288 /* Portfolio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A718C05273127B500B26288 /* Portfolio.swift */; };
 		1A966C732734A06700B0CA93 /* AccountRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A966C722734A06700B0CA93 /* AccountRow.swift */; };
 		1AA90ABD2738A6E500D8A794 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1AA90ABC2738A6E500D8A794 /* InfoPlist.strings */; };
+		1AA90ABF2738B98900D8A794 /* PortfolioConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AA90ABE2738B98900D8A794 /* PortfolioConfig.swift */; };
+		1AA90AC02738B98900D8A794 /* PortfolioConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AA90ABE2738B98900D8A794 /* PortfolioConfig.swift */; };
 		1ABDFD652735240B00959FA8 /* ConfigurePortfolioView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ABDFD642735240B00959FA8 /* ConfigurePortfolioView.swift */; };
 		1AF18E9927321175008C9984 /* PortfolioRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AF18E9827321174008C9984 /* PortfolioRow.swift */; };
 		1AF18E9B27324CB2008C9984 /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AF18E9A27324CB2008C9984 /* Account.swift */; };
@@ -78,6 +80,7 @@
 		1A718C05273127B500B26288 /* Portfolio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Portfolio.swift; sourceTree = "<group>"; };
 		1A966C722734A06700B0CA93 /* AccountRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountRow.swift; sourceTree = "<group>"; };
 		1AA90ABC2738A6E500D8A794 /* InfoPlist.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = InfoPlist.strings; sourceTree = "<group>"; };
+		1AA90ABE2738B98900D8A794 /* PortfolioConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortfolioConfig.swift; sourceTree = "<group>"; };
 		1ABDFD642735240B00959FA8 /* ConfigurePortfolioView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurePortfolioView.swift; sourceTree = "<group>"; };
 		1AF18E9827321174008C9984 /* PortfolioRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortfolioRow.swift; sourceTree = "<group>"; };
 		1AF18E9A27324CB2008C9984 /* Account.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
@@ -120,6 +123,7 @@
 			isa = PBXGroup;
 			children = (
 				1A718C05273127B500B26288 /* Portfolio.swift */,
+				1AA90ABE2738B98900D8A794 /* PortfolioConfig.swift */,
 				1A15839B27375D6500F118F1 /* PortfolioSettings.swift */,
 			);
 			path = Portfolio;
@@ -388,6 +392,7 @@
 				1A21928726A565F60032A15D /* Persistence.swift in Sources */,
 				1A6AD1C22736847F004FA67B /* Currency.swift in Sources */,
 				1AF18EA327325856008C9984 /* Account.swift in Sources */,
+				1AA90ABF2738B98900D8A794 /* PortfolioConfig.swift in Sources */,
 				1A5F38F72736C60600105DD3 /* CurrencySymbol.swift in Sources */,
 				1A21928326A565F60032A15D /* ReturnsApp.swift in Sources */,
 				1A21928526A565F60032A15D /* ContentView.swift in Sources */,
@@ -404,6 +409,7 @@
 				1ABDFD652735240B00959FA8 /* ConfigurePortfolioView.swift in Sources */,
 				1A5F38F82736C60600105DD3 /* CurrencySymbol.swift in Sources */,
 				1AF18E9B27324CB2008C9984 /* Account.swift in Sources */,
+				1AA90AC02738B98900D8A794 /* PortfolioConfig.swift in Sources */,
 				1A15839D27375D6500F118F1 /* PortfolioSettings.swift in Sources */,
 				1A0CCDCF2734BCD5008844F2 /* RenameSheet.swift in Sources */,
 				1A1583A127377D7300F118F1 /* Cryptocurrency.swift in Sources */,

@@ -15,7 +15,7 @@ struct PortfolioView: View {
         VStack {
             Text("todo")
         }
-        .navigationTitle(portfolio.name!)
+        .navigationTitle(portfolio.name ?? "")
         .navigationSubtitle("Since: \(portfolio.sinceString)")
         .toolbar {
             ToolbarItemGroup {

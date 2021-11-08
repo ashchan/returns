@@ -10,8 +10,7 @@
         <attribute name="createdAt" attributeType="Date" defaultDateTimeInterval="657521760" usesScalarValueType="NO"/>
         <attribute name="currencyCode" optional="YES" attributeType="String"/>
         <attribute name="name" attributeType="String" defaultValueString="New Portfolio"/>
-        <attribute name="startMonth" attributeType="Integer 32" defaultValueString="1" usesScalarValueType="YES"/>
-        <attribute name="startYear" attributeType="Integer 32" defaultValueString="2021" usesScalarValueType="YES"/>
+        <attribute name="startAt" attributeType="Date" defaultDateTimeInterval="658030140" usesScalarValueType="NO"/>
         <relationship name="accounts" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Account" inverseName="portfolio" inverseEntity="Account"/>
     </entity>
     <entity name="Record" representedClassName="Record" syncable="YES" codeGenerationType="class">
@@ -24,7 +23,7 @@
     </entity>
     <elements>
         <element name="Account" positionX="-41.5546875" positionY="297.890625" width="128" height="89"/>
-        <element name="Portfolio" positionX="269.2109375" positionY="99.7734375" width="128" height="119"/>
+        <element name="Portfolio" positionX="269.2109375" positionY="99.7734375" width="128" height="104"/>
         <element name="Record" positionX="99" positionY="144" width="128" height="119"/>
     </elements>
 </model>

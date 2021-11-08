@@ -20,10 +20,7 @@ extension Portfolio {
         }
     }
 
-    var since: Date {
-        let components = DateComponents(year: Int(startYear), month: Int(startMonth))
-        return Calendar.current.date(from: components)!
-    }
+    var since: Date { startAt ?? createdAt! }
 
     var sinceString: String {
         Self.monthFormatter.string(from: since)
@@ -48,14 +45,19 @@ extension Portfolio {
 
 // Create a new portfolio
 // TODO: this is temporarily
+#if DEBUG
 extension Portfolio {
-    class func createPortfolio(context: NSManagedObjectContext) -> Portfolio {
+    class func createPortfolio(context: NSManagedObjectContext, config: PortfolioConfig? = nil) -> Portfolio {
         let portfolio = Portfolio(context: context)
-        portfolio.name = "My Portfolio"
+        if let config = config {
+            portfolio.update(config: config)
+        } else {
+            portfolio.name = "My Portfolio"
+            var components = Calendar.current.dateComponents([.year], from: Date())
+            components.month = 1
+            portfolio.startAt = Calendar.current.date(from: components)!.startOfMonth
+        }
         portfolio.createdAt = Date()
-        let components = Calendar.current.dateComponents([.year, .month], from: Date())
-        portfolio.startYear = Int32(components.year!)
-        portfolio.startMonth = 1 // Int32(components.month!)
 
         let account = Account(context: context)
         account.createdAt = Date()
@@ -66,3 +68,4 @@ extension Portfolio {
         return portfolio
     }
 }
+#endif
