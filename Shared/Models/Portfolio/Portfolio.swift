@@ -45,7 +45,6 @@ extension Portfolio {
 
 // Create a new portfolio
 // TODO: this is temporarily
-#if DEBUG
 extension Portfolio {
     class func createPortfolio(context: NSManagedObjectContext, config: PortfolioConfig? = nil) -> Portfolio {
         let portfolio = Portfolio(context: context)
@@ -68,4 +67,3 @@ extension Portfolio {
         return portfolio
     }
 }
-#endif
