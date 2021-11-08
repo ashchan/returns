@@ -40,6 +40,7 @@
 		1A6AD1C627368A81004FA67B /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A6AD1C527368A81004FA67B /* SettingsView.swift */; };
 		1A718C032731145F00B26288 /* PortfolioView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A718C022731145F00B26288 /* PortfolioView.swift */; };
 		1A718C06273127B500B26288 /* Portfolio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A718C05273127B500B26288 /* Portfolio.swift */; };
+		1A7DE6932739208C00250471 /* GrowthChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A7DE6922739208C00250471 /* GrowthChart.swift */; };
 		1A966C732734A06700B0CA93 /* AccountRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A966C722734A06700B0CA93 /* AccountRow.swift */; };
 		1AA90ABD2738A6E500D8A794 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1AA90ABC2738A6E500D8A794 /* InfoPlist.strings */; };
 		1AA90ABF2738B98900D8A794 /* PortfolioConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AA90ABE2738B98900D8A794 /* PortfolioConfig.swift */; };
@@ -79,6 +80,7 @@
 		1A6AD1C527368A81004FA67B /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		1A718C022731145F00B26288 /* PortfolioView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortfolioView.swift; sourceTree = "<group>"; };
 		1A718C05273127B500B26288 /* Portfolio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Portfolio.swift; sourceTree = "<group>"; };
+		1A7DE6922739208C00250471 /* GrowthChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GrowthChart.swift; sourceTree = "<group>"; };
 		1A966C722734A06700B0CA93 /* AccountRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountRow.swift; sourceTree = "<group>"; };
 		1AA90ABC2738A6E500D8A794 /* InfoPlist.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = InfoPlist.strings; sourceTree = "<group>"; };
 		1AA90ABE2738B98900D8A794 /* PortfolioConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortfolioConfig.swift; sourceTree = "<group>"; };
@@ -252,6 +254,7 @@
 			isa = PBXGroup;
 			children = (
 				1A718C022731145F00B26288 /* PortfolioView.swift */,
+				1A7DE6922739208C00250471 /* GrowthChart.swift */,
 				1ABDFD642735240B00959FA8 /* ConfigurePortfolioView.swift */,
 			);
 			path = PortfolioView;
@@ -414,6 +417,7 @@
 				1A5F38F82736C60600105DD3 /* CurrencySymbol.swift in Sources */,
 				1AF18E9B27324CB2008C9984 /* Account.swift in Sources */,
 				1AA90AC02738B98900D8A794 /* PortfolioConfig.swift in Sources */,
+				1A7DE6932739208C00250471 /* GrowthChart.swift in Sources */,
 				1A15839D27375D6500F118F1 /* PortfolioSettings.swift in Sources */,
 				1A0CCDCF2734BCD5008844F2 /* RenameSheet.swift in Sources */,
 				1A1583A127377D7300F118F1 /* Cryptocurrency.swift in Sources */,

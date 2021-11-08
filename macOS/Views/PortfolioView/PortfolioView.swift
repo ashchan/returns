@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import Charts
 
 struct PortfolioView: View {
     @ObservedObject var portfolio: Portfolio
@@ -16,16 +15,7 @@ struct PortfolioView: View {
         VStack {
             Text("todo")
 
-            Text("Growth Chart")
-                .font(.headline)
-            ZStack {
-                Chart(data: portfolio.balanceChartData)
-                    .chartStyle(
-                        AreaChartStyle(fill: LinearGradient(gradient: .init(colors: [.purple.opacity(0.4), .purple.opacity(0.1)]), startPoint: .top, endPoint: .bottom))
-                    )
-                Chart(data: portfolio.balanceChartData)
-                    .chartStyle(LineChartStyle(lineColor: .purple, lineWidth: 2))
-            }.padding()
+            GrowthChart(portfolio: portfolio)
         }
         .navigationTitle(portfolio.name ?? "")
         .navigationSubtitle("Since: \(portfolio.sinceString)")
@@ -43,6 +33,16 @@ struct PortfolioView: View {
 
 struct PortfolioView_Previews: PreviewProvider {
     static var previews: some View {
-        PortfolioView(portfolio: Portfolio(), showingConfigureSheet: .constant(false))
+        PortfolioView(portfolio: testPortfolio, showingConfigureSheet: .constant(false))
+    }
+
+    static var testPortfolio: Portfolio {
+        let context = PersistenceController.preview.container.viewContext
+        let portfolio = Portfolio(context: context)
+        portfolio.name = "My Portfolio"
+        let account = Account(context: context)
+        account.name = "My Account #1"
+        account.portfolio = portfolio
+        return portfolio
     }
 }
