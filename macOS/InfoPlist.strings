@@ -1,0 +1,10 @@
+/*
+  InfoPlist.strings
+  Returns
+
+  Created by James Chen on 2021/11/08.
+
+*/
+
+"CFBundleName" = "Portfolio Returns";
+"CFBundleDisplayName" = "Portfolio Returns";
