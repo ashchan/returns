@@ -43,6 +43,31 @@ extension Portfolio {
     }()
 }
 
+extension Portfolio {
+    var balanceData: [NSDecimalNumber] {
+        let accountsData = sortedAccounts.map({ $0.balanceData })
+        let maxCount = accountsData.map({ $0.count }).max()!
+        var result = [NSDecimalNumber](repeating: 0, count: maxCount)
+        for index in 0 ..< maxCount + 1 {
+            for accountData in accountsData {
+                if accountData.count > index {
+                    result[index] = result[index].adding(accountData[index])
+                }
+            }
+
+        }
+        return result
+    }
+
+    var balanceChartData: [Double] {
+        let data = balanceData.map { $0.doubleValue }
+        guard let max = data.max(), max > 0 else {
+            return data
+        }
+        return data.map { $0 / max }
+    }
+}
+
 // Create a new portfolio
 // TODO: this is temporarily
 extension Portfolio {

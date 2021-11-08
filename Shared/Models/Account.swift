@@ -15,6 +15,10 @@ extension Account {
         }
     }
 
+    var balanceData: [NSDecimalNumber] {
+        sortedRecords.map { $0.balance ?? 0 }
+    }
+
     // TODO: scan and add missing monthly records
     func rebuildRecords() {
         guard let portfolio = portfolio else { return }
