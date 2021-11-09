@@ -31,6 +31,7 @@ struct PortfolioRow: View {
                     .buttonStyle(.plain)
                 }
             }
+                .padding(.bottom, 2)
                 .onHover(perform: { isHovering in
                     isHeaderHovering = isHovering
                 })
@@ -72,6 +73,7 @@ struct PortfolioRow: View {
                 AccountRow(portfolio: portfolio, account: account)
                     .environmentObject(portfolioSettings)
             }
+            .listItemTint(.purple)
         }
         .onAppear {
             portfolioSettings.portfolio = portfolio

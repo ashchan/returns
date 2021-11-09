@@ -19,6 +19,7 @@ struct Sidebar: View {
                 ForEach(portfolios) { portfolio in
                     PortfolioRow(portfolio: portfolio)
                 }
+                .padding(.leading, 10)
             }
             .listStyle(.sidebar)
 
