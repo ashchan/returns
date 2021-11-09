@@ -10,7 +10,7 @@ import SwiftUI
 struct PortfolioRow: View {
     @Environment(\.managedObjectContext) private var viewContext
     @StateObject var portfolioSettings = PortfolioSettings()
-    @State private var isHovering = false
+    @State private var isHeaderHovering = false
     @State private var showingDeletePrompt = false
     @State private var showingConfigureSheet = false
 
@@ -18,16 +18,28 @@ struct PortfolioRow: View {
 
     var body: some View {
         Section(
-            header: Text(verbatim: portfolio.name ?? "")
+            header: HStack {
+                Text(verbatim: portfolio.name ?? "")
+                Spacer()
+                if isHeaderHovering {
+                    Button(action: {
+                        addAccount(to: portfolio)
+                    }) {
+                        Image(systemName: "plus.circle")
+                            .font(.system(size: 14))
+                    }
+                    .buttonStyle(.plain)
+                }
+            }
+                .onHover(perform: { isHovering in
+                    isHeaderHovering = isHovering
+                })
         ) {
             NavigationLink(
                 destination: PortfolioView(portfolio: portfolio, showingConfigureSheet: $showingConfigureSheet)
             ) {
                 Label("Overflow", systemImage: "chart.pie")
             }
-            .onHover(perform: { isHovering in
-                self.isHovering = isHovering
-            })
             .alert(isPresented: $showingDeletePrompt) {
                 Alert(
                     title: Text(portfolio.name ?? ""),

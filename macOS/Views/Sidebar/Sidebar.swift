@@ -37,6 +37,7 @@ struct Sidebar: View {
                     }) {
                         Label("New Account", systemImage: "plus")
                     }
+                    .disabled(true)
                 } label: {
                     Label("", systemImage: "plus")
                 }
