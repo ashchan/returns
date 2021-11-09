@@ -24,8 +24,7 @@ struct AccountRow: View {
                 .navigationSubtitle("Portfolio: \(portfolio.name ?? "")")
                 .environmentObject(portfolioSettings)
         ) {
-            Text(verbatim: account.name ?? "")
-                .foregroundColor(.primary)
+            Label(account.name ?? "", systemImage: "tray.2")
         }
         .alert(isPresented: $showingDeletePrompt) {
             Alert(
@@ -46,7 +45,7 @@ struct AccountRow: View {
                 showingRenameSheet = true
             }
             Divider()
-            Button("Delete") {
+            Button("Delete...") {
                 showingDeletePrompt = true
             }
         }

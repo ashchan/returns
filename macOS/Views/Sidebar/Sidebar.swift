@@ -19,6 +19,7 @@ struct Sidebar: View {
                 ForEach(portfolios) { portfolio in
                     PortfolioRow(portfolio: portfolio)
                 }
+                .padding(.leading, 10)
             }
             .listStyle(.sidebar)
 
@@ -37,6 +38,7 @@ struct Sidebar: View {
                     }) {
                         Label("New Account", systemImage: "plus")
                     }
+                    .disabled(true)
                 } label: {
                     Label("", systemImage: "plus")
                 }

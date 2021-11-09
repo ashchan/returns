@@ -10,52 +10,37 @@ import SwiftUI
 struct PortfolioRow: View {
     @Environment(\.managedObjectContext) private var viewContext
     @StateObject var portfolioSettings = PortfolioSettings()
-    @State private var isHovering = false
-    @State private var isCollapsed = false
+    @State private var isHeaderHovering = false
     @State private var showingDeletePrompt = false
     @State private var showingConfigureSheet = false
 
     @ObservedObject var portfolio: Portfolio
 
     var body: some View {
-        Group {
+        Section(
+            header: HStack {
+                Text(verbatim: portfolio.name ?? "")
+                Spacer()
+                if isHeaderHovering {
+                    Button(action: {
+                        addAccount(to: portfolio)
+                    }) {
+                        Image(systemName: "plus.circle")
+                            .font(.system(size: 14))
+                    }
+                    .buttonStyle(.plain)
+                }
+            }
+                .padding(.bottom, 2)
+                .onHover(perform: { isHovering in
+                    isHeaderHovering = isHovering
+                })
+        ) {
             NavigationLink(
                 destination: PortfolioView(portfolio: portfolio, showingConfigureSheet: $showingConfigureSheet)
             ) {
-                ZStack {
-                    HStack {
-                        Image(systemName: "chart.pie")
-                            .renderingMode(.original)
-                            .foregroundColor(.accentColor)
-                        Spacer()
-                    }
-                    HStack {
-                        Text(verbatim: portfolio.name ?? "Portfolio")
-                            .font(.headline)
-                            .fontWeight(.semibold)
-                            .foregroundColor(.primary)
-                        Spacer()
-                    }
-                    .padding(.leading, 24)
-                    HStack {
-                        Spacer()
-
-                        if isHovering {
-                            Button(action: {
-                                isCollapsed.toggle()
-                            }) {
-                                Image(systemName: isCollapsed ? "chevron.right" : "chevron.down")
-                                    .foregroundColor(.gray)
-                            }
-                            .frame(width: 20, height: 20, alignment: .center)
-                            .buttonStyle(.plain)
-                        }
-                    }
-                }
+                Label("Overflow", systemImage: "chart.pie")
             }
-            .onHover(perform: { isHovering in
-                self.isHovering = isHovering
-            })
             .alert(isPresented: $showingDeletePrompt) {
                 Alert(
                     title: Text(portfolio.name ?? ""),
@@ -71,29 +56,24 @@ struct PortfolioRow: View {
                 }
             }
             .contextMenu {
-                Button("Configure...") {
+                Button("Configure Portfolio...") {
                     showingConfigureSheet = true
                 }
-                Button(isCollapsed ? "Expand Accounts" : "Collapse Accounts") {
-                    isCollapsed.toggle()
-                }
                 Divider()
-                Button("New Account") {
+                Button("Add Account") {
                     addAccount(to: portfolio)
                 }
                 Divider()
-                Button("Delete") {
+                Button("Delete Portfolio...") {
                     showingDeletePrompt = true
                 }
             }
 
-            if !isCollapsed {
-                ForEach(portfolio.sortedAccounts) { account in
-                    AccountRow(portfolio: portfolio, account: account)
-                        .padding(.leading, 24)
-                        .environmentObject(portfolioSettings)
-                }
+            ForEach(portfolio.sortedAccounts) { account in
+                AccountRow(portfolio: portfolio, account: account)
+                    .environmentObject(portfolioSettings)
             }
+            .listItemTint(.purple)
         }
         .onAppear {
             portfolioSettings.portfolio = portfolio
