@@ -15,8 +15,10 @@ extension Account {
         }
     }
 
-    var balanceData: [NSDecimalNumber] {
-        sortedRecords.map { $0.balance ?? 0 }
+    var balanceData: [Date: NSDecimalNumber] {
+        sortedRecords.reduce(into: [Date: NSDecimalNumber]()) { result, record in
+            result[record.closeDate] = record.balance ?? 0
+        }
     }
 
     // TODO: scan and add missing monthly records
