@@ -24,12 +24,19 @@ struct PortfolioRow: View {
             ) {
                 ZStack {
                     HStack {
+                        Image(systemName: "chart.pie")
+                            .renderingMode(.original)
+                            .foregroundColor(.accentColor)
+                        Spacer()
+                    }
+                    HStack {
                         Text(verbatim: portfolio.name ?? "Portfolio")
                             .font(.headline)
                             .fontWeight(.semibold)
                             .foregroundColor(.primary)
                         Spacer()
                     }
+                    .padding(.leading, 24)
                     HStack {
                         Spacer()
 
@@ -64,12 +71,15 @@ struct PortfolioRow: View {
                 }
             }
             .contextMenu {
-                Button("New Account") {
-                    addAccount(to: portfolio)
-                }
-                Divider()
                 Button("Configure...") {
                     showingConfigureSheet = true
+                }
+                Button(isCollapsed ? "Expand Accounts" : "Collapse Accounts") {
+                    isCollapsed.toggle()
+                }
+                Divider()
+                Button("New Account") {
+                    addAccount(to: portfolio)
                 }
                 Divider()
                 Button("Delete") {
@@ -80,6 +90,7 @@ struct PortfolioRow: View {
             if !isCollapsed {
                 ForEach(portfolio.sortedAccounts) { account in
                     AccountRow(portfolio: portfolio, account: account)
+                        .padding(.leading, 24)
                         .environmentObject(portfolioSettings)
                 }
             }

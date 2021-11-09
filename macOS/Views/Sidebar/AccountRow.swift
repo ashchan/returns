@@ -27,7 +27,6 @@ struct AccountRow: View {
             Text(verbatim: account.name ?? "")
                 .foregroundColor(.primary)
         }
-        .padding(EdgeInsets(top: 2, leading: 10, bottom: 2, trailing: 0))
         .alert(isPresented: $showingDeletePrompt) {
             Alert(
                 title: Text(account.name ?? ""),
