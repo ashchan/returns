@@ -630,7 +630,7 @@
 				ENABLE_USER_SELECTED_FILES = readonly;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = macOS/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "$(PRODUCT_NAME)";
+				INFOPLIST_KEY_CFBundleDisplayName = Returns;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.finance";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © Jianming Chen. All rights reserved.";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -663,7 +663,7 @@
 				ENABLE_USER_SELECTED_FILES = readonly;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = macOS/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "$(PRODUCT_NAME)";
+				INFOPLIST_KEY_CFBundleDisplayName = Returns;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.finance";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © Jianming Chen. All rights reserved.";
 				LD_RUNPATH_SEARCH_PATHS = (
