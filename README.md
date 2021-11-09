@@ -6,7 +6,7 @@ Learn more about [Calculating personal returns](https://www.bogleheads.org/wiki/
 ## Features
 
 * Multiple portfolios
-* [TBD](projects/1)
+* [TBD](https://github.com/ashchan/returns/projects)
 
 ## License
 
