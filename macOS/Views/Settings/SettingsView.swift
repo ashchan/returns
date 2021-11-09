@@ -8,8 +8,6 @@
 import SwiftUI
 
 struct SettingsView: View {
-    @State private var preferredCurrency = Currency.default
-
     var body: some View {
         Form {
         }

@@ -36,10 +36,6 @@ extension Currency: Hashable {
 }
 
 extension Currency {
-    static var `default`: Currency {
-        Currency(type: USD.self)
-    }
-
     static func from(code: String) -> Currency? {
         if let crypto = cryptocurrencies.first(where: { c in
             c.code == code
