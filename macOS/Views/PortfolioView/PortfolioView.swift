@@ -18,6 +18,10 @@ struct PortfolioView: View {
             Text("Growth Chart")
                 .font(.title)
             GrowthChart(portfolio: portfolio)
+
+            Text("Assets Overview")
+                .font(.title)
+            OverviewChart(portfolio: portfolio)
         }
         .navigationTitle(portfolio.name ?? "")
         .navigationSubtitle("Since: \(portfolio.sinceString)")
