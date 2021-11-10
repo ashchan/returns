@@ -42,6 +42,12 @@
 		1A718C06273127B500B26288 /* Portfolio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A718C05273127B500B26288 /* Portfolio.swift */; };
 		1A7DE6932739208C00250471 /* GrowthChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A7DE6922739208C00250471 /* GrowthChart.swift */; };
 		1A966C732734A06700B0CA93 /* AccountRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A966C722734A06700B0CA93 /* AccountRow.swift */; };
+		1AA75730273B40B7002ABCD6 /* Balance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AA7572F273B40B7002ABCD6 /* Balance.swift */; };
+		1AA75731273B40B7002ABCD6 /* Balance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AA7572F273B40B7002ABCD6 /* Balance.swift */; };
+		1AA75733273B42F7002ABCD6 /* Decimal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AA75732273B42F7002ABCD6 /* Decimal.swift */; };
+		1AA75734273B42F7002ABCD6 /* Decimal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AA75732273B42F7002ABCD6 /* Decimal.swift */; };
+		1AA75736273B4BF8002ABCD6 /* ChartData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AA75735273B4BF8002ABCD6 /* ChartData.swift */; };
+		1AA75737273B4BF8002ABCD6 /* ChartData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AA75735273B4BF8002ABCD6 /* ChartData.swift */; };
 		1AA90ABD2738A6E500D8A794 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1AA90ABC2738A6E500D8A794 /* InfoPlist.strings */; };
 		1AA90ABF2738B98900D8A794 /* PortfolioConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AA90ABE2738B98900D8A794 /* PortfolioConfig.swift */; };
 		1AA90AC02738B98900D8A794 /* PortfolioConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AA90ABE2738B98900D8A794 /* PortfolioConfig.swift */; };
@@ -82,6 +88,9 @@
 		1A718C05273127B500B26288 /* Portfolio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Portfolio.swift; sourceTree = "<group>"; };
 		1A7DE6922739208C00250471 /* GrowthChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GrowthChart.swift; sourceTree = "<group>"; };
 		1A966C722734A06700B0CA93 /* AccountRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountRow.swift; sourceTree = "<group>"; };
+		1AA7572F273B40B7002ABCD6 /* Balance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Balance.swift; sourceTree = "<group>"; };
+		1AA75732273B42F7002ABCD6 /* Decimal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Decimal.swift; sourceTree = "<group>"; };
+		1AA75735273B4BF8002ABCD6 /* ChartData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartData.swift; sourceTree = "<group>"; };
 		1AA90ABC2738A6E500D8A794 /* InfoPlist.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = InfoPlist.strings; sourceTree = "<group>"; };
 		1AA90ABE2738B98900D8A794 /* PortfolioConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortfolioConfig.swift; sourceTree = "<group>"; };
 		1ABDFD642735240B00959FA8 /* ConfigurePortfolioView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurePortfolioView.swift; sourceTree = "<group>"; };
@@ -231,6 +240,7 @@
 		1A718C04273127A100B26288 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				1AA7572E273B4055002ABCD6 /* Calculations */,
 				1A15839E27377D4100F118F1 /* Currency */,
 				1A1583A22737844C00F118F1 /* Portfolio */,
 				1AF18E9A27324CB2008C9984 /* Account.swift */,
@@ -270,10 +280,20 @@
 			path = AccountRecords;
 			sourceTree = "<group>";
 		};
+		1AA7572E273B4055002ABCD6 /* Calculations */ = {
+			isa = PBXGroup;
+			children = (
+				1AA7572F273B40B7002ABCD6 /* Balance.swift */,
+				1AA75735273B4BF8002ABCD6 /* ChartData.swift */,
+			);
+			path = Calculations;
+			sourceTree = "<group>";
+		};
 		1AF18E9E27325112008C9984 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
 				1AF18E9F27325121008C9984 /* Date.swift */,
+				1AA75732273B42F7002ABCD6 /* Decimal.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -392,6 +412,7 @@
 				1A15839C27375D6500F118F1 /* PortfolioSettings.swift in Sources */,
 				1AF18EA027325121008C9984 /* Date.swift in Sources */,
 				1AF18EA427325859008C9984 /* Record.swift in Sources */,
+				1AA75736273B4BF8002ABCD6 /* ChartData.swift in Sources */,
 				1A1583A027377D7300F118F1 /* Cryptocurrency.swift in Sources */,
 				1A16F4F52737E816002F73C0 /* CurrencyFormatter.swift in Sources */,
 				1A21928126A565F60032A15D /* Returns.xcdatamodeld in Sources */,
@@ -399,9 +420,11 @@
 				1A21928726A565F60032A15D /* Persistence.swift in Sources */,
 				1A6AD1C22736847F004FA67B /* Currency.swift in Sources */,
 				1AF18EA327325856008C9984 /* Account.swift in Sources */,
+				1AA75733273B42F7002ABCD6 /* Decimal.swift in Sources */,
 				1AA90ABF2738B98900D8A794 /* PortfolioConfig.swift in Sources */,
 				1A5F38F72736C60600105DD3 /* CurrencySymbol.swift in Sources */,
 				1A21928326A565F60032A15D /* ReturnsApp.swift in Sources */,
+				1AA75730273B40B7002ABCD6 /* Balance.swift in Sources */,
 				1A21928526A565F60032A15D /* ContentView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -423,10 +446,12 @@
 				1A1583A127377D7300F118F1 /* Cryptocurrency.swift in Sources */,
 				1AF18E9D27324CFB008C9984 /* Record.swift in Sources */,
 				1A21928226A565F60032A15D /* Returns.xcdatamodeld in Sources */,
+				1AA75731273B40B7002ABCD6 /* Balance.swift in Sources */,
 				1A21928826A565F60032A15D /* Persistence.swift in Sources */,
 				1A21928426A565F60032A15D /* ReturnsApp.swift in Sources */,
 				1A21929E26A6C1020032A15D /* Sidebar.swift in Sources */,
 				1A6AD1C32736847F004FA67B /* Currency.swift in Sources */,
+				1AA75737273B4BF8002ABCD6 /* ChartData.swift in Sources */,
 				1A21928626A565F60032A15D /* ContentView.swift in Sources */,
 				1A0484C5272E9BB60008E1F3 /* AccountRecordList.swift in Sources */,
 				1A718C032731145F00B26288 /* PortfolioView.swift in Sources */,
@@ -436,6 +461,7 @@
 				1AF18EA127325121008C9984 /* Date.swift in Sources */,
 				1A10191A2733A9D60058D817 /* TableViewController.swift in Sources */,
 				1AF18E9927321175008C9984 /* PortfolioRow.swift in Sources */,
+				1AA75734273B42F7002ABCD6 /* Decimal.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -43,32 +43,6 @@ extension Portfolio {
     }()
 }
 
-extension Portfolio {
-    // Sum of accounts' balance data sorted by close date
-    var balanceData: [NSDecimalNumber] {
-        var result = [Date: NSDecimalNumber]()
-        for accountBalances in sortedAccounts.map({ $0.balanceData }) {
-            for balance in accountBalances {
-                result[balance.key] = (result[balance.key] ?? 0).adding(balance.value)
-            }
-        }
-        return result
-            .sorted {
-                $0.key < $1.key
-            }
-            .map({ $0.value })
-    }
-
-    // Popluate data within [0...1]
-    var balanceChartData: [Double] {
-        let data = balanceData.map { $0.doubleValue }
-        guard let max = data.max(), max > 0 else {
-            return data
-        }
-        return data.map { $0 / max }
-    }
-}
-
 // Create a new portfolio
 // TODO: this is temporarily
 extension Portfolio {
