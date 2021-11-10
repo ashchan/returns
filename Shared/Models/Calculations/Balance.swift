@@ -53,10 +53,27 @@ extension Record {
 }
 
 extension Account {
+    // Last month balance is excluded unless today is close day
     var balanceData: [Date: Balance] {
-        sortedRecords.reduce(into: [Date: Balance]()) { result, record in
+        var allRecords = sortedRecords
+        if let last = allRecords.last, !last.isClosingToday {
+            allRecords = allRecords.dropLast()
+        }
+        return allRecords.reduce(into: [Date: Balance]()) { result, record in
             result[record.closeDate] = record.balanceData
         }
+    }
+
+    // Balance on the most recent close date
+    var currentBalance: Balance {
+        let recordsCount = sortedRecords.count
+        if recordsCount <= 1 {
+            // Practically this should not happen
+            return sortedRecords.last?.balanceData ?? Balance.zero
+        } else if let record = sortedRecords.last, record.isClosingToday, record.balanceData.balance > 0 {
+            return sortedRecords.last!.balanceData
+        }
+        return sortedRecords[recordsCount - 2].balanceData
     }
 }
 

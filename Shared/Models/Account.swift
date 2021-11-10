@@ -8,21 +8,36 @@
 import Foundation
 
 extension Account {
+    // Records sorted by date, excluding those out of portfolio start...current date.
     var sortedRecords: [Record] {
-        // TODO: remove records outside range of portfolio start...current date
+        let firstMonth = firstRecordMonth
+        let lastMonth = Date().startOfMonth
         let set = records as? Set<Record> ?? []
-        return set.sorted {
-            $0.timestamp! < $1.timestamp!
-        }
+        return set
+            .filter {
+                $0.timestamp! >= firstMonth && $0.timestamp! <= lastMonth
+            }
+            .sorted {
+                $0.timestamp! < $1.timestamp!
+            }
+    }
+
+    // First record month is the month before portfolio start date, to keep
+    // the opening balance for the portfolio account.
+    private var firstRecordMonth: Date {
+        guard let portfolio = portfolio else { return Date().startOfMonth }
+
+        return Calendar.current.date(byAdding: .month, value: -1, to: portfolio.since.startOfMonth)!
     }
 
     // TODO: scan and add missing monthly records
     func rebuildRecords() {
-        guard let portfolio = portfolio else { return }
+        if portfolio == nil {
+            return
+        }
 
-        let start = portfolio.since.startOfMonth
         let end = Date().startOfMonth
-        var month = Calendar.current.date(byAdding: .month, value: -1, to: start)!
+        var month = firstRecordMonth
         while month <= end {
             // TODO: check if record for this month aleady exists
             let record = Record(context: managedObjectContext!)
