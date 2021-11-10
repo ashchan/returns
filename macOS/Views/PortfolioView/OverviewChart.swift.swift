@@ -1,45 +1,46 @@
 //
-//  GrowthChart.swift
+//  OverviewChart.swift.swift
 //  Returns (macOS)
 //
-//  Created by James Chen on 2021/11/08.
+//  Created by James Chen on 2021/11/10.
 //
 
 import SwiftUI
 import Charts
 
-struct GrowthChart: NSViewRepresentable {
+struct OverviewChart: NSViewRepresentable {
     @State var portfolio: Portfolio
 
-    typealias NSViewType = LineChartView
+    typealias NSViewType = PieChartView
 
-    func makeNSView(context: Context) -> LineChartView {
-        let view = LineChartView()
+    func makeNSView(context: Context) -> PieChartView {
+        let view = PieChartView()
         view.data = chartData
         return view
     }
 
-    func updateNSView(_ nsView: LineChartView, context: Context) {
+    func updateNSView(_ nsView: PieChartView, context: Context) {
         nsView.data = chartData
     }
 }
 
-extension GrowthChart {
+extension OverviewChart {
     var colors: [NSColor] {
         ChartColorTemplates.material()
     }
 
-    var chartData: LineChartData {
-        let entries = ChartData(portfolio: portfolio).balanceData.enumerated().map { (index, balance) in
-            ChartDataEntry(x: Double(index), y: balance)
+    var chartData: PieChartData {
+        let entries = ChartData(portfolio: portfolio).totalAssetsData.map {
+            name, balance in
+            PieChartDataEntry(value: balance, label: name)
         }
-        let dataSet = LineChartDataSet(entries: entries)
+        let dataSet = PieChartDataSet(entries: entries)
         dataSet.colors = colors
-        return LineChartData(dataSets: [dataSet])
+        return PieChartData(dataSets: [dataSet])
     }
 }
 
-struct GrowthChart_Previews: PreviewProvider {
+struct OverviewChart_Previews: PreviewProvider {
     static var previews: some View {
         GrowthChart(portfolio: testPortfolio)
     }
