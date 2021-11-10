@@ -2,6 +2,15 @@
   "object": {
     "pins": [
       {
+        "package": "Charts",
+        "repositoryURL": "https://github.com/danielgindi/Charts",
+        "state": {
+          "branch": null,
+          "revision": "8d134a78bb2cb9e7a0f05ecbd5880bb05cd02863",
+          "version": "4.0.1"
+        }
+      },
+      {
         "package": "Money",
         "repositoryURL": "https://github.com/Flight-School/Money",
         "state": {
@@ -11,21 +20,21 @@
         }
       },
       {
-        "package": "Charts",
-        "repositoryURL": "https://github.com/spacenation/swiftui-charts",
+        "package": "swift-algorithms",
+        "repositoryURL": "https://github.com/apple/swift-algorithms",
         "state": {
           "branch": null,
-          "revision": "b044e7eb04d0026490eecb115f4fc07197dad942",
-          "version": "1.1.0"
+          "revision": "2327673b0e9c7e90e6b1826376526ec3627210e4",
+          "version": "0.2.1"
         }
       },
       {
-        "package": "Shapes",
-        "repositoryURL": "https://github.com/spacenation/swiftui-shapes.git",
+        "package": "swift-numerics",
+        "repositoryURL": "https://github.com/apple/swift-numerics",
         "state": {
           "branch": null,
-          "revision": "c58b15c37eae9bd20525c6daa93a06a689ca75cb",
-          "version": "1.1.0"
+          "revision": "6583ac70c326c3ee080c1d42d9ca3361dca816cd",
+          "version": "0.1.0"
         }
       }
     ]
