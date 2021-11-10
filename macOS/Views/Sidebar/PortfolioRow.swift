@@ -39,7 +39,7 @@ struct PortfolioRow: View {
             NavigationLink(
                 destination: PortfolioView(portfolio: portfolio, showingConfigureSheet: $showingConfigureSheet)
             ) {
-                Label("Overflow", systemImage: "chart.pie")
+                Label("Overview", systemImage: "chart.pie")
             }
             .alert(isPresented: $showingDeletePrompt) {
                 Alert(
