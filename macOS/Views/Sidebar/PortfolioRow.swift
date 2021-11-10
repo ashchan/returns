@@ -13,6 +13,7 @@ struct PortfolioRow: View {
     @State private var isHeaderHovering = false
     @State private var showingDeletePrompt = false
     @State private var showingConfigureSheet = false
+    @State private var showingCalculationsView = false
 
     @ObservedObject var portfolio: Portfolio
 
@@ -37,7 +38,7 @@ struct PortfolioRow: View {
                 })
         ) {
             NavigationLink(
-                destination: PortfolioView(portfolio: portfolio, showingConfigureSheet: $showingConfigureSheet)
+                destination: PortfolioView(portfolio: portfolio, showingConfigureSheet: $showingConfigureSheet, showingCalculationsView: $showingCalculationsView)
             ) {
                 Label("Overview", systemImage: "chart.pie")
             }
@@ -54,6 +55,29 @@ struct PortfolioRow: View {
                 ConfigurePortfolioView(config: portfolio.config) { config in
                     configure(portfolio: portfolio, config: config)
                 }
+            }
+            .contextMenu {
+                Button("Configure Portfolio...") {
+                    showingConfigureSheet = true
+                }
+                Divider()
+                Button("Add Account") {
+                    addAccount(to: portfolio)
+                }
+                Divider()
+                Button("Delete Portfolio...") {
+                    showingDeletePrompt = true
+                }
+            }
+
+            NavigationLink(
+                destination: CalculationsView()
+                    .navigationTitle("Calculations")
+                    .navigationSubtitle("Portfolio: \(portfolio.name ?? "")")
+                    .environmentObject(portfolioSettings),
+                isActive: $showingCalculationsView
+            ) {
+                Label("Calculations", systemImage: "calendar.badge.clock")
             }
             .contextMenu {
                 Button("Configure Portfolio...") {
