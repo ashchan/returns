@@ -15,6 +15,8 @@ struct PortfolioView: View {
         VStack {
             Text("todo")
 
+            Text("Growth Chart")
+                .font(.title)
             GrowthChart(portfolio: portfolio)
         }
         .navigationTitle(portfolio.name ?? "")

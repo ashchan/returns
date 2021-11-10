@@ -29,7 +29,6 @@
 		1A21929A26A574C00032A15D /* PortfolioListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A21929926A574C00032A15D /* PortfolioListView.swift */; };
 		1A21929C26A574D90032A15D /* PortfolioListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A21929B26A574D90032A15D /* PortfolioListView.swift */; };
 		1A21929E26A6C1020032A15D /* Sidebar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A21929D26A6C1020032A15D /* Sidebar.swift */; };
-		1A3026CD27391228008B0980 /* Charts in Frameworks */ = {isa = PBXBuildFile; productRef = 1A3026CC27391228008B0980 /* Charts */; };
 		1A466BE527328CB5003FE54A /* RecordCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A466BE427328CB5003FE54A /* RecordCell.swift */; };
 		1A5F38F72736C60600105DD3 /* CurrencySymbol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A5F38F62736C60600105DD3 /* CurrencySymbol.swift */; };
 		1A5F38F82736C60600105DD3 /* CurrencySymbol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A5F38F62736C60600105DD3 /* CurrencySymbol.swift */; };
@@ -51,6 +50,7 @@
 		1AA90ABD2738A6E500D8A794 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1AA90ABC2738A6E500D8A794 /* InfoPlist.strings */; };
 		1AA90ABF2738B98900D8A794 /* PortfolioConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AA90ABE2738B98900D8A794 /* PortfolioConfig.swift */; };
 		1AA90AC02738B98900D8A794 /* PortfolioConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AA90ABE2738B98900D8A794 /* PortfolioConfig.swift */; };
+		1AB19620273B87530010B8E2 /* Charts in Frameworks */ = {isa = PBXBuildFile; productRef = 1AB1961F273B87530010B8E2 /* Charts */; };
 		1ABDFD652735240B00959FA8 /* ConfigurePortfolioView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ABDFD642735240B00959FA8 /* ConfigurePortfolioView.swift */; };
 		1AF18E9927321175008C9984 /* PortfolioRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AF18E9827321174008C9984 /* PortfolioRow.swift */; };
 		1AF18E9B27324CB2008C9984 /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AF18E9A27324CB2008C9984 /* Account.swift */; };
@@ -114,7 +114,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1A6AD1BD273683FB004FA67B /* Money in Frameworks */,
-				1A3026CD27391228008B0980 /* Charts in Frameworks */,
+				1AB19620273B87530010B8E2 /* Charts in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -336,7 +336,7 @@
 			name = "Returns (macOS)";
 			packageProductDependencies = (
 				1A6AD1BC273683FB004FA67B /* Money */,
-				1A3026CC27391228008B0980 /* Charts */,
+				1AB1961F273B87530010B8E2 /* Charts */,
 			);
 			productName = "Returns (macOS)";
 			productReference = 1A21928026A565F60032A15D /* Returns.app */;
@@ -371,7 +371,7 @@
 			mainGroup = 1A21926A26A565F50032A15D;
 			packageReferences = (
 				1A6AD1BB273683FB004FA67B /* XCRemoteSwiftPackageReference "Money" */,
-				1A3026CB27391228008B0980 /* XCRemoteSwiftPackageReference "swiftui-charts" */,
+				1AB1961E273B87530010B8E2 /* XCRemoteSwiftPackageReference "Charts" */,
 			);
 			productRefGroup = 1A21927B26A565F60032A15D /* Products */;
 			projectDirPath = "";
@@ -739,14 +739,6 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		1A3026CB27391228008B0980 /* XCRemoteSwiftPackageReference "swiftui-charts" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/spacenation/swiftui-charts";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.0.0;
-			};
-		};
 		1A6AD1BB273683FB004FA67B /* XCRemoteSwiftPackageReference "Money" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Flight-School/Money";
@@ -755,14 +747,17 @@
 				minimumVersion = 1.0.0;
 			};
 		};
+		1AB1961E273B87530010B8E2 /* XCRemoteSwiftPackageReference "Charts" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/danielgindi/Charts";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		1A3026CC27391228008B0980 /* Charts */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 1A3026CB27391228008B0980 /* XCRemoteSwiftPackageReference "swiftui-charts" */;
-			productName = Charts;
-		};
 		1A6AD1BC273683FB004FA67B /* Money */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 1A6AD1BB273683FB004FA67B /* XCRemoteSwiftPackageReference "Money" */;
@@ -772,6 +767,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 1A6AD1BB273683FB004FA67B /* XCRemoteSwiftPackageReference "Money" */;
 			productName = Money;
+		};
+		1AB1961F273B87530010B8E2 /* Charts */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1AB1961E273B87530010B8E2 /* XCRemoteSwiftPackageReference "Charts" */;
+			productName = Charts;
 		};
 /* End XCSwiftPackageProductDependency section */
 

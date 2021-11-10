@@ -8,37 +8,29 @@
 import SwiftUI
 import Charts
 
-struct GrowthChart: View {
+struct GrowthChart: NSViewRepresentable {
     @State var portfolio: Portfolio
-    var body: some View {
-        VStack {
-            Text("Growth Chart")
-                .font(.headline)
 
-            HStack {
-                VStack {
-                    AxisLabels(.vertical, data: (-10...10).reversed(), id: \.self) {
-                        Text("\($0 * 10)")
-                            .fontWeight(.bold)
-                            .font(Font.system(size: 8))
-                            .foregroundColor(.secondary)
-                    }
-                    .frame(width: 20)
+    typealias NSViewType = LineChartView
 
-                    Rectangle().foregroundColor(.clear).frame(width: 20, height: 20)
-                }
+    func makeNSView(context: Context) -> LineChartView {
+        let view = LineChartView()
+        view.data = chartData
+        return view
+    }
 
-                ZStack {
-                    Chart(data: ChartData(portfolio: portfolio).balanceData)
-                        .chartStyle(
-                            AreaChartStyle(fill: LinearGradient(gradient: .init(colors: [.purple.opacity(0.4), .purple.opacity(0.05)]), startPoint: .top, endPoint: .bottom))
-                        )
-                    Chart(data: ChartData(portfolio: portfolio).balanceData)
-                        .chartStyle(LineChartStyle(lineColor: .purple, lineWidth: 2))
-                }
-                .padding()
-            }
+    func updateNSView(_ nsView: LineChartView, context: Context) {
+        nsView.data = chartData
+    }
+}
+
+extension GrowthChart {
+    var chartData: LineChartData {
+        let entries = ChartData(portfolio: portfolio).balanceData.enumerated().map { (index, balance) in
+            ChartDataEntry(x: Double(index), y: balance)
         }
+        let dataSet = LineChartDataSet(entries: entries)
+        return LineChartData(dataSets: [dataSet])
     }
 }
 
