@@ -29,11 +29,11 @@ struct GrowthChart: View {
                 }
 
                 ZStack {
-                    Chart(data: portfolio.balanceChartData)
+                    Chart(data: ChartData(portfolio: portfolio).balanceData)
                         .chartStyle(
-                            AreaChartStyle(fill: LinearGradient(gradient: .init(colors: [.purple.opacity(0.4), .purple.opacity(0.1)]), startPoint: .top, endPoint: .bottom))
+                            AreaChartStyle(fill: LinearGradient(gradient: .init(colors: [.purple.opacity(0.4), .purple.opacity(0.05)]), startPoint: .top, endPoint: .bottom))
                         )
-                    Chart(data: portfolio.balanceChartData)
+                    Chart(data: ChartData(portfolio: portfolio).balanceData)
                         .chartStyle(LineChartStyle(lineColor: .purple, lineWidth: 2))
                 }
                 .padding()

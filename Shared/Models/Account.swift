@@ -9,15 +9,10 @@ import Foundation
 
 extension Account {
     var sortedRecords: [Record] {
+        // TODO: remove records outside range of portfolio start...current date
         let set = records as? Set<Record> ?? []
         return set.sorted {
             $0.timestamp! < $1.timestamp!
-        }
-    }
-
-    var balanceData: [Date: NSDecimalNumber] {
-        sortedRecords.reduce(into: [Date: NSDecimalNumber]()) { result, record in
-            result[record.closeDate] = record.balance ?? 0
         }
     }
 
