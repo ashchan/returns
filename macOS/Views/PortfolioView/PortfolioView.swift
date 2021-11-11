@@ -15,7 +15,9 @@ struct PortfolioView: View {
         VStack {
             HStack {
                 VStack {
-                    Text("Growth Chart")
+                    Text(growthChartTitle)
+                        .font(.headline)
+                        .frame(maxWidth: .infinity, alignment: .leading)
                     GrowthChart(portfolio: portfolio)
                 }
                 .frame(height: 220)
@@ -27,6 +29,7 @@ struct PortfolioView: View {
                 .frame(width: 220, alignment: .top)
             }
         }
+        .padding()
         .navigationTitle(portfolio.name ?? "")
         .navigationSubtitle("Since: \(portfolio.sinceString)")
         .toolbar {
@@ -38,6 +41,12 @@ struct PortfolioView: View {
                 }
             }
         }
+    }
+
+    private var growthChartTitle: String {
+        let formatter = CurrencyFormatter()
+        formatter.currency = portfolio.currency
+        return "Growth of " + formatter.outputNoFractionFormatter.string(from: 10_000)!
     }
 }
 

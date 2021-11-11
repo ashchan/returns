@@ -10,6 +10,7 @@ import Foundation
 final class CurrencyFormatter {
     var inputFormatter = NumberFormatter()
     var outputFormatter = NumberFormatter()
+    var outputNoFractionFormatter = NumberFormatter()
     var currency: Currency? {
         didSet {
             update()
@@ -19,6 +20,7 @@ final class CurrencyFormatter {
     private func update() {
         updateInputFormatter()
         updateOutputFormatter()
+        updateOutputNoFractionFormatter()
     }
 
     private func updateInputFormatter() {
@@ -47,5 +49,20 @@ final class CurrencyFormatter {
         outputFormatter.currencyCode = currency.code
         outputFormatter.currencySymbol = currency.symbol
         outputFormatter.maximumFractionDigits = currency.minorUnit
+    }
+
+    private func updateOutputNoFractionFormatter() {
+        guard let currency = currency else {
+            outputNoFractionFormatter = NumberFormatter()
+            outputNoFractionFormatter.generatesDecimalNumbers = true
+            outputNoFractionFormatter.numberStyle = .currency
+            return
+        }
+
+        outputNoFractionFormatter.generatesDecimalNumbers = true
+        outputNoFractionFormatter.numberStyle = .currency
+        outputNoFractionFormatter.currencyCode = currency.code
+        outputNoFractionFormatter.currencySymbol = currency.symbol
+        outputNoFractionFormatter.maximumFractionDigits = 0
     }
 }

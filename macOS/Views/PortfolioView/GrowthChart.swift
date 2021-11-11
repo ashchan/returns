@@ -53,16 +53,14 @@ extension GrowthChart {
     }
 
     class ChartValueFormatter: AxisValueFormatter {
-        private var portfolio: Portfolio
         private var currencyFormatter = CurrencyFormatter()
 
         init(portfolio: Portfolio) {
-            self.portfolio = portfolio
             currencyFormatter.currency = portfolio.currency
         }
 
         func stringForValue(_ value: Double, axis: AxisBase?) -> String {
-            currencyFormatter.outputFormatter.string(from: NSNumber(floatLiteral: value)) ?? value.description
+            currencyFormatter.outputNoFractionFormatter.string(from: NSNumber(floatLiteral: value)) ?? value.description
         }
     }
 }
