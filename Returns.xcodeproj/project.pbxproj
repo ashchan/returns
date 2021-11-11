@@ -218,12 +218,21 @@
 			isa = PBXGroup;
 			children = (
 				1A21929B26A574D90032A15D /* PortfolioListView.swift */,
+				1A35ED8C273CA97F00832C68 /* Common */,
 				1A6AD1C427368A6D004FA67B /* Settings */,
 				1A9CF8A827335CE40051199A /* Sidebar */,
 				1A9CF8A927335CFE0051199A /* PortfolioView */,
 				1A9CF8AA27335D140051199A /* AccountRecords */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		1A35ED8C273CA97F00832C68 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				1A1019192733A9D60058D817 /* TableViewController.swift */,
+			);
+			path = Common;
 			sourceTree = "<group>";
 		};
 		1A6AD1BE27368471004FA67B /* Frameworks */ = {
@@ -280,7 +289,6 @@
 			isa = PBXGroup;
 			children = (
 				1A0484C4272E9BB60008E1F3 /* AccountRecordList.swift */,
-				1A1019192733A9D60058D817 /* TableViewController.swift */,
 				1A466BE427328CB5003FE54A /* RecordCell.swift */,
 			);
 			path = AccountRecords;

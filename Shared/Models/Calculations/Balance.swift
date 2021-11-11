@@ -12,8 +12,6 @@ struct Balance {
     var contribution: Decimal
     var withdrawal: Decimal
     var balance: Decimal
-
-    var flow: Decimal { contribution - withdrawal }
 }
 
 extension Balance {
@@ -28,13 +26,20 @@ extension Balance {
     }
 
     func closeDate(_ date: Date) -> Balance {
-        Balance(
-            closeDate: date,
-            contribution: contribution,
-            withdrawal: withdrawal,
-            balance: balance
-        )
+        var copy = self
+        copy.closeDate = date
+        return copy
     }
+}
+
+struct Return {
+    var balance: Balance
+
+    var closeDate: Date { balance.closeDate }
+    var open: Decimal = 0 // Balance of previous month/record
+    var flow: Decimal { balance.contribution - balance.withdrawal }
+    var close: Decimal { balance.balance }
+    var `return`: Decimal { /* TODO */ 0 }
 }
 
 extension Balance {
@@ -78,7 +83,8 @@ extension Account {
 }
 
 extension Portfolio {
-    var balanceData: [Date: Balance] {
+    // Raw balance data, each as sum of accounts balances of the month.
+    private var balanceData: [Date: Balance] {
         var result = [Date: Balance]()
         for accountBalances in sortedAccounts.map({ $0.balanceData }) {
             for balance in accountBalances {
@@ -92,6 +98,14 @@ extension Portfolio {
     var sortedBalanceData: [Balance] {
         balanceData.values.sorted {
             $0.closeDate < $1.closeDate
+        }
+    }
+
+    // Month by month returns data
+    var returns: [Return] {
+        // TODO: set open value, calculate returns...
+        sortedBalanceData.map { balance in
+            Return(balance: balance)
         }
     }
 }

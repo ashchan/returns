@@ -71,7 +71,7 @@ struct PortfolioRow: View {
             }
 
             NavigationLink(
-                destination: CalculationsView()
+                destination: CalculationsView(portfolio: portfolio)
                     .navigationTitle("Calculations")
                     .navigationSubtitle("Portfolio: \(portfolio.name ?? "")")
                     .environmentObject(portfolioSettings),
