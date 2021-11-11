@@ -62,7 +62,7 @@ extension CalculationsView {
             guard let identifier = TableColumn(rawValue: tableColumn?.identifier.rawValue ?? "") else {
                 return nil
             }
-            let cell = Text(text(for: entry, column: identifier))
+            let cell = Text(text(for: entry, row: row, column: identifier))
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: identifier == .month ? .center : .trailing)
                 .padding(.horizontal, 4)
             return NSHostingView(rootView: cell)
@@ -86,8 +86,15 @@ extension CalculationsView {
         }
 
         // MARK: - Cell contents
-        private func text(for entry: Return, column: TableColumn) -> String {
+        private func text(for entry: Return, row: Int, column: TableColumn) -> String {
             let currencyFormatter = parent.portfolioSettings.currencyFormatter.outputFormatter
+
+            if row == 0 {
+                if ![.month, .close].contains(column) {
+                    return ""
+                }
+            }
+
             switch column {
             case .month:
                 return Record.monthFormatter.string(from: entry.closeDate)
