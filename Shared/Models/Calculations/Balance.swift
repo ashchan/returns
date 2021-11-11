@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 struct Balance {
     var closeDate: Date
@@ -39,7 +40,31 @@ struct Return {
     var open: Decimal = 0 // Balance of previous month/record
     var flow: Decimal { balance.contribution - balance.withdrawal }
     var close: Decimal { balance.balance }
-    var `return`: Decimal { /* TODO */ Decimal(floatLiteral: Double.random(in: -0.3...0.3)) }
+    var growth: Decimal = 1
+
+    func open(_ value: Decimal) -> Return {
+        var copy = self
+        copy.open = value
+        return copy
+    }
+
+    func previousGrowth(_ previous: Decimal) -> Return {
+        var copy = self
+        print("previous: \(previous)")
+        print("return: \(self.return)")
+        copy.growth = previous + previous * self.return
+        return copy
+    }
+}
+
+extension Return {
+    var `return`: Decimal {
+        if (open + flow / 2).isZero {
+            return 0
+        }
+
+        return (close - flow / 2) / (open + flow / 2) - 1
+    }
 }
 
 extension Balance {
@@ -103,9 +128,16 @@ extension Portfolio {
 
     // Month by month returns data
     var returns: [Return] {
-        // TODO: set open value, calculate returns...
-        sortedBalanceData.map { balance in
-            Return(balance: balance)
+        var results = sortedBalanceData.map { Return(balance: $0) }
+        for index in 0 ..< results.count {
+            if index > 0 {
+                results[index] = results[index]
+                    .open(results[index - 1].close)
+                    .previousGrowth(results[index - 1].growth)
+            } else {
+                results[index].growth = 1
+            }
         }
+        return results
     }
 }

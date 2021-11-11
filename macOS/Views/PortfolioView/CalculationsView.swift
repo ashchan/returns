@@ -26,6 +26,8 @@ struct CalculationsView: NSViewControllerRepresentable {
             column.headerCell.alignment = .center
             controller.tableView.addTableColumn(column)
         }
+        controller.tableView.gridColor = NSColor(red: 0.36, green: 0.62, blue: 0.31, alpha: 1.00)
+        controller.tableView.selectionHighlightStyle = .regular
         controller.tableView.delegate = context.coordinator
         controller.tableView.dataSource = context.coordinator
         return controller
@@ -45,6 +47,7 @@ extension CalculationsView {
         case flow
         case close
         case `return`
+        case growth
     }
 
     class Coordinator: NSObject, NSTableViewDelegate, NSTableViewDataSource {
@@ -90,7 +93,7 @@ extension CalculationsView {
             let currencyFormatter = parent.portfolioSettings.currencyFormatter.outputFormatter
 
             if row == 0 {
-                if ![.month, .close].contains(column) {
+                if ![.month, .close, .growth].contains(column) {
                     return ""
                 }
             }
@@ -110,6 +113,8 @@ extension CalculationsView {
                 return currencyFormatter.string(from: entry.close as NSNumber) ?? ""
             case .return:
                 return returnFormatter.string(from: entry.return as NSNumber) ?? ""
+            case .growth:
+                return currencyFormatter.string(from: entry.growth * 10_000 as NSNumber) ?? ""
             }
         }
     }
