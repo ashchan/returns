@@ -26,6 +26,10 @@ extension Record {
         Self.closeDateFormatter.string(from: closeDate)
     }
 
+    var isClosingToday: Bool {
+        Calendar.current.isDate(Date(), inSameDayAs: closeDate)
+    }
+
     static let monthFormatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateFormat = "MMMM yyyy"

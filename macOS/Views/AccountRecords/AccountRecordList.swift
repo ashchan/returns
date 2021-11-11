@@ -49,14 +49,16 @@ extension AccountRecordList {
 
     class Coordinator: NSObject, NSTableViewDelegate, NSTableViewDataSource {
         var parent: AccountRecordList
+        private var records = [Record]()
 
         init(_ parent: AccountRecordList) {
             self.parent = parent
+            records = parent.account.sortedRecords
         }
 
         // MARK: - NSTableViewDelegate
         func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
-            let record = parent.account.sortedRecords[row]
+            let record = records[row]
             guard let identifier = RecordTableColumn(rawValue: tableColumn?.identifier.rawValue ?? "") else {
                 return nil
             }
@@ -71,7 +73,7 @@ extension AccountRecordList {
 
         // MARK: - NSTableViewDataSource
         func numberOfRows(in tableView: NSTableView) -> Int {
-            parent.account.sortedRecords.count
+            records.count
         }
 
         // MARK: - Persistence

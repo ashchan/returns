@@ -6,14 +6,13 @@
 //
 
 import Foundation
+import SwiftUI
 
 struct Balance {
     var closeDate: Date
     var contribution: Decimal
     var withdrawal: Decimal
     var balance: Decimal
-
-    var flow: Decimal { contribution - withdrawal }
 }
 
 extension Balance {
@@ -28,12 +27,43 @@ extension Balance {
     }
 
     func closeDate(_ date: Date) -> Balance {
-        Balance(
-            closeDate: date,
-            contribution: contribution,
-            withdrawal: withdrawal,
-            balance: balance
-        )
+        var copy = self
+        copy.closeDate = date
+        return copy
+    }
+}
+
+struct Return {
+    var balance: Balance
+
+    var closeDate: Date { balance.closeDate }
+    var open: Decimal = 0 // Balance of previous month/record
+    var flow: Decimal { balance.contribution - balance.withdrawal }
+    var close: Decimal { balance.balance }
+    var growth: Decimal = 1
+
+    func open(_ value: Decimal) -> Return {
+        var copy = self
+        copy.open = value
+        return copy
+    }
+
+    func previousGrowth(_ previous: Decimal) -> Return {
+        var copy = self
+        print("previous: \(previous)")
+        print("return: \(self.return)")
+        copy.growth = previous + previous * self.return
+        return copy
+    }
+}
+
+extension Return {
+    var `return`: Decimal {
+        if (open + flow / 2).isZero {
+            return 0
+        }
+
+        return (close - flow / 2) / (open + flow / 2) - 1
     }
 }
 
@@ -53,15 +83,33 @@ extension Record {
 }
 
 extension Account {
+    // Last month balance is excluded unless today is close day
     var balanceData: [Date: Balance] {
-        sortedRecords.reduce(into: [Date: Balance]()) { result, record in
+        var allRecords = sortedRecords
+        if let last = allRecords.last, !last.isClosingToday {
+            allRecords = allRecords.dropLast()
+        }
+        return allRecords.reduce(into: [Date: Balance]()) { result, record in
             result[record.closeDate] = record.balanceData
         }
+    }
+
+    // Balance on the most recent close date
+    var currentBalance: Balance {
+        let recordsCount = sortedRecords.count
+        if recordsCount <= 1 {
+            // Practically this should not happen
+            return sortedRecords.last?.balanceData ?? Balance.zero
+        } else if let record = sortedRecords.last, record.isClosingToday, record.balanceData.balance > 0 {
+            return sortedRecords.last!.balanceData
+        }
+        return sortedRecords[recordsCount - 2].balanceData
     }
 }
 
 extension Portfolio {
-    var balanceData: [Date: Balance] {
+    // Raw balance data, each as sum of accounts balances of the month.
+    private var balanceData: [Date: Balance] {
         var result = [Date: Balance]()
         for accountBalances in sortedAccounts.map({ $0.balanceData }) {
             for balance in accountBalances {
@@ -76,5 +124,20 @@ extension Portfolio {
         balanceData.values.sorted {
             $0.closeDate < $1.closeDate
         }
+    }
+
+    // Month by month returns data
+    var returns: [Return] {
+        var results = sortedBalanceData.map { Return(balance: $0) }
+        for index in 0 ..< results.count {
+            if index > 0 {
+                results[index] = results[index]
+                    .open(results[index - 1].close)
+                    .previousGrowth(results[index - 1].growth)
+            } else {
+                results[index].growth = 1
+            }
+        }
+        return results
     }
 }

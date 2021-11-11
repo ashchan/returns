@@ -30,7 +30,8 @@ extension GrowthChart {
     }
 
     var chartData: LineChartData {
-        let entries = ChartData(portfolio: portfolio).balanceData.enumerated().map { (index, balance) in
+        let entries = ChartData(portfolio: portfolio).growthData.enumerated().map {
+            (index, balance) in
             ChartDataEntry(x: Double(index), y: balance)
         }
         let dataSet = LineChartDataSet(entries: entries)
