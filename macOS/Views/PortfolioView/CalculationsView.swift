@@ -26,7 +26,7 @@ struct CalculationsView: NSViewControllerRepresentable {
             column.headerCell.alignment = .center
             controller.tableView.addTableColumn(column)
         }
-        controller.tableView.gridColor = NSColor(red: 0.36, green: 0.62, blue: 0.31, alpha: 1.00)
+        controller.tableView.gridColor = NSColor(Color("ReturnsGreen"))
         controller.tableView.selectionHighlightStyle = .regular
         controller.tableView.delegate = context.coordinator
         controller.tableView.dataSource = context.coordinator

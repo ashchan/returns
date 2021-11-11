@@ -69,7 +69,7 @@ extension GrowthChart {
 
 extension GrowthChart {
     var colors: [NSColor] {
-        ChartColorTemplates.material()
+        [NSColor(Color("ReturnsGreen"))] + ChartColorTemplates.material()
     }
 
     var chartData: LineChartData {
