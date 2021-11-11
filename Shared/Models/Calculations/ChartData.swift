@@ -22,10 +22,10 @@ struct ChartData {
         }
     }
 
-    // Account based most recent month balance values on close date (account name: account balance).
-    var totalAssetsData: [String: Double] {
-        portfolio.sortedAccounts.reduce(into: [String: Double]()) { result, account in
-            result[account.name ?? ""] = account.currentBalance.balance.doubleValue
+    // Account based most recent month balance values on close date (account name, account balance).
+    var totalAssetsData: [(String, Double)] {
+        portfolio.sortedAccounts.map { account in
+            (account.name ?? "", account.currentBalance.balance.doubleValue)
         }
     }
 }

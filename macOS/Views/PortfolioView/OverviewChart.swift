@@ -1,5 +1,5 @@
 //
-//  OverviewChart.swift.swift
+//  OverviewChart.swift
 //  Returns (macOS)
 //
 //  Created by James Chen on 2021/11/10.
@@ -15,12 +15,34 @@ struct OverviewChart: NSViewRepresentable {
 
     func makeNSView(context: Context) -> PieChartView {
         let view = PieChartView()
+        view.usePercentValuesEnabled = true
+        view.chartDescription.text = ""
+        view.centerText = ""
+        view.drawEntryLabelsEnabled = false
+        view.rotationEnabled = false
+        view.legend.orientation = .vertical
         view.data = chartData
         return view
     }
 
     func updateNSView(_ nsView: PieChartView, context: Context) {
         nsView.data = chartData
+    }
+}
+
+extension OverviewChart {
+    class ChartValueFormatter: ValueFormatter {
+        func stringForValue(_ value: Double, entry: ChartDataEntry, dataSetIndex: Int, viewPortHandler: ViewPortHandler?) -> String {
+            Self.formatter.string(from: NSNumber(value: value)) ?? value.description
+        }
+
+        static var formatter: NumberFormatter = {
+            let formatter = NumberFormatter()
+            formatter.numberStyle = .percent
+            formatter.maximumFractionDigits = 1
+            formatter.multiplier = 1.0
+            return formatter
+        }()
     }
 }
 
@@ -35,8 +57,11 @@ extension OverviewChart {
             PieChartDataEntry(value: balance, label: name)
         }
         let dataSet = PieChartDataSet(entries: entries)
+        dataSet.label = ""
         dataSet.colors = colors
-        return PieChartData(dataSets: [dataSet])
+        let data = PieChartData(dataSets: [dataSet])
+        data.setValueFormatter(ChartValueFormatter())
+        return data
     }
 }
 

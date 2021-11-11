@@ -13,15 +13,19 @@ struct PortfolioView: View {
 
     var body: some View {
         VStack {
-            Text("todo")
+            HStack {
+                VStack {
+                    Text("Growth Chart")
+                    GrowthChart(portfolio: portfolio)
+                }
+                .frame(height: 220)
+                .frame(minWidth: 220)
 
-            Text("Growth Chart")
-                .font(.title)
-            GrowthChart(portfolio: portfolio)
-
-            Text("Assets Overview")
-                .font(.title)
-            OverviewChart(portfolio: portfolio)
+                VStack {
+                    OverviewChart(portfolio: portfolio)
+                }
+                .frame(width: 220, alignment: .top)
+            }
         }
         .navigationTitle(portfolio.name ?? "")
         .navigationSubtitle("Since: \(portfolio.sinceString)")
