@@ -77,23 +77,32 @@ extension CalculationsView {
             returns.count
         }
 
+        private var returnFormatter: NumberFormatter {
+            let formatter = NumberFormatter()
+            formatter.numberStyle = .percent
+            formatter.maximumFractionDigits = 1
+            formatter.minimumFractionDigits = 1
+            return formatter
+        }
+
         // MARK: - Cell contents
         private func text(for entry: Return, column: TableColumn) -> String {
+            let currencyFormatter = parent.portfolioSettings.currencyFormatter.outputFormatter
             switch column {
             case .month:
                 return Record.monthFormatter.string(from: entry.closeDate)
             case .contribution:
-                return "$0.0"
+                return currencyFormatter.string(from: entry.balance.contribution as NSNumber) ?? ""
             case .withdrawal:
-                return "$0.0"
+                return currencyFormatter.string(from: entry.balance.withdrawal as NSNumber) ?? ""
             case .open:
-                return "$0.0"
+                return currencyFormatter.string(from: entry.open as NSNumber) ?? ""
             case .flow:
-                return "$0.0"
+                return currencyFormatter.string(from: entry.flow as NSNumber) ?? ""
             case .close:
-                return "$0.0"
+                return currencyFormatter.string(from: entry.close as NSNumber) ?? ""
             case .return:
-                return "0.0%"
+                return returnFormatter.string(from: entry.return as NSNumber) ?? ""
             }
         }
     }

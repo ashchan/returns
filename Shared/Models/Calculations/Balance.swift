@@ -39,7 +39,7 @@ struct Return {
     var open: Decimal = 0 // Balance of previous month/record
     var flow: Decimal { balance.contribution - balance.withdrawal }
     var close: Decimal { balance.balance }
-    var `return`: Decimal { /* TODO */ 0 }
+    var `return`: Decimal { /* TODO */ Decimal(floatLiteral: Double.random(in: -0.3...0.3)) }
 }
 
 extension Balance {
