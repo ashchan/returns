@@ -25,6 +25,7 @@ final class TableViewController: NSViewController {
 
         scrollView.autoresizingMask = [.width, .height]
         scrollView.hasVerticalScroller = true
+        scrollView.hasHorizontalScroller = true
 
         return scrollView
     }()
