@@ -50,8 +50,6 @@ struct Return {
 
     func previousGrowth(_ previous: Decimal) -> Return {
         var copy = self
-        print("previous: \(previous)")
-        print("return: \(self.return)")
         copy.growth = previous + previous * self.return
         return copy
     }

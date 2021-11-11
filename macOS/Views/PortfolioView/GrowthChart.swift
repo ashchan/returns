@@ -15,12 +15,55 @@ struct GrowthChart: NSViewRepresentable {
 
     func makeNSView(context: Context) -> LineChartView {
         let view = LineChartView()
+        view.leftAxis.axisMinimum = 0
+        view.leftAxis.drawGridLinesEnabled = false
+        view.leftAxis.valueFormatter = ChartValueFormatter(portfolio: portfolio)
+        view.xAxis.labelPosition = .bottom
+        view.xAxis.drawGridLinesEnabled = false
+        view.xAxis.valueFormatter = ChartDateFormatter()
+        view.rightAxis.drawLabelsEnabled = false
+        view.legend.enabled = false
         view.data = chartData
+        if let max = view.data?.yMax {
+            view.leftAxis.axisMaximum = max + 2_000
+        }
         return view
     }
 
     func updateNSView(_ nsView: LineChartView, context: Context) {
         nsView.data = chartData
+        if let max = nsView.data?.yMax {
+            nsView.leftAxis.axisMaximum = max + 2_000
+        }
+    }
+}
+
+extension GrowthChart {
+    class ChartDateFormatter: AxisValueFormatter {
+        func stringForValue(_ value: Double, axis: AxisBase?) -> String {
+            let date = Date(timeIntervalSince1970: value)
+            return Self.formatter.string(from: date)
+        }
+
+        static var formatter: DateFormatter = {
+            let formatter = DateFormatter()
+            formatter.dateFormat = "MM/YYYY"
+            return formatter
+        }()
+    }
+
+    class ChartValueFormatter: AxisValueFormatter {
+        private var portfolio: Portfolio
+        private var currencyFormatter = CurrencyFormatter()
+
+        init(portfolio: Portfolio) {
+            self.portfolio = portfolio
+            currencyFormatter.currency = portfolio.currency
+        }
+
+        func stringForValue(_ value: Double, axis: AxisBase?) -> String {
+            currencyFormatter.outputFormatter.string(from: NSNumber(floatLiteral: value)) ?? value.description
+        }
     }
 }
 
@@ -30,13 +73,20 @@ extension GrowthChart {
     }
 
     var chartData: LineChartData {
-        let entries = ChartData(portfolio: portfolio).growthData.enumerated().map {
-            (index, balance) in
-            ChartDataEntry(x: Double(index), y: balance)
+        let entries = ChartData(portfolio: portfolio).growthData.map { (timestamp, balance) in
+            ChartDataEntry(x: timestamp, y: balance)
         }
         let dataSet = LineChartDataSet(entries: entries)
+        dataSet.mode = .cubicBezier
+        dataSet.lineWidth = 3
+        dataSet.drawCirclesEnabled = false
+        dataSet.drawFilledEnabled = true
         dataSet.colors = colors
-        return LineChartData(dataSets: [dataSet])
+
+        let lineChartData = LineChartData(dataSets: [dataSet])
+        lineChartData.setDrawValues(false)
+        lineChartData.isHighlightEnabled = false
+        return lineChartData
     }
 }
 

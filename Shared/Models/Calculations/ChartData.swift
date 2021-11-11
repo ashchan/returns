@@ -15,10 +15,11 @@ struct ChartData {
         portfolio.sortedBalanceData.map { $0.balance.doubleValue }
     }
 
-    // TODO: calculate returns properly.
-    // FIXME: growth data entries should be based on history returns, not balance changes.
-    var growthData: [Double] {
-        portfolio.sortedBalanceData.map { $0.balance.doubleValue }
+    // (Close date(timestamp), growth value)
+    var growthData: [(Double, Double)] {
+        portfolio.returns.map {
+            ($0.closeDate.timeIntervalSince1970, $0.growth.doubleValue * 10_000)
+        }
     }
 
     // Account based most recent month balance values on close date (account name: account balance).
