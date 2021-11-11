@@ -10,7 +10,6 @@ import SwiftUI
 struct PortfolioView: View {
     @ObservedObject var portfolio: Portfolio
     @Binding var showingConfigureSheet: Bool
-    @Binding var showingCalculationsView: Bool
 
     var body: some View {
         VStack {
@@ -33,11 +32,6 @@ struct PortfolioView: View {
                 } label: {
                     Label("Configure...", systemImage: "folder.badge.gearshape")
                 }
-                Button {
-                    showingCalculationsView = true
-                } label: {
-                    Label("Calculations", systemImage: "calendar.badge.clock")
-                }
             }
         }
     }
@@ -45,7 +39,7 @@ struct PortfolioView: View {
 
 struct PortfolioView_Previews: PreviewProvider {
     static var previews: some View {
-        PortfolioView(portfolio: testPortfolio, showingConfigureSheet: .constant(false), showingCalculationsView: .constant(false))
+        PortfolioView(portfolio: testPortfolio, showingConfigureSheet: .constant(false))
     }
 
     static var testPortfolio: Portfolio {

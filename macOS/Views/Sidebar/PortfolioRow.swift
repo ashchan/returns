@@ -13,7 +13,6 @@ struct PortfolioRow: View {
     @State private var isHeaderHovering = false
     @State private var showingDeletePrompt = false
     @State private var showingConfigureSheet = false
-    @State private var showingCalculationsView = false
 
     @ObservedObject var portfolio: Portfolio
 
@@ -38,7 +37,7 @@ struct PortfolioRow: View {
                 })
         ) {
             NavigationLink(
-                destination: PortfolioView(portfolio: portfolio, showingConfigureSheet: $showingConfigureSheet, showingCalculationsView: $showingCalculationsView)
+                destination: PortfolioView(portfolio: portfolio, showingConfigureSheet: $showingConfigureSheet)
             ) {
                 Label("Overview", systemImage: "chart.pie")
             }
@@ -74,8 +73,7 @@ struct PortfolioRow: View {
                 destination: CalculationsView(portfolio: portfolio)
                     .navigationTitle("Calculations")
                     .navigationSubtitle("Portfolio: \(portfolio.name ?? "")")
-                    .environmentObject(portfolioSettings),
-                isActive: $showingCalculationsView
+                    .environmentObject(portfolioSettings)
             ) {
                 Label("Calculations", systemImage: "calendar.badge.clock")
             }
