@@ -30,19 +30,21 @@ extension Account {
         return Calendar.current.date(byAdding: .month, value: -1, to: portfolio.since.startOfMonth)!
     }
 
-    // TODO: scan and add missing monthly records
     func rebuildRecords() {
         if portfolio == nil {
             return
         }
 
+        let existing = sortedRecords
         let end = Date().startOfMonth
         var month = firstRecordMonth
         while month <= end {
-            // TODO: check if record for this month aleady exists
-            let record = Record(context: managedObjectContext!)
-            record.touch(date: month)
-            record.account = self
+            // Check if record for this month aleady exists
+            if !existing.contains(where: { $0.timestamp == month.startOfMonth }) {
+                let record = Record(context: managedObjectContext!)
+                record.touch(date: month)
+                record.account = self
+            }
 
             month = Calendar.current.date(byAdding: .month, value: 1, to: month)!
         }

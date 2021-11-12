@@ -45,5 +45,8 @@ extension Portfolio {
         let components = DateComponents(year: config.startYear, month: config.startMonth)
         startAt = Calendar.current.date(from: components)!.startOfMonth
         currencyCode = config.currencyCode
+
+        // TODO: only rebuild if startAt has been changed
+        sortedAccounts.forEach { $0.rebuildRecords() }
     }
 }
