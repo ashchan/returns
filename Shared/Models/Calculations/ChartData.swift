@@ -28,4 +28,10 @@ struct ChartData {
             (account.name ?? "", account.currentBalance.balance.doubleValue)
         }
     }
+
+    var totalBalance: Double {
+        portfolio.sortedAccounts
+            .map { $0.currentBalance.balance.doubleValue }
+            .reduce(0, +)
+    }
 }

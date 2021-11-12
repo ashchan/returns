@@ -17,15 +17,17 @@ struct OverviewChart: NSViewRepresentable {
         let view = PieChartView()
         view.usePercentValuesEnabled = true
         view.chartDescription.text = ""
-        view.centerText = ""
         view.drawEntryLabelsEnabled = false
         view.rotationEnabled = false
         view.legend.orientation = .vertical
         view.data = chartData
+        view.centerText = total
+
         return view
     }
 
     func updateNSView(_ nsView: PieChartView, context: Context) {
+        nsView.centerText = total
         nsView.data = chartData
     }
 }
@@ -57,11 +59,19 @@ extension OverviewChart {
             PieChartDataEntry(value: balance, label: name)
         }
         let dataSet = PieChartDataSet(entries: entries)
+        dataSet.selectionShift = 0
         dataSet.label = ""
         dataSet.colors = colors
         let data = PieChartData(dataSets: [dataSet])
         data.setValueFormatter(ChartValueFormatter())
         return data
+    }
+
+    var total: String {
+        let totalBalance = NSNumber(value: ChartData(portfolio: portfolio).totalBalance)
+        let formatter = CurrencyFormatter()
+        formatter.currency = portfolio.currency
+        return formatter.outputNoFractionFormatter.string(from: totalBalance) ?? ""
     }
 }
 
