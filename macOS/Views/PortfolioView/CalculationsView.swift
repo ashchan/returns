@@ -22,7 +22,7 @@ struct CalculationsView: NSViewControllerRepresentable {
         let controller = TableViewController()
         for columnIdentifier in TableColumn.allCases {
             let column = NSTableColumn(identifier: .init(rawValue: columnIdentifier.rawValue))
-            column.headerCell.title = columnIdentifier.rawValue.capitalized
+            column.headerCell.title = columnIdentifier.description
             column.headerCell.alignment = .center
             controller.tableView.addTableColumn(column)
         }
@@ -40,15 +40,30 @@ struct CalculationsView: NSViewControllerRepresentable {
 }
 
 extension CalculationsView {
-    enum TableColumn: String, CaseIterable {
+    enum TableColumn: String, CaseIterable, CustomStringConvertible {
         case month
         case contribution
         case withdrawal
         case open
         case flow
         case close
-        case `return`
         case growth
+        case returnOneMonth
+        case returnThreeMonth
+        case returnSixMonth
+
+        var description: String {
+            switch self {
+            case .returnOneMonth:
+                return "1 Month"
+            case .returnThreeMonth:
+                return "3 Months"
+            case .returnSixMonth:
+                return "6 Months"
+            default:
+                return rawValue.capitalized
+            }
+        }
     }
 
     class Coordinator: NSObject, NSTableViewDelegate, NSTableViewDataSource {
@@ -113,8 +128,20 @@ extension CalculationsView {
                 return currencyFormatter.string(from: entry.flow as NSNumber) ?? ""
             case .close:
                 return currencyFormatter.string(from: entry.close as NSNumber) ?? ""
-            case .return:
-                return returnFormatter.string(from: entry.return as NSNumber) ?? ""
+            case .returnOneMonth:
+                return returnFormatter.string(from: entry.oneMonthReturn as NSNumber) ?? ""
+            case .returnThreeMonth:
+                if let value = entry.threeMonthReturn {
+                    return returnFormatter.string(from: value as NSNumber) ?? ""
+                } else {
+                    return ""
+                }
+            case .returnSixMonth:
+                if let value = entry.sixMonthReturn {
+                    return returnFormatter.string(from: value as NSNumber) ?? ""
+                } else {
+                    return ""
+                }
             case .growth:
                 return currencyFormatter.string(from: entry.growth * 10_000 as NSNumber) ?? ""
             }
