@@ -9,7 +9,7 @@ import AppKit
 
 final class TableViewController: NSViewController {
     let tableView: NSTableView = {
-        let tableView = NSTableView()
+        let tableView = GridClipTableView()
 
         tableView.usesAlternatingRowBackgroundColors = false
         tableView.selectionHighlightStyle = .none
@@ -47,4 +47,8 @@ final class TableViewController: NSViewController {
 
         scrollView.documentView = tableView
     }
+}
+
+final class GridClipTableView: NSTableView {
+    override func drawGrid(inClipRect clipRect: NSRect) {}
 }
