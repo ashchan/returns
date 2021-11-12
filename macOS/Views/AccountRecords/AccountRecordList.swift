@@ -64,7 +64,7 @@ extension AccountRecordList {
             }
             let cell = createCell(record: record, columnId: identifier, row: row)
                 .environmentObject(parent.portfolioSettings)
-            return NSHostingView(rootView: cell)
+            return NSHostingView(rootView: cell.font(.custom("Arial", size: 13)))
         }
 
         func tableView(_ tableView: NSTableView, heightOfRow row: Int) -> CGFloat {

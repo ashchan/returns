@@ -24,6 +24,7 @@ struct DateCell: View {
 
     var body: some View {
         Text(date)
+            .padding(4)
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .background(Color("readonlyCellColor"))
     }
@@ -37,17 +38,17 @@ struct BalanceCell: View {
 
     var body: some View {
         Group{
-        TextField("", text: $text, onEditingChanged: { begin in
-            if !begin {
-                validate(newText: text)
-            }
-        })
-            .textFieldStyle(.plain)
-            .multilineTextAlignment(.trailing)
-            .padding(4)
-            .onAppear {
-                update(balance: balance)
-            }
+            TextField("", text: $text, onEditingChanged: { begin in
+                if !begin {
+                    validate(newText: text)
+                }
+            })
+                .textFieldStyle(.plain)
+                .multilineTextAlignment(.trailing)
+                .padding(4)
+                .onAppear {
+                    update(balance: balance)
+                }
         }
     }
 

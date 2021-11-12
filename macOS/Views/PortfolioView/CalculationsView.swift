@@ -66,6 +66,7 @@ extension CalculationsView {
                 return nil
             }
             let cell = Text(text(for: entry, row: row, column: identifier))
+                .font(.custom("Arial", size: 13))
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: identifier == .month ? .center : .trailing)
                 .padding(.horizontal, 4)
             return NSHostingView(rootView: cell)
