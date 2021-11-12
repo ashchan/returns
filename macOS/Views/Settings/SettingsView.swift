@@ -8,11 +8,14 @@
 import SwiftUI
 
 struct SettingsView: View {
+    @AppStorage("showBalanceOnPortfolioOverview") var showBalanceOnPortfolioOverview = true
+
     var body: some View {
         Form {
+            Toggle("Show Balance on Overview Page", isOn: $showBalanceOnPortfolioOverview)
         }
         .padding(20)
-        .frame(width: 800, height: 600)
+        .frame(width: 600, height: 300)
     }
 }
 

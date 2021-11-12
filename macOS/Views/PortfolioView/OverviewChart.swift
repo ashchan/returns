@@ -9,6 +9,7 @@ import SwiftUI
 import Charts
 
 struct OverviewChart: NSViewRepresentable {
+    @AppStorage("showBalanceOnPortfolioOverview") var showBalance = true
     @State var portfolio: Portfolio
 
     typealias NSViewType = PieChartView
@@ -21,13 +22,12 @@ struct OverviewChart: NSViewRepresentable {
         view.rotationEnabled = false
         view.legend.orientation = .vertical
         view.data = chartData
-        view.centerText = total
+        view.drawHoleEnabled = false
 
         return view
     }
 
     func updateNSView(_ nsView: PieChartView, context: Context) {
-        nsView.centerText = total
         nsView.data = chartData
     }
 }
@@ -54,11 +54,23 @@ extension OverviewChart {
     }
 
     var chartData: PieChartData {
-        let entries = ChartData(portfolio: portfolio).totalAssetsData.map {
-            name, balance in
-            PieChartDataEntry(value: balance, label: name)
+        let formatter = legendBalanceFormatter
+        let chartData = ChartData(portfolio: portfolio)
+        var entries: [PieChartDataEntry] = chartData.totalAssetsData.map { name, balance in
+            var label = name
+            if showBalance {
+                label = "\(name): \(formatter.string(from: NSNumber(value: balance)) ?? "")"
+            }
+            return PieChartDataEntry(value: balance, label: label)
+        }
+        if showBalance {
+            entries.append(PieChartDataEntry(
+                value: 0,
+                label: "Total Assets: \(formatter.string(from: NSNumber(value: chartData.totalBalance)) ?? "")"
+            ))
         }
         let dataSet = PieChartDataSet(entries: entries)
+
         dataSet.selectionShift = 0
         dataSet.label = ""
         dataSet.colors = colors
@@ -69,9 +81,13 @@ extension OverviewChart {
 
     var total: String {
         let totalBalance = NSNumber(value: ChartData(portfolio: portfolio).totalBalance)
+        return legendBalanceFormatter.string(from: totalBalance) ?? ""
+    }
+
+    var legendBalanceFormatter: NumberFormatter {
         let formatter = CurrencyFormatter()
         formatter.currency = portfolio.currency
-        return formatter.outputNoFractionFormatter.string(from: totalBalance) ?? ""
+        return formatter.outputNoFractionFormatter
     }
 }
 
