@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct PortfolioReturnView: View {
-    @State var returnObject: Return?
+    var returnObject: Return?
 
     var body: some View {
         if let returnObject = returnObject {
