@@ -55,6 +55,7 @@
 		1ABDFD652735240B00959FA8 /* ConfigurePortfolioView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ABDFD642735240B00959FA8 /* ConfigurePortfolioView.swift */; };
 		1AE4A19C273F2F3B003D9F7F /* Return.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AE4A19B273F2F3B003D9F7F /* Return.swift */; };
 		1AE4A19D273F2F3B003D9F7F /* Return.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AE4A19B273F2F3B003D9F7F /* Return.swift */; };
+		1AE4A19F273F3B21003D9F7F /* PortfolioReturnView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AE4A19E273F3B21003D9F7F /* PortfolioReturnView.swift */; };
 		1AF18E9927321175008C9984 /* PortfolioRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AF18E9827321174008C9984 /* PortfolioRow.swift */; };
 		1AF18E9B27324CB2008C9984 /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AF18E9A27324CB2008C9984 /* Account.swift */; };
 		1AF18E9D27324CFB008C9984 /* Record.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AF18E9C27324CFB008C9984 /* Record.swift */; };
@@ -100,6 +101,7 @@
 		1AB19621273B8A550010B8E2 /* OverviewChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverviewChart.swift; sourceTree = "<group>"; };
 		1ABDFD642735240B00959FA8 /* ConfigurePortfolioView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurePortfolioView.swift; sourceTree = "<group>"; };
 		1AE4A19B273F2F3B003D9F7F /* Return.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Return.swift; sourceTree = "<group>"; };
+		1AE4A19E273F3B21003D9F7F /* PortfolioReturnView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortfolioReturnView.swift; sourceTree = "<group>"; };
 		1AF18E9827321174008C9984 /* PortfolioRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortfolioRow.swift; sourceTree = "<group>"; };
 		1AF18E9A27324CB2008C9984 /* Account.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
 		1AF18E9C27324CFB008C9984 /* Record.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Record.swift; sourceTree = "<group>"; };
@@ -280,6 +282,7 @@
 			isa = PBXGroup;
 			children = (
 				1A718C022731145F00B26288 /* PortfolioView.swift */,
+				1AE4A19E273F3B21003D9F7F /* PortfolioReturnView.swift */,
 				1A7DE6922739208C00250471 /* GrowthChart.swift */,
 				1AB19621273B8A550010B8E2 /* OverviewChart.swift */,
 				1AF2D12D273BB2C000E3D892 /* CalculationsView.swift */,
@@ -470,6 +473,7 @@
 				1A21928826A565F60032A15D /* Persistence.swift in Sources */,
 				1A21928426A565F60032A15D /* ReturnsApp.swift in Sources */,
 				1A21929E26A6C1020032A15D /* Sidebar.swift in Sources */,
+				1AE4A19F273F3B21003D9F7F /* PortfolioReturnView.swift in Sources */,
 				1A6AD1C32736847F004FA67B /* Currency.swift in Sources */,
 				1AA75737273B4BF8002ABCD6 /* ChartData.swift in Sources */,
 				1A21928626A565F60032A15D /* ContentView.swift in Sources */,

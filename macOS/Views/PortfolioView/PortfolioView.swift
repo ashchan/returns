@@ -13,6 +13,9 @@ struct PortfolioView: View {
 
     var body: some View {
         VStack {
+            PortfolioReturnView(returnObject: portfolio.returns.last)
+                .frame(maxWidth: .infinity, alignment: .leading)
+
             HStack {
                 VStack {
                     Text(growthChartTitle)
