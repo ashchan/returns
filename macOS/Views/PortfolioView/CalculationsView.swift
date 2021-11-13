@@ -51,6 +51,7 @@ extension CalculationsView {
         case returnOneMonth
         case returnThreeMonth
         case returnSixMonth
+        case returnYtd
 
         var description: String {
             switch self {
@@ -60,6 +61,8 @@ extension CalculationsView {
                 return "3 Months"
             case .returnSixMonth:
                 return "6 Months"
+            case .returnYtd:
+                return "YTD"
             default:
                 return rawValue.capitalized
             }
@@ -142,6 +145,8 @@ extension CalculationsView {
                 } else {
                     return ""
                 }
+            case .returnYtd:
+                return returnFormatter.string(from: entry.ytdReturn as NSNumber) ?? ""
             case .growth:
                 return currencyFormatter.string(from: entry.growth * 10_000 as NSNumber) ?? ""
             }
