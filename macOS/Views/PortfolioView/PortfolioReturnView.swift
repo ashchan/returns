@@ -24,6 +24,7 @@ struct PortfolioReturnView: View {
                     if let sixMonthReturn = returnObject.sixMonthReturn {
                         returnView(label: "6 Months", value: sixMonthReturn)
                     }
+                    returnView(label: "YTD", value: returnObject.ytdReturn)
                 }
             }
         } else {

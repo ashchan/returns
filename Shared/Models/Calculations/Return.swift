@@ -18,6 +18,7 @@ struct Return {
 
     var threeMonthReturn: Decimal?
     var sixMonthReturn: Decimal?
+    var ytdReturn: Decimal = 0
 }
 
 // Modifier to set related data to calculate.
@@ -44,6 +45,12 @@ extension Return {
     func sixMonthReturn(_ value: Decimal?) -> Return {
         var copy = self
         copy.sixMonthReturn = value
+        return copy
+    }
+
+    func ytdReturn(_ value: Decimal) -> Return {
+        var copy = self
+        copy.ytdReturn = value
         return copy
     }
 }
@@ -78,6 +85,15 @@ extension Portfolio {
             results[index] = results[index]
                 .threeMonthReturn(threeMonthReturn)
                 .sixMonthReturn(sixMonthReturn)
+
+            // Calculate ytd return
+            let month = results[index].closeDate.month
+            var ytdReturn: Decimal = 0
+            if index >= month {
+                let yearStartGrowth = results[index - month].growth
+                ytdReturn = yearStartGrowth.isZero ? 0 : results[index].growth / yearStartGrowth - 1
+            }
+            results[index] = results[index].ytdReturn(ytdReturn)
         }
         return results
     }
