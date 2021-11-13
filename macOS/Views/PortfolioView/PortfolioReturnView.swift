@@ -18,13 +18,10 @@ struct PortfolioReturnView: View {
 
                 HStack {
                     returnView(label: "1 Month", value: returnObject.oneMonthReturn)
-                    if let threeMonthReturn = returnObject.threeMonthReturn {
-                        returnView(label: "3 Months", value: threeMonthReturn)
-                    }
-                    if let sixMonthReturn = returnObject.sixMonthReturn {
-                        returnView(label: "6 Months", value: sixMonthReturn)
-                    }
+                    returnView(label: "3 Months", value: returnObject.threeMonthReturn)
+                    returnView(label: "6 Months", value: returnObject.sixMonthReturn)
                     returnView(label: "YTD", value: returnObject.ytdReturn)
+                    returnView(label: "1 year", value: returnObject.oneYearReturn)
                 }
             }
         } else {
@@ -32,13 +29,19 @@ struct PortfolioReturnView: View {
         }
     }
 
-    private func returnView(label: String, value: Decimal) -> some View {
-        VStack {
-            Text(Self.valueFormatter.string(from: value as NSNumber) ?? "0.0%")
-                .font(.headline)
-            Text(label)
-                .foregroundColor(.gray)
-        }.padding()
+    private func returnView(label: String, value: Decimal?) -> some View {
+        Group {
+            if let value = value {
+                VStack {
+                    Text(Self.valueFormatter.string(from: value as NSNumber) ?? "0.0%")
+                        .font(.headline)
+                    Text(label)
+                        .foregroundColor(.gray)
+                }.padding()
+            } else {
+                EmptyView()
+            }
+        }
     }
 
     private static var dateFormatter: DateFormatter = {

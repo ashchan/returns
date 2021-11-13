@@ -19,6 +19,14 @@ struct Return {
     var threeMonthReturn: Decimal?
     var sixMonthReturn: Decimal?
     var ytdReturn: Decimal = 0
+    var oneYearReturn: Decimal?
+    var threeYearReturn: Decimal?
+    var fiveYearReturn: Decimal?
+    var tenYearReturn: Decimal?
+    var fifteenYearReturn: Decimal?
+    var twentyYearReturn: Decimal?
+    var thirtyYearReturn: Decimal?
+    var fiftyYearReturn: Decimal?
 }
 
 // Modifier to set related data to calculate.
@@ -33,24 +41,6 @@ extension Return {
     func previousGrowth(_ previous: Decimal) -> Return {
         var copy = self
         copy.growth = previous + previous * self.oneMonthReturn
-        return copy
-    }
-
-    func threeMonthReturn(_ value: Decimal?) -> Return {
-        var copy = self
-        copy.threeMonthReturn = value
-        return copy
-    }
-
-    func sixMonthReturn(_ value: Decimal?) -> Return {
-        var copy = self
-        copy.sixMonthReturn = value
-        return copy
-    }
-
-    func ytdReturn(_ value: Decimal) -> Return {
-        var copy = self
-        copy.ytdReturn = value
         return copy
     }
 }
@@ -70,30 +60,41 @@ extension Portfolio {
     var returns: [Return] {
         var results = sortedBalanceData.map { Return(balance: $0) }
         for index in 0 ..< results.count {
+            var result = results[index]
+
             // Set open date and pass in previous month growth to calculate current month growth
             if index > 0 {
-                results[index] = results[index]
+                result = result
                     .open(results[index - 1].close)
                     .previousGrowth(results[index - 1].growth)
             } else {
-                results[index].growth = 1
+                result.growth = 1
             }
 
-            // Calcluate 3/6 months return
-            let threeMonthReturn = index >= 3 ? results[index].growth / results[index - 3].growth - 1 : nil
-            let sixMonthReturn = index >= 6 ? results[index].growth / results[index - 6].growth - 1 : nil
-            results[index] = results[index]
-                .threeMonthReturn(threeMonthReturn)
-                .sixMonthReturn(sixMonthReturn)
+            // Calcluate 3/6 months, 1/3/5/10/15/20 years return
+            result.threeMonthReturn = index >= 3 ? result.growth / results[index - 3].growth - 1 : nil
+            result.sixMonthReturn = index >= 6 ? result.growth / results[index - 6].growth - 1 : nil
+            result.oneYearReturn = index >= 12 ? result.growth / results[index - 12].growth - 1 : nil
+            /* TODO: multiple year calculation
+            result.threeYearReturn
+            result.fiveYearReturn
+            result.tenYearReturn
+            result.fifteenYearReturn
+            result.twentyYearReturn
+            result.thirtyYearReturn
+            result.fiftyYearReturn
+             */
 
             // Calculate ytd return
-            let month = results[index].closeDate.month
+            let month = result.closeDate.month
             var ytdReturn: Decimal = 0
             if index >= month {
                 let yearStartGrowth = results[index - month].growth
-                ytdReturn = yearStartGrowth.isZero ? 0 : results[index].growth / yearStartGrowth - 1
+                ytdReturn = yearStartGrowth.isZero ? 0 : result.growth / yearStartGrowth - 1
             }
-            results[index] = results[index].ytdReturn(ytdReturn)
+            result.ytdReturn = ytdReturn
+
+            results[index] = result
         }
         return results
     }
