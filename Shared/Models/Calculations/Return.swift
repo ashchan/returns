@@ -71,19 +71,17 @@ extension Portfolio {
                 result.growth = 1
             }
 
-            // Calcluate 3/6 months, 1/3/5/10/15/20 years return
+            // Calcluate 3/6 months, 1/3/5/10/15/20/50 years return
             result.threeMonthReturn = index >= 3 ? result.growth / results[index - 3].growth - 1 : nil
             result.sixMonthReturn = index >= 6 ? result.growth / results[index - 6].growth - 1 : nil
             result.oneYearReturn = index >= 12 ? result.growth / results[index - 12].growth - 1 : nil
-            /* TODO: multiple year calculation
-            result.threeYearReturn
-            result.fiveYearReturn
-            result.tenYearReturn
-            result.fifteenYearReturn
-            result.twentyYearReturn
-            result.thirtyYearReturn
-            result.fiftyYearReturn
-             */
+            result.threeYearReturn = calculateYearReturn(result.growth, returns: results, index: index, years: 3)
+            result.fiveYearReturn = calculateYearReturn(result.growth, returns: results, index: index, years: 5)
+            result.tenYearReturn = calculateYearReturn(result.growth, returns: results, index: index, years: 10)
+            result.fifteenYearReturn = calculateYearReturn(result.growth, returns: results, index: index, years: 15)
+            result.twentyYearReturn = calculateYearReturn(result.growth, returns: results, index: index, years: 20)
+            result.thirtyYearReturn = calculateYearReturn(result.growth, returns: results, index: index, years: 30)
+            result.fiftyYearReturn = calculateYearReturn(result.growth, returns: results, index: index, years: 50)
 
             // Calculate ytd return
             let month = result.closeDate.month
@@ -97,5 +95,19 @@ extension Portfolio {
             results[index] = result
         }
         return results
+    }
+
+    private func calculateYearReturn(_ growth: Decimal, returns: [Return], index: Int, years: Int) -> Decimal? {
+        let months = years * 12
+        if index >= months {
+            let baseGrowth = returns[index - months].growth
+            if baseGrowth.isZero {
+                return 0
+            }
+            let result = powf(Float((growth / baseGrowth).doubleValue), Float(1) / Float(years)) - 1
+            return Decimal(floatLiteral: Double(result))
+        } else {
+            return nil
+        }
     }
 }

@@ -21,7 +21,17 @@ struct PortfolioReturnView: View {
                     returnView(label: "3 Months", value: returnObject.threeMonthReturn)
                     returnView(label: "6 Months", value: returnObject.sixMonthReturn)
                     returnView(label: "YTD", value: returnObject.ytdReturn)
-                    returnView(label: "1 year", value: returnObject.oneYearReturn)
+                    returnView(label: "1 Year", value: returnObject.oneYearReturn)
+                }
+
+                HStack {
+                    returnView(label: "3 Years", value: returnObject.threeYearReturn)
+                    returnView(label: "5 Years", value: returnObject.fiveYearReturn)
+                    returnView(label: "10 Years", value: returnObject.tenYearReturn)
+                    returnView(label: "15 Years", value: returnObject.fifteenYearReturn)
+                    returnView(label: "20 Years", value: returnObject.twentyYearReturn)
+                    returnView(label: "30 Years", value: returnObject.thirtyYearReturn)
+                    returnView(label: "50 Years", value: returnObject.fiftyYearReturn)
                 }
             }
         } else {

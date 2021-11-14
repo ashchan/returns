@@ -53,6 +53,13 @@ extension CalculationsView {
         case returnSixMonth
         case returnYtd
         case returnOneYear
+        case returnThreeYear
+        case returnFiveYear
+        case returnTenYear
+        case returnFifteenYear
+        case returnTwentyYear
+        case returnThirtyYear
+        case returnFiftyYear
 
         var description: String {
             switch self {
@@ -66,6 +73,20 @@ extension CalculationsView {
                 return "YTD"
             case .returnOneYear:
                 return "1 Year"
+            case.returnThreeYear:
+                return "3 Years"
+            case.returnFiveYear:
+                return "5 Years"
+            case.returnTenYear:
+                return "10 Years"
+            case.returnFifteenYear:
+                return "15 Years"
+            case.returnTwentyYear:
+                return "20 Years"
+            case.returnThirtyYear:
+                return "30 Years"
+            case.returnFiftyYear:
+                return "50 Years"
             default:
                 return rawValue.capitalized
             }
@@ -137,28 +158,37 @@ extension CalculationsView {
             case .returnOneMonth:
                 return returnFormatter.string(from: entry.oneMonthReturn as NSNumber) ?? ""
             case .returnThreeMonth:
-                if let value = entry.threeMonthReturn {
-                    return returnFormatter.string(from: value as NSNumber) ?? ""
-                } else {
-                    return ""
-                }
+                return formatReturn(value: entry.threeMonthReturn)
             case .returnSixMonth:
-                if let value = entry.sixMonthReturn {
-                    return returnFormatter.string(from: value as NSNumber) ?? ""
-                } else {
-                    return ""
-                }
+                return formatReturn(value: entry.sixMonthReturn)
             case .returnYtd:
                 return returnFormatter.string(from: entry.ytdReturn as NSNumber) ?? ""
             case .returnOneYear:
-                if let value = entry.oneYearReturn {
-                    return returnFormatter.string(from: value as NSNumber) ?? ""
-                } else {
-                    return ""
-                }
+                return formatReturn(value: entry.oneYearReturn)
+            case .returnThreeYear:
+                return formatReturn(value: entry.threeYearReturn)
+            case .returnFiveYear:
+                return formatReturn(value: entry.fiveYearReturn)
+            case .returnTenYear:
+                return formatReturn(value: entry.tenYearReturn)
+            case .returnFifteenYear:
+                return formatReturn(value: entry.fifteenYearReturn)
+            case .returnTwentyYear:
+                return formatReturn(value: entry.twentyYearReturn)
+            case .returnThirtyYear:
+                return formatReturn(value: entry.thirtyYearReturn)
+            case .returnFiftyYear:
+                return formatReturn(value: entry.fiftyYearReturn)
             case .growth:
                 return currencyFormatter.string(from: entry.growth * 10_000 as NSNumber) ?? ""
             }
+        }
+
+        private func formatReturn(value: Decimal?) -> String {
+            if let value = value {
+                return returnFormatter.string(from: value as NSNumber) ?? ""
+            }
+            return ""
         }
     }
 }
