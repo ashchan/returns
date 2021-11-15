@@ -13,7 +13,7 @@ struct PortfolioReturnView: View {
     var body: some View {
         if let returnObject = returnObject {
             VStack(alignment: .leading) {
-                Text("Portfolio return as of \(Self.dateFormatter.string(from: returnObject.closeDate))")
+                Text("Portfolio return (time-weighted) as of \(Self.dateFormatter.string(from: returnObject.closeDate))")
                     .font(.headline)
 
                 HStack {
@@ -24,14 +24,19 @@ struct PortfolioReturnView: View {
                     returnView(label: "1 Year", value: returnObject.oneYearReturn)
                 }
 
-                HStack {
-                    returnView(label: "3 Years", value: returnObject.threeYearReturn)
-                    returnView(label: "5 Years", value: returnObject.fiveYearReturn)
-                    returnView(label: "10 Years", value: returnObject.tenYearReturn)
-                    returnView(label: "15 Years", value: returnObject.fifteenYearReturn)
-                    returnView(label: "20 Years", value: returnObject.twentyYearReturn)
-                    returnView(label: "30 Years", value: returnObject.thirtyYearReturn)
-                    returnView(label: "50 Years", value: returnObject.fiftyYearReturn)
+                if returnObject.threeYearReturn != nil {
+                    Text("Annual compound return")
+                        .font(.subheadline).fontWeight(.semibold)
+
+                    HStack {
+                        returnView(label: "3 Years", value: returnObject.threeYearReturn)
+                        returnView(label: "5 Years", value: returnObject.fiveYearReturn)
+                        returnView(label: "10 Years", value: returnObject.tenYearReturn)
+                        returnView(label: "15 Years", value: returnObject.fifteenYearReturn)
+                        returnView(label: "20 Years", value: returnObject.twentyYearReturn)
+                        returnView(label: "30 Years", value: returnObject.thirtyYearReturn)
+                        returnView(label: "50 Years", value: returnObject.fiftyYearReturn)
+                    }
                 }
             }
         } else {
