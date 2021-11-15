@@ -17,7 +17,7 @@ struct ChartData {
 
     // (Close date(timestamp), growth value)
     var growthData: [(Double, Double)] {
-        portfolio.returns.map {
+        PortfolioReturn(portfolio: portfolio).returns.map {
             ($0.closeDate.timeIntervalSince1970, $0.growth.doubleValue * 10_000)
         }
     }

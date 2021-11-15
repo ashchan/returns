@@ -99,7 +99,7 @@ extension CalculationsView {
 
         init(_ parent: CalculationsView) {
             self.parent = parent
-            returns = parent.portfolio.returns
+            returns = PortfolioReturn(portfolio: parent.portfolio).returns
         }
 
         // MARK: - NSTableViewDelegate
