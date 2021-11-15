@@ -15,6 +15,7 @@ struct Return {
     var flow: Decimal { balance.contribution - balance.withdrawal }
     var close: Decimal { balance.balance }
     var growth: Decimal = 1
+    var cashFlow: Decimal = 0
 
     var threeMonthReturn: Decimal?
     var sixMonthReturn: Decimal?
@@ -94,6 +95,26 @@ extension Portfolio {
 
             results[index] = result
         }
+
+        // Another round to calculate cash flows
+        for index in 0 ..< results.count {
+            var result = results[index]
+
+            if index == 0 {
+                if results.count > 1 {
+                    result.cashFlow = -(results[1].open + results[1].flow / 2)
+                } else {
+                    result.cashFlow = 0
+                }
+            } else if index < results.count - 1 {
+                result.cashFlow = -(result.flow / 2 + results[index + 1].flow / 2)
+            } else {
+                result.cashFlow = result.close - result.flow / 2
+            }
+
+            results[index] = result
+        }
+
         return results
     }
 
