@@ -13,7 +13,7 @@ import Foundation
 struct Irr {
     static func compute(cashFlows: [Int]) -> Double {
         //const
-        let lowRate = 0.01 // 1%
+        let lowRate = 0.005 // 1%
         let highRate = 0.5 // 50%
         let maxIteration = 1000
         let precisionReq = 0.00000001
@@ -21,7 +21,7 @@ struct Irr {
         //variable
         var old: Double = 0
         var new: Double = 0
-        var newguessRate: Double = lowRate
+        var newGuessRate: Double = lowRate
         var guessRate: Double = lowRate
         var lowGuessRate: Double = lowRate
         var highGuessRate: Double = highRate
@@ -48,20 +48,20 @@ struct Irr {
             if (i > 0) {
                 if (old < new) {
                     if (old < 0 && new < 0){
-                        highGuessRate = newguessRate
+                        highGuessRate = newGuessRate
                     } else {
-                        lowGuessRate = newguessRate
+                        lowGuessRate = newGuessRate
                     }
                 } else {
                     if (old > 0 && new > 0) {
-                        lowGuessRate = newguessRate
+                        lowGuessRate = newGuessRate
                     } else {
-                        highGuessRate = newguessRate
+                        highGuessRate = newGuessRate
                     }
                 }
             }
             guessRate = (lowGuessRate + highGuessRate) / 2
-            newguessRate = guessRate
+            newGuessRate = guessRate
         }
 
         return guessRate
