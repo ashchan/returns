@@ -8,11 +8,19 @@
 import SwiftUI
 
 struct PortfolioReturnView: View {
-    var returnObject: Return?
+    var portfolioReturn: PortfolioReturn
 
     var body: some View {
-        if let returnObject = returnObject {
+        if let returnObject = portfolioReturn.returns.last {
             VStack(alignment: .leading) {
+                Text("Investor return (money-weighted) as of \(Self.dateFormatter.string(from: returnObject.closeDate))")
+                    .font(.headline)
+
+                returnView(
+                    label: "Since \(Self.dateFormatter.string(from: portfolioReturn.returns.first!.closeDate))",
+                    value: portfolioReturn.internalReturn
+                )
+
                 Text("Portfolio return (time-weighted) as of \(Self.dateFormatter.string(from: returnObject.closeDate))")
                     .font(.headline)
 
@@ -76,7 +84,7 @@ struct PortfolioReturnView: View {
 
 struct PortfolioReturnView_Previews: PreviewProvider {
     static var previews: some View {
-        PortfolioReturnView(returnObject: testPortfolio.returns.last)
+        PortfolioReturnView(portfolioReturn: PortfolioReturn(portfolio: testPortfolio))
     }
 
     static var testPortfolio: Portfolio {

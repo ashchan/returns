@@ -13,7 +13,7 @@ struct PortfolioView: View {
 
     var body: some View {
         VStack {
-            PortfolioReturnView(returnObject: portfolio.returns.last)
+            PortfolioReturnView(portfolioReturn: PortfolioReturn(portfolio: portfolio))
                 .frame(maxWidth: .infinity, alignment: .leading)
 
             HStack {

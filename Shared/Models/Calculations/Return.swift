@@ -15,6 +15,7 @@ struct Return {
     var flow: Decimal { balance.contribution - balance.withdrawal }
     var close: Decimal { balance.balance }
     var growth: Decimal = 1
+    var cashFlow: Decimal = 0
 
     var threeMonthReturn: Decimal?
     var sixMonthReturn: Decimal?
@@ -55,10 +56,31 @@ extension Return {
     }
 }
 
-extension Portfolio {
-    // Month by month returns data
-    var returns: [Return] {
-        var results = sortedBalanceData.map { Return(balance: $0) }
+// TODO: cache
+final class PortfolioReturn {
+    let portfolio: Portfolio
+    private(set) var returns = [Return]() // Month by month returns data
+
+    init(portfolio: Portfolio) {
+        self.portfolio = portfolio
+        calculate()
+    }
+
+    var internalReturn: Decimal {
+        let irr = Irr.compute(cashFlows: returns.map { Int($0.cashFlow.doubleValue) })
+        let months = returns.count - 1
+        return pow(1 + Decimal(floatLiteral: irr), min(12, months)) - 1
+    }
+
+    private func calculate() {
+        buildReturns()
+        calculateCashFlows()
+    }
+}
+
+private extension PortfolioReturn {
+    func buildReturns() {
+        var results = portfolio.sortedBalanceData.map { Return(balance: $0) }
         for index in 0 ..< results.count {
             var result = results[index]
 
@@ -94,10 +116,31 @@ extension Portfolio {
 
             results[index] = result
         }
-        return results
+
+        returns = results
     }
 
-    private func calculateYearReturn(_ growth: Decimal, returns: [Return], index: Int, years: Int) -> Decimal? {
+    func calculateCashFlows() {
+        for index in 0 ..< returns.count {
+            var result = returns[index]
+
+            if index == 0 {
+                if returns.count > 1 {
+                    result.cashFlow = -(returns[1].open + returns[1].flow / 2)
+                } else {
+                    result.cashFlow = 0
+                }
+            } else if index < returns.count - 1 {
+                result.cashFlow = -(result.flow / 2 + returns[index + 1].flow / 2)
+            } else {
+                result.cashFlow = result.close - result.flow / 2
+            }
+
+            returns[index] = result
+        }
+    }
+
+    func calculateYearReturn(_ growth: Decimal, returns: [Return], index: Int, years: Int) -> Decimal? {
         let months = years * 12
         if index >= months {
             let baseGrowth = returns[index - months].growth
