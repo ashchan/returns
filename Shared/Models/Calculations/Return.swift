@@ -67,7 +67,9 @@ final class PortfolioReturn {
     }
 
     var internalReturn: Decimal {
-        return 0 // TODO
+        let irr = Irr.compute(cashFlows: returns.map { Int($0.cashFlow.doubleValue) })
+        let months = returns.count - 1
+        return pow(1 + Decimal(floatLiteral: irr), min(12, months)) - 1
     }
 
     private func calculate() {
