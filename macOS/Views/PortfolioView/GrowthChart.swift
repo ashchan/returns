@@ -47,7 +47,7 @@ extension GrowthChart {
 
         static var formatter: DateFormatter = {
             let formatter = DateFormatter()
-            formatter.dateFormat = "MM/YYYY"
+            formatter.dateFormat = "MM/yyyy"
             return formatter
         }()
     }

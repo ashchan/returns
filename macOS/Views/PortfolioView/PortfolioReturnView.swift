@@ -69,7 +69,7 @@ struct PortfolioReturnView: View {
 
     private static var dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
-        formatter.dateFormat = "MM/dd/YYYY"
+        formatter.dateFormat = "MM/dd/yyyy"
         return formatter
     }()
 
