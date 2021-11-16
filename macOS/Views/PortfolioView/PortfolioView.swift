@@ -34,7 +34,7 @@ struct PortfolioView: View {
         }
         .padding()
         .navigationTitle(portfolio.name ?? "")
-        .navigationSubtitle("Since: \(portfolio.sinceString)")
+        .navigationSubtitle("Start: \(portfolio.sinceString)")
         .toolbar {
             ToolbarItemGroup {
                 Button {
