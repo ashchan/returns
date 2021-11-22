@@ -113,15 +113,12 @@ extension CalculationsView {
             NSLayoutConstraint.activate([
                 label.centerXAnchor.constraint(equalTo: centerXAnchor),
                 label.widthAnchor.constraint(equalTo: widthAnchor, constant: -8),
-                // TODO: vertical centered alignment
-                label.topAnchor.constraint(equalTo: topAnchor, constant: 2),
-                label.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 2)
+                label.centerYAnchor.constraint(equalTo: centerYAnchor)
             ])
 
             label.isEditable = false
             label.isSelectable = false
             label.drawsBackground = false
-            label.backgroundColor = .controlColor
             label.isBordered = false
             label.isBezeled = false
             label.lineBreakMode = .byTruncatingTail
