@@ -120,10 +120,11 @@ extension CalculationsView {
 
             label.isEditable = false
             label.isSelectable = false
-            label.drawsBackground = true
+            label.drawsBackground = false
             label.backgroundColor = .controlColor
             label.isBordered = false
             label.isBezeled = false
+            label.lineBreakMode = .byTruncatingTail
             label.font = NSFont(name: "Arial", size: 13)
         }
     }
