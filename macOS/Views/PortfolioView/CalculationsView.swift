@@ -94,38 +94,6 @@ extension CalculationsView {
         }
     }
 
-    class TableCellView: NSView {
-        let label = NSTextField()
-
-        override init(frame frameRect: NSRect) {
-            super.init(frame: frameRect)
-            createView()
-        }
-
-        required init?(coder: NSCoder) {
-            fatalError("init coder has not been implemented")
-        }
-
-        func createView() {
-            addSubview(label)
-
-            label.translatesAutoresizingMaskIntoConstraints = false
-            NSLayoutConstraint.activate([
-                label.centerXAnchor.constraint(equalTo: centerXAnchor),
-                label.widthAnchor.constraint(equalTo: widthAnchor, constant: -8),
-                label.centerYAnchor.constraint(equalTo: centerYAnchor)
-            ])
-
-            label.isEditable = false
-            label.isSelectable = false
-            label.drawsBackground = false
-            label.isBordered = false
-            label.isBezeled = false
-            label.lineBreakMode = .byTruncatingTail
-            label.font = NSFont(name: "Arial", size: 13)
-        }
-    }
-
     class Coordinator: NSObject, NSTableViewDelegate, NSTableViewDataSource {
         var parent: CalculationsView
         private var returns = [Return]()
@@ -141,9 +109,9 @@ extension CalculationsView {
             guard let identifier = TableColumn(rawValue: tableColumn?.identifier.rawValue ?? "") else {
                 return nil
             }
-            var cell = tableView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: identifier.rawValue), owner: nil) as? TableCellView
+            var cell = tableView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: identifier.rawValue), owner: nil) as? LabelCellView
             if cell == nil {
-                cell = TableCellView()
+                cell = LabelCellView()
                 cell?.identifier = NSUserInterfaceItemIdentifier(rawValue: identifier.rawValue)
             }
             cell?.label.stringValue = text(for: entry, row: row, column: identifier)
