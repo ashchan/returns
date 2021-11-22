@@ -1,14 +1,13 @@
 //
-//  LabelCellView.swift
+//  InputCellView.swift
 //  Returns (macOS)
 //
 //  Created by James Chen on 2021/11/22.
 //
 
 import AppKit
-import SwiftUI
 
-class LabelCellView: NSView {
+class InputCellView: NSView {
     let label = NSTextField()
 
     override init(frame frameRect: NSRect) {
@@ -30,12 +29,10 @@ class LabelCellView: NSView {
             label.centerYAnchor.constraint(equalTo: centerYAnchor)
         ])
 
-        label.isEditable = false
-        label.isSelectable = false
-        label.drawsBackground = false
+        label.isEditable = true
+        label.isSelectable = true
         label.isBordered = false
         label.isBezeled = false
-        label.lineBreakMode = .byTruncatingTail
         label.font = NSFont(name: "Arial", size: 13)
     }
 }

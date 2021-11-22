@@ -62,9 +62,19 @@ extension AccountRecordList {
             guard let identifier = RecordTableColumn(rawValue: tableColumn?.identifier.rawValue ?? "") else {
                 return nil
             }
-            let cell = createCell(record: record, columnId: identifier, row: row)
-                .environmentObject(parent.portfolioSettings)
-            return NSHostingView(rootView: cell.font(.custom("Arial", size: 13)))
+
+            if row == 0 && [.month, .contribution, .withdrawal].contains(identifier) {
+                return ReadonlyCellView()
+            }
+
+            var cell = tableView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: identifier.rawValue), owner: nil)
+            if cell == nil {
+                cell = createCell(record: record, columnId: identifier)
+            }
+            configCell(cell: cell, record: record, columnId: identifier)
+            return cell
+            // let cell = .environmentObject(parent.portfolioSettings)
+            // return NSHostingView(rootView: cell.font(.custom("Arial", size: 13)))
         }
 
         func tableView(_ tableView: NSTableView, heightOfRow row: Int) -> CGFloat {
@@ -121,22 +131,42 @@ extension AccountRecordList {
         }
 
         // MARK: - Cell Builder
-        @ViewBuilder
-        private func createCell(record: Record, columnId: RecordTableColumn, row: Int) -> some View {
-            if row == 0 && [.month, .contribution, .withdrawal].contains(columnId) {
-                NullCell()
-            } else if [.contribution, .withdrawal, .balance].contains(columnId) {
-                BalanceCell(balance: balance(for: columnId, of: record)) { newValue in
+        private func createCell(record: Record, columnId: RecordTableColumn) -> NSView? {
+            var cell: NSView?
+            if [.contribution, .withdrawal, .balance, .notes].contains(columnId) {
+                cell = InputCellView()
+            } else if [.month, .date].contains(columnId) {
+                cell = ReadonlyCellView()
+            }
+            cell?.identifier = NSUserInterfaceItemIdentifier(rawValue: columnId.rawValue)
+            return cell
+        }
+
+        private func configCell(cell: NSView?, record: Record, columnId: RecordTableColumn) {
+            if [.contribution, .withdrawal, .balance].contains(columnId) {
+                let input = cell as! InputCellView
+                input.label.alignment = .right
+                input.label.stringValue = parent.portfolioSettings.currencyFormatter.outputFormatter.string(from: balance(for: columnId, of: record))
+                    ?? parent.portfolioSettings.currencyFormatter.outputFormatter.string(from: 0)!
+                // TODO
+                /*
+                BalanceCell(balance: ) { newValue in
                     self.update(balance: newValue, record: record, column: columnId)
-                }
+                 */
             } else if columnId == .month {
-                DateCell(date: record.monthString)
+                let view = cell as! ReadonlyCellView
+                view.title = record.monthString
             } else if columnId == .date {
-                DateCell(date: record.closeDateString)
+                let view = cell as! ReadonlyCellView
+                view.title = record.closeDateString
             } else if columnId == .notes {
+                let input = cell as! InputCellView
+                input.label.stringValue = record.notes ?? ""
+            // TODO
+                /*
                 NotesCell(notes: record.notes ?? "") { newValue in
                     self.update(notes: newValue, record: record)
-                }
+                }*/
             }
         }
 
