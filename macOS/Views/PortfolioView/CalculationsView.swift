@@ -7,6 +7,7 @@
 
 import SwiftUI
 import AppKit
+import Charts
 
 struct CalculationsView: NSViewControllerRepresentable {
     typealias NSViewControllerType = TableViewController
@@ -93,6 +94,40 @@ extension CalculationsView {
         }
     }
 
+    class TableCellView: NSView {
+        let label = NSTextField()
+
+        override init(frame frameRect: NSRect) {
+            super.init(frame: frameRect)
+            createView()
+        }
+
+        required init?(coder: NSCoder) {
+            fatalError("init coder has not been implemented")
+        }
+
+        func createView() {
+            addSubview(label)
+
+            label.translatesAutoresizingMaskIntoConstraints = false
+            NSLayoutConstraint.activate([
+                label.centerXAnchor.constraint(equalTo: centerXAnchor),
+                label.widthAnchor.constraint(equalTo: widthAnchor, constant: -8),
+                // TODO: vertical centered alignment
+                label.topAnchor.constraint(equalTo: topAnchor, constant: 2),
+                label.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 2)
+            ])
+
+            label.isEditable = false
+            label.isSelectable = false
+            label.drawsBackground = true
+            label.backgroundColor = .controlColor
+            label.isBordered = false
+            label.isBezeled = false
+            label.font = NSFont(name: "Arial", size: 13)
+        }
+    }
+
     class Coordinator: NSObject, NSTableViewDelegate, NSTableViewDataSource {
         var parent: CalculationsView
         private var returns = [Return]()
@@ -108,11 +143,24 @@ extension CalculationsView {
             guard let identifier = TableColumn(rawValue: tableColumn?.identifier.rawValue ?? "") else {
                 return nil
             }
+            var cell = tableView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: identifier.rawValue), owner: nil) as? TableCellView
+            if cell == nil {
+                cell = TableCellView()
+                cell?.identifier = NSUserInterfaceItemIdentifier(rawValue: identifier.rawValue)
+            }
+            cell?.label.stringValue = text(for: entry, row: row, column: identifier)
+            if identifier == .month {
+                cell?.label.alignment = .center
+            } else {
+                cell?.label.alignment = .right
+            }
+            return cell
+            /*
             let cell = Text(text(for: entry, row: row, column: identifier))
                 .font(.custom("Arial", size: 13))
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: identifier == .month ? .center : .trailing)
                 .padding(.horizontal, 4)
-            return NSHostingView(rootView: cell)
+            return NSHostingView(rootView: cell)*/
         }
 
         func tableView(_ tableView: NSTableView, heightOfRow row: Int) -> CGFloat {
