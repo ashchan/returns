@@ -70,7 +70,7 @@ extension AccountRecordList {
             let cellIdentifier = NSUserInterfaceItemIdentifier(rawValue: identifier.rawValue)
             let cell = tableView.makeView(withIdentifier: cellIdentifier, owner: nil)
                 ?? createCell(record: record, columnId: identifier)
-            configCell(cell: cell, record: record, columnId: identifier)
+            configCell(cell: cell, record: record, columnId: identifier, row: row, tableView: tableView)
             return cell
         }
 
@@ -138,7 +138,7 @@ extension AccountRecordList {
             return cell
         }
 
-        private func configCell(cell: NSView?, record: Record, columnId: RecordTableColumn) {
+        private func configCell(cell: NSView?, record: Record, columnId: RecordTableColumn, row: Int, tableView: NSTableView) {
             if [.contribution, .withdrawal, .balance].contains(columnId) {
                 let input = cell as! InputCellView
                 input.textField.alignment = .right
@@ -166,6 +166,11 @@ extension AccountRecordList {
                         self?.update(balance: balance, record: record, column: columnId)
                     }
                 }
+                input.onEnterKey = { [weak self] in
+                    if columnId == .balance {
+                        self?.focusNextCell(for: .balance, row: row, tableView: tableView)
+                    }
+                }
             } else if columnId == .month {
                 let view = cell as! ReadonlyCellView
                 view.title = record.monthString
@@ -177,6 +182,9 @@ extension AccountRecordList {
                 input.textField.stringValue = record.notes ?? ""
                 input.onSubmit = { [weak self] newValue in
                     self?.update(notes: newValue, record: record)
+                }
+                input.onTabKey = { [weak self] in
+                    self?.focusNextCell(for: .contribution, row: row, tableView: tableView)
                 }
             }
         }
@@ -191,6 +199,19 @@ extension AccountRecordList {
                 result = record.balance
             }
             return result ?? 0
+        }
+
+        private func focusNextCell(for column: RecordTableColumn, row: Int, tableView: NSTableView) {
+            if row >= records.count - 1 {
+                return
+            }
+
+            let columnIndex = tableView.column(withIdentifier: NSUserInterfaceItemIdentifier(column.rawValue))
+            if let cell = tableView.view(atColumn: columnIndex, row: row + 1, makeIfNecessary: false) as? InputCellView {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.02) {
+                    _ = cell.textField.becomeFirstResponder()
+                }
+            }
         }
     }
 }
