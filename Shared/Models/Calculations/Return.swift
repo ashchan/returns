@@ -97,9 +97,9 @@ private extension PortfolioReturn {
             }
 
             // Calcluate 3/6 months, 1/3/5/10/15/20/50 years return
-            result.threeMonthReturn = index >= 3 ? result.growth / results[index - 3].growth - 1 : nil
-            result.sixMonthReturn = index >= 6 ? result.growth / results[index - 6].growth - 1 : nil
-            result.oneYearReturn = index >= 12 ? result.growth / results[index - 12].growth - 1 : nil
+            result.threeMonthReturn = index >= 3 ? calculateReturn(value: result.growth, base: results[index - 3].growth): nil
+            result.sixMonthReturn = index >= 6 ? calculateReturn(value: result.growth, base: results[index - 6].growth) : nil
+            result.oneYearReturn = index >= 12 ? calculateReturn(value: result.growth, base: results[index - 12].growth) : nil
             result.threeYearReturn = calculateYearReturn(result.growth, returns: results, index: index, years: 3)
             result.fiveYearReturn = calculateYearReturn(result.growth, returns: results, index: index, years: 5)
             result.tenYearReturn = calculateYearReturn(result.growth, returns: results, index: index, years: 10)
@@ -141,6 +141,13 @@ private extension PortfolioReturn {
 
             returns[index] = result
         }
+    }
+
+    func calculateReturn(value: Decimal, base: Decimal) -> Decimal {
+        if base.isZero {
+            return 0
+        }
+        return value / base - 1
     }
 
     func calculateYearReturn(_ growth: Decimal, returns: [Return], index: Int, years: Int) -> Decimal? {
