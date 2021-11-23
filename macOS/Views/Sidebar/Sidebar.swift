@@ -53,12 +53,6 @@ struct Sidebar: View {
             ConfigurePortfolioView(config: PortfolioConfig.defaultConfig()) { config in
                 addPortfolio(config: config)
             }
-        }.contextMenu {
-            Button(action: {
-                showingNewPortfolioSheet = true
-            }) {
-                Label("New Portfolio", systemImage: "plus")
-            }
         }
     }
 }
