@@ -15,6 +15,7 @@ struct PortfolioRow: View {
     @State private var showingConfigureSheet = false
 
     @ObservedObject var portfolio: Portfolio
+    @Binding var selection: String?
 
     var body: some View {
         Section(
@@ -37,7 +38,9 @@ struct PortfolioRow: View {
                 })
         ) {
             NavigationLink(
-                destination: PortfolioView(portfolio: portfolio, showingConfigureSheet: $showingConfigureSheet)
+                destination: PortfolioView(portfolio: portfolio, showingConfigureSheet: $showingConfigureSheet),
+                tag: "\(portfolio.tag)-overview",
+                selection: $selection
             ) {
                 Label("Overview", systemImage: "chart.pie")
             }
@@ -73,7 +76,9 @@ struct PortfolioRow: View {
                 destination: CalculationsView(portfolio: portfolio)
                     .navigationTitle("Calculations")
                     .navigationSubtitle("Portfolio: \(portfolio.name ?? "")")
-                    .environmentObject(portfolioSettings)
+                    .environmentObject(portfolioSettings),
+                tag: "\(portfolio.tag)-calculations",
+                selection: $selection
             ) {
                 Label("Calculations", systemImage: "calendar.badge.clock")
             }
@@ -92,7 +97,7 @@ struct PortfolioRow: View {
             }
 
             ForEach(portfolio.sortedAccounts) { account in
-                AccountRow(portfolio: portfolio, account: account)
+                AccountRow(portfolio: portfolio, account: account, selection: $selection)
                     .environmentObject(portfolioSettings)
             }
             .listItemTint(.purple)
@@ -104,13 +109,13 @@ struct PortfolioRow: View {
 }
 
 private extension PortfolioRow {
-    // TODO: update sidebar selection
     func delete(portfolio: Portfolio) {
         withAnimation {
             viewContext.delete(portfolio)
 
             do {
                 try viewContext.save()
+                selection = ""
             } catch {
                 viewContext.rollback()
                 print("Failed to save, error \(error)")
@@ -118,7 +123,6 @@ private extension PortfolioRow {
         }
     }
 
-    // TODO: update sidebar selection
     func addAccount(to portfolio: Portfolio) {
         withAnimation {
             let account = Account(context: viewContext)
@@ -129,6 +133,7 @@ private extension PortfolioRow {
 
             do {
                 try viewContext.save()
+                selection = account.tag
             } catch {
                 viewContext.rollback()
                 print("Failed to save, error \(error)")
@@ -151,7 +156,7 @@ private extension PortfolioRow {
 
 struct PortfolioRow_Previews: PreviewProvider {
     static var previews: some View {
-        PortfolioRow(portfolio: testPortfolio)
+        PortfolioRow(portfolio: testPortfolio, selection: .constant(""))
             .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
     }
 

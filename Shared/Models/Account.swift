@@ -50,3 +50,9 @@ extension Account {
         }
     }
 }
+
+extension Account {
+    var tag: String {
+        "account-" + objectID.uriRepresentation().absoluteString
+    }
+}

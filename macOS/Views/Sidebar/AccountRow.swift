@@ -16,13 +16,16 @@ struct AccountRow: View {
     @ObservedObject var account: Account
     @State private var showingDeletePrompt = false
     @State private var showingRenameSheet = false
+    @Binding var selection: String?
 
     var body: some View {
         NavigationLink(
             destination: AccountRecordList(account: account)
                 .navigationTitle(account.name ?? "")
                 .navigationSubtitle("Portfolio: \(portfolio.name ?? "")")
-                .environmentObject(portfolioSettings)
+                .environmentObject(portfolioSettings),
+            tag: account.tag,
+            selection: $selection
         ) {
             Label(account.name ?? "", systemImage: "tray.2")
         }
@@ -65,12 +68,12 @@ extension AccountRow {
     }
 
     func delete(account: Account) {
-        // TODO: update sidebar selection
         withAnimation {
             viewContext.delete(account)
 
             do {
                 try viewContext.save()
+                selection = portfolio.tag + "-overview"
             } catch {
                 viewContext.rollback()
                 print("Failed to save, error \(error)")
@@ -81,7 +84,7 @@ extension AccountRow {
 
 struct AccountRow_Previews: PreviewProvider {
     static var previews: some View {
-        AccountRow(portfolio: testAccount.portfolio!, account: testAccount)
+        AccountRow(portfolio: testAccount.portfolio!, account: testAccount, selection: .constant(""))
             .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
     }
 
