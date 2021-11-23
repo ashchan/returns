@@ -58,7 +58,6 @@ extension AccountRecordList {
 
         // MARK: - NSTableViewDelegate
         func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
-            let record = records[row]
             guard let identifier = RecordTableColumn(rawValue: tableColumn?.identifier.rawValue ?? "") else {
                 return nil
             }
@@ -67,14 +66,12 @@ extension AccountRecordList {
                 return ReadonlyCellView()
             }
 
-            var cell = tableView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: identifier.rawValue), owner: nil)
-            if cell == nil {
-                cell = createCell(record: record, columnId: identifier)
-            }
+            let record = records[row]
+            let cellIdentifier = NSUserInterfaceItemIdentifier(rawValue: identifier.rawValue)
+            let cell = tableView.makeView(withIdentifier: cellIdentifier, owner: nil)
+                ?? createCell(record: record, columnId: identifier)
             configCell(cell: cell, record: record, columnId: identifier)
             return cell
-            // let cell = .environmentObject(parent.portfolioSettings)
-            // return NSHostingView(rootView: cell.font(.custom("Arial", size: 13)))
         }
 
         func tableView(_ tableView: NSTableView, heightOfRow row: Int) -> CGFloat {
@@ -113,7 +110,6 @@ extension AccountRecordList {
                 }
                 record.balance = balance
             }
-            // TODO: other validation before saving?
             save(record: record)
         }
 
@@ -146,13 +142,29 @@ extension AccountRecordList {
             if [.contribution, .withdrawal, .balance].contains(columnId) {
                 let input = cell as! InputCellView
                 input.textField.alignment = .right
-                input.textField.stringValue = parent.portfolioSettings.currencyFormatter.outputFormatter.string(from: balance(for: columnId, of: record))
-                    ?? parent.portfolioSettings.currencyFormatter.outputFormatter.string(from: 0)!
-                // TODO
-                /*
-                BalanceCell(balance: ) { newValue in
-                    self.update(balance: newValue, record: record, column: columnId)
-                 */
+
+                let inputFormatter = parent.portfolioSettings.currencyFormatter.inputFormatter
+                let outputFormatter = parent.portfolioSettings.currencyFormatter.outputFormatter
+
+                let oldValue = outputFormatter.string(from: balance(for: columnId, of: record))
+                    ?? outputFormatter.string(from: 0)!
+                input.textField.stringValue = oldValue
+                input.onValidate = { newValue in
+                    let trimmed = newValue
+                        .replacingOccurrences(of: outputFormatter.currencySymbol, with: "")
+                        .replacingOccurrences(of: outputFormatter.currencyGroupingSeparator, with: "")
+                        .replacingOccurrences(of: " ", with: "")
+                    if let balance = inputFormatter.number(from: trimmed) as? NSDecimalNumber {
+                        return outputFormatter.string(from: balance)!
+                    } else {
+                        return oldValue
+                    }
+                }
+                input.onSubmit = { [weak self] newValue in
+                    if let balance = inputFormatter.number(from: newValue) as? NSDecimalNumber {
+                        self?.update(balance: balance, record: record, column: columnId)
+                    }
+                }
             } else if columnId == .month {
                 let view = cell as! ReadonlyCellView
                 view.title = record.monthString
@@ -162,11 +174,9 @@ extension AccountRecordList {
             } else if columnId == .notes {
                 let input = cell as! InputCellView
                 input.textField.stringValue = record.notes ?? ""
-            // TODO
-                /*
-                NotesCell(notes: record.notes ?? "") { newValue in
-                    self.update(notes: newValue, record: record)
-                }*/
+                input.onSubmit = { [weak self] newValue in
+                    self?.update(notes: newValue, record: record)
+                }
             }
         }
 
