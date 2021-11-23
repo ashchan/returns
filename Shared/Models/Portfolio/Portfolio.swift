@@ -43,6 +43,12 @@ extension Portfolio {
     }()
 }
 
+extension Portfolio {
+    var tag: String {
+        "portfolio-" + objectID.uriRepresentation().absoluteString
+    }
+}
+
 // Create a new portfolio
 // TODO: this is temporarily
 extension Portfolio {

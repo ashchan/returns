@@ -12,12 +12,13 @@ struct Sidebar: View {
     @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \Portfolio.createdAt, ascending: true)], animation: .default)
     private var portfolios: FetchedResults<Portfolio>
     @State private var showingNewPortfolioSheet = false
+    @State var selection: String?
 
     var body: some View {
         VStack {
             List {
                 ForEach(portfolios) { portfolio in
-                    PortfolioRow(portfolio: portfolio)
+                    PortfolioRow(portfolio: portfolio, selection: $selection)
                 }
                 .padding(.leading, 10)
             }
@@ -33,12 +34,11 @@ struct Sidebar: View {
                         Label("New Portfolio", systemImage: "plus")
                     }
                     Button(action: {
-                        // TODO: only if a portfolio is currently selected
-                        // addAccount(to: portfolio)
+                        addAccount()
                     }) {
                         Label("New Account", systemImage: "plus")
                     }
-                    .disabled(true)
+                    .disabled(!hasSelectedPortfolio)
                 } label: {
                     Label("", systemImage: "plus")
                 }
@@ -64,13 +64,13 @@ struct Sidebar: View {
 }
 
 private extension Sidebar {
-    // TODO: update sidebar selection
     func addPortfolio(config: PortfolioConfig) {
         withAnimation {
-            let _ = Portfolio.createPortfolio(context: viewContext, config: config)
+            let portfolio = Portfolio.createPortfolio(context: viewContext, config: config)
 
             do {
                 try viewContext.save()
+                selection = portfolio.tag + "-overview"
             } catch {
                 viewContext.rollback()
                 print("Failed to save, error \(error)")
@@ -78,9 +78,9 @@ private extension Sidebar {
         }
     }
 
-    // TODO: update sidebar selection
-    func addAccount(to portfolio: Portfolio) {
+    func addAccount() {
         withAnimation {
+            guard let portfolio = selectedPortfolio else { return }
             let account = Account(context: viewContext)
             account.createdAt = Date()
             account.portfolio = portfolio
@@ -88,11 +88,40 @@ private extension Sidebar {
 
             do {
                 try viewContext.save()
+                selection = account.tag
             } catch {
                 viewContext.rollback()
                 print("Failed to save, error \(error)")
             }
         }
+    }
+
+    var hasSelectedPortfolio: Bool {
+        let selected = selection ?? ""
+        return selected.starts(with: "account-") || selected.starts(with: "portfolio")
+    }
+
+    var selectedPortfolio: Portfolio? {
+        let tag = selection ?? ""
+        if tag.starts(with: "account-") {
+            if let uri = URL(string: tag.replacingOccurrences(of: "account-", with: "")),
+               let id = viewContext.persistentStoreCoordinator?.managedObjectID(forURIRepresentation: uri) {
+                if let account = viewContext.object(with: id) as? Account {
+                    return account.portfolio
+                }
+            }
+        }
+        if tag.starts(with: "portfolio-") {
+            let uriString = tag.replacingOccurrences(of: "portfolio-", with: "")
+                .replacingOccurrences(of: "-overview", with: "")
+                .replacingOccurrences(of: "-calculations", with: "")
+            if let uri = URL(string: uriString),
+               let id = viewContext.persistentStoreCoordinator?.managedObjectID(forURIRepresentation: uri),
+               let portfolio = viewContext.object(with: id) as? Portfolio {
+                return portfolio
+            }
+        }
+        return nil
     }
 }
 
