@@ -7,6 +7,7 @@
 
 import SwiftUI
 import AppKit
+import Charts
 
 struct CalculationsView: NSViewControllerRepresentable {
     typealias NSViewControllerType = TableViewController
@@ -108,11 +109,18 @@ extension CalculationsView {
             guard let identifier = TableColumn(rawValue: tableColumn?.identifier.rawValue ?? "") else {
                 return nil
             }
-            let cell = Text(text(for: entry, row: row, column: identifier))
-                .font(.custom("Arial", size: 13))
-                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: identifier == .month ? .center : .trailing)
-                .padding(.horizontal, 4)
-            return NSHostingView(rootView: cell)
+            var cell = tableView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: identifier.rawValue), owner: nil) as? LabelCellView
+            if cell == nil {
+                cell = LabelCellView()
+                cell?.identifier = NSUserInterfaceItemIdentifier(rawValue: identifier.rawValue)
+            }
+            cell?.label.stringValue = text(for: entry, row: row, column: identifier)
+            if identifier == .month {
+                cell?.label.alignment = .center
+            } else {
+                cell?.label.alignment = .right
+            }
+            return cell
         }
 
         func tableView(_ tableView: NSTableView, heightOfRow row: Int) -> CGFloat {

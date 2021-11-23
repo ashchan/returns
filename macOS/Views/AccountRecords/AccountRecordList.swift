@@ -58,13 +58,20 @@ extension AccountRecordList {
 
         // MARK: - NSTableViewDelegate
         func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
-            let record = records[row]
             guard let identifier = RecordTableColumn(rawValue: tableColumn?.identifier.rawValue ?? "") else {
                 return nil
             }
-            let cell = createCell(record: record, columnId: identifier, row: row)
-                .environmentObject(parent.portfolioSettings)
-            return NSHostingView(rootView: cell.font(.custom("Arial", size: 13)))
+
+            if row == 0 && [.month, .contribution, .withdrawal].contains(identifier) {
+                return ReadonlyCellView()
+            }
+
+            let record = records[row]
+            let cellIdentifier = NSUserInterfaceItemIdentifier(rawValue: identifier.rawValue)
+            let cell = tableView.makeView(withIdentifier: cellIdentifier, owner: nil)
+                ?? createCell(record: record, columnId: identifier)
+            configCell(cell: cell, record: record, columnId: identifier)
+            return cell
         }
 
         func tableView(_ tableView: NSTableView, heightOfRow row: Int) -> CGFloat {
@@ -103,7 +110,6 @@ extension AccountRecordList {
                 }
                 record.balance = balance
             }
-            // TODO: other validation before saving?
             save(record: record)
         }
 
@@ -121,21 +127,56 @@ extension AccountRecordList {
         }
 
         // MARK: - Cell Builder
-        @ViewBuilder
-        private func createCell(record: Record, columnId: RecordTableColumn, row: Int) -> some View {
-            if row == 0 && [.month, .contribution, .withdrawal].contains(columnId) {
-                NullCell()
-            } else if [.contribution, .withdrawal, .balance].contains(columnId) {
-                BalanceCell(balance: balance(for: columnId, of: record)) { newValue in
-                    self.update(balance: newValue, record: record, column: columnId)
+        private func createCell(record: Record, columnId: RecordTableColumn) -> NSView? {
+            var cell: NSView?
+            if [.contribution, .withdrawal, .balance, .notes].contains(columnId) {
+                cell = InputCellView()
+            } else if [.month, .date].contains(columnId) {
+                cell = ReadonlyCellView()
+            }
+            cell?.identifier = NSUserInterfaceItemIdentifier(rawValue: columnId.rawValue)
+            return cell
+        }
+
+        private func configCell(cell: NSView?, record: Record, columnId: RecordTableColumn) {
+            if [.contribution, .withdrawal, .balance].contains(columnId) {
+                let input = cell as! InputCellView
+                input.textField.alignment = .right
+
+                let inputFormatter = parent.portfolioSettings.currencyFormatter.inputFormatter
+                let outputFormatter = parent.portfolioSettings.currencyFormatter.outputFormatter
+                let trim = { (text: String) in
+                    return text
+                        .replacingOccurrences(of: outputFormatter.currencySymbol, with: "")
+                        .replacingOccurrences(of: outputFormatter.currencyGroupingSeparator, with: "")
+                        .replacingOccurrences(of: " ", with: "")
+                }
+
+                let oldValue = outputFormatter.string(from: balance(for: columnId, of: record))!
+                input.textField.stringValue = oldValue
+                input.onValidate = { newValue in
+                    if let balance = inputFormatter.number(from: trim(newValue)) as? NSDecimalNumber {
+                        return outputFormatter.string(from: balance)!
+                    } else {
+                        return oldValue
+                    }
+                }
+                input.onSubmit = { [weak self] newValue in
+                    if let balance = inputFormatter.number(from: trim(newValue)) as? NSDecimalNumber {
+                        self?.update(balance: balance, record: record, column: columnId)
+                    }
                 }
             } else if columnId == .month {
-                DateCell(date: record.monthString)
+                let view = cell as! ReadonlyCellView
+                view.title = record.monthString
             } else if columnId == .date {
-                DateCell(date: record.closeDateString)
+                let view = cell as! ReadonlyCellView
+                view.title = record.closeDateString
             } else if columnId == .notes {
-                NotesCell(notes: record.notes ?? "") { newValue in
-                    self.update(notes: newValue, record: record)
+                let input = cell as! InputCellView
+                input.textField.stringValue = record.notes ?? ""
+                input.onSubmit = { [weak self] newValue in
+                    self?.update(notes: newValue, record: record)
                 }
             }
         }

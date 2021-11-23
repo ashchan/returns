@@ -53,6 +53,9 @@
 		1AB19620273B87530010B8E2 /* Charts in Frameworks */ = {isa = PBXBuildFile; productRef = 1AB1961F273B87530010B8E2 /* Charts */; };
 		1AB19622273B8A550010B8E2 /* OverviewChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AB19621273B8A550010B8E2 /* OverviewChart.swift */; };
 		1ABDFD652735240B00959FA8 /* ConfigurePortfolioView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ABDFD642735240B00959FA8 /* ConfigurePortfolioView.swift */; };
+		1AC27BFF274BADA100650D0C /* LabelCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AC27BFE274BADA100650D0C /* LabelCellView.swift */; };
+		1AC27C03274BB9B100650D0C /* ReadonlyCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AC27C02274BB9B100650D0C /* ReadonlyCellView.swift */; };
+		1AC27C05274BBCAA00650D0C /* InputCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AC27C04274BBCAA00650D0C /* InputCellView.swift */; };
 		1AE3EC4127427EFB00156790 /* irr.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AE3EC4027427EFB00156790 /* irr.swift */; };
 		1AE3EC4227427EFB00156790 /* irr.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AE3EC4027427EFB00156790 /* irr.swift */; };
 		1AE4A19C273F2F3B003D9F7F /* Return.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AE4A19B273F2F3B003D9F7F /* Return.swift */; };
@@ -102,6 +105,9 @@
 		1AA90ABE2738B98900D8A794 /* PortfolioConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortfolioConfig.swift; sourceTree = "<group>"; };
 		1AB19621273B8A550010B8E2 /* OverviewChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverviewChart.swift; sourceTree = "<group>"; };
 		1ABDFD642735240B00959FA8 /* ConfigurePortfolioView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurePortfolioView.swift; sourceTree = "<group>"; };
+		1AC27BFE274BADA100650D0C /* LabelCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelCellView.swift; sourceTree = "<group>"; };
+		1AC27C02274BB9B100650D0C /* ReadonlyCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadonlyCellView.swift; sourceTree = "<group>"; };
+		1AC27C04274BBCAA00650D0C /* InputCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputCellView.swift; sourceTree = "<group>"; };
 		1AE3EC4027427EFB00156790 /* irr.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = irr.swift; sourceTree = "<group>"; };
 		1AE4A19B273F2F3B003D9F7F /* Return.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Return.swift; sourceTree = "<group>"; };
 		1AE4A19E273F3B21003D9F7F /* PortfolioReturnView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortfolioReturnView.swift; sourceTree = "<group>"; };
@@ -239,6 +245,9 @@
 			isa = PBXGroup;
 			children = (
 				1A1019192733A9D60058D817 /* TableViewController.swift */,
+				1AC27BFE274BADA100650D0C /* LabelCellView.swift */,
+				1AC27C02274BB9B100650D0C /* ReadonlyCellView.swift */,
+				1AC27C04274BBCAA00650D0C /* InputCellView.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -466,6 +475,7 @@
 				1ABDFD652735240B00959FA8 /* ConfigurePortfolioView.swift in Sources */,
 				1A5F38F82736C60600105DD3 /* CurrencySymbol.swift in Sources */,
 				1AF18E9B27324CB2008C9984 /* Account.swift in Sources */,
+				1AC27C03274BB9B100650D0C /* ReadonlyCellView.swift in Sources */,
 				1AA90AC02738B98900D8A794 /* PortfolioConfig.swift in Sources */,
 				1AE4A19D273F2F3B003D9F7F /* Return.swift in Sources */,
 				1A7DE6932739208C00250471 /* GrowthChart.swift in Sources */,
@@ -489,6 +499,8 @@
 				1A6AD1C627368A81004FA67B /* SettingsView.swift in Sources */,
 				1A466BE527328CB5003FE54A /* RecordCell.swift in Sources */,
 				1A718C06273127B500B26288 /* Portfolio.swift in Sources */,
+				1AC27BFF274BADA100650D0C /* LabelCellView.swift in Sources */,
+				1AC27C05274BBCAA00650D0C /* InputCellView.swift in Sources */,
 				1AF18EA127325121008C9984 /* Date.swift in Sources */,
 				1A10191A2733A9D60058D817 /* TableViewController.swift in Sources */,
 				1AF18E9927321175008C9984 /* PortfolioRow.swift in Sources */,

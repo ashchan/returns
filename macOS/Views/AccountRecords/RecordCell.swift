@@ -7,18 +7,6 @@
 
 import SwiftUI
 
-// Cell that doesn't show anything nor allow editing.
-struct NullCell: View {
-    var color: Color? = Color("nullCellColor")
-
-    var body: some View {
-        HStack {
-        }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(color ?? Color("nullCellColor"))
-    }
-}
-
 struct DateCell: View {
     var date: String
 
