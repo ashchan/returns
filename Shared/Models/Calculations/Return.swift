@@ -56,7 +56,6 @@ extension Return {
     }
 }
 
-// TODO: cache
 final class PortfolioReturn {
     let portfolio: Portfolio
     private(set) var returns = [Return]() // Month by month returns data
@@ -67,7 +66,11 @@ final class PortfolioReturn {
     }
 
     var internalReturn: Decimal {
-        let irr = Irr.compute(cashFlows: returns.map { Int($0.cashFlow.doubleValue) })
+        let cashFlows = returns.map { Int($0.cashFlow.doubleValue) }
+        if cashFlows.allSatisfy({ $0 == 0 }) {
+            return 0
+        }
+        let irr = Irr.compute(cashFlows: cashFlows)
         let months = returns.count - 1
         return pow(1 + Decimal(floatLiteral: irr), min(12, months)) - 1
     }
