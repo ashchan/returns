@@ -79,6 +79,7 @@ private extension Sidebar {
             account.createdAt = Date()
             account.portfolio = portfolio
             account.name = "Account #\(portfolio.accounts?.count ?? 0 + 1)"
+            account.rebuildRecords()
 
             do {
                 try viewContext.save()
