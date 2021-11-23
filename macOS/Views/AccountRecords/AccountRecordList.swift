@@ -166,9 +166,9 @@ extension AccountRecordList {
                         self?.update(balance: balance, record: record, column: columnId)
                     }
                 }
-                input.onFocusOut = { [weak self] in
+                input.onEnterKey = { [weak self] in
                     if columnId == .balance {
-                        self?.focusNextBalanceCell(from: row, tableView: tableView)
+                        self?.focusNextCell(for: .balance, row: row, tableView: tableView)
                     }
                 }
             } else if columnId == .month {
@@ -182,6 +182,9 @@ extension AccountRecordList {
                 input.textField.stringValue = record.notes ?? ""
                 input.onSubmit = { [weak self] newValue in
                     self?.update(notes: newValue, record: record)
+                }
+                input.onTabKey = { [weak self] in
+                    self?.focusNextCell(for: .contribution, row: row, tableView: tableView)
                 }
             }
         }
@@ -198,12 +201,12 @@ extension AccountRecordList {
             return result ?? 0
         }
 
-        private func focusNextBalanceCell(from row: Int, tableView: NSTableView) {
+        private func focusNextCell(for column: RecordTableColumn, row: Int, tableView: NSTableView) {
             if row >= records.count - 1 {
                 return
             }
 
-            let columnIndex = tableView.column(withIdentifier: NSUserInterfaceItemIdentifier(RecordTableColumn.balance.rawValue))
+            let columnIndex = tableView.column(withIdentifier: NSUserInterfaceItemIdentifier(column.rawValue))
             if let cell = tableView.view(atColumn: columnIndex, row: row + 1, makeIfNecessary: false) as? InputCellView {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.02) {
                     _ = cell.textField.becomeFirstResponder()

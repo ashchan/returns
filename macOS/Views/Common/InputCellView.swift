@@ -11,7 +11,8 @@ class InputCellView: NSView {
     let textField = TextField()
     var onSubmit: (String) -> Void = { _ in }
     var onValidate: (String) -> String = { v in return v }
-    var onFocusOut: () -> Void = { }
+    var onEnterKey: () -> Void = {}
+    var onTabKey: () -> Void = {}
 
     override init(frame frameRect: NSRect) {
         super.init(frame: frameRect)
@@ -48,7 +49,11 @@ extension InputCellView: NSTextFieldDelegate {
 
     func control(_ control: NSControl, textView: NSTextView, doCommandBy commandSelector: Selector) -> Bool {
         if commandSelector == #selector(NSResponder.insertNewline(_:)) {
-            onFocusOut()
+            onEnterKey()
+        }
+
+        if commandSelector == #selector(NSResponder.insertTab(_:)) {
+            onTabKey()
         }
 
         return false
