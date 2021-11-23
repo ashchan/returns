@@ -145,8 +145,8 @@ extension AccountRecordList {
         private func configCell(cell: NSView?, record: Record, columnId: RecordTableColumn) {
             if [.contribution, .withdrawal, .balance].contains(columnId) {
                 let input = cell as! InputCellView
-                input.label.alignment = .right
-                input.label.stringValue = parent.portfolioSettings.currencyFormatter.outputFormatter.string(from: balance(for: columnId, of: record))
+                input.textField.alignment = .right
+                input.textField.stringValue = parent.portfolioSettings.currencyFormatter.outputFormatter.string(from: balance(for: columnId, of: record))
                     ?? parent.portfolioSettings.currencyFormatter.outputFormatter.string(from: 0)!
                 // TODO
                 /*
@@ -161,7 +161,7 @@ extension AccountRecordList {
                 view.title = record.closeDateString
             } else if columnId == .notes {
                 let input = cell as! InputCellView
-                input.label.stringValue = record.notes ?? ""
+                input.textField.stringValue = record.notes ?? ""
             // TODO
                 /*
                 NotesCell(notes: record.notes ?? "") { newValue in

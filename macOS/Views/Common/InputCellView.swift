@@ -8,7 +8,7 @@
 import AppKit
 
 class InputCellView: NSView {
-    let label = NSTextField()
+    let textField = TextField()
 
     override init(frame frameRect: NSRect) {
         super.init(frame: frameRect)
@@ -20,19 +20,39 @@ class InputCellView: NSView {
     }
 
     func createView() {
-        addSubview(label)
+        addSubview(textField)
 
-        label.translatesAutoresizingMaskIntoConstraints = false
+        textField.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            label.centerXAnchor.constraint(equalTo: centerXAnchor),
-            label.widthAnchor.constraint(equalTo: widthAnchor, constant: -8),
-            label.centerYAnchor.constraint(equalTo: centerYAnchor)
+            textField.centerXAnchor.constraint(equalTo: centerXAnchor),
+            textField.widthAnchor.constraint(equalTo: widthAnchor, constant: -8),
+            textField.centerYAnchor.constraint(equalTo: centerYAnchor)
         ])
+    }
+}
 
-        label.isEditable = true
-        label.isSelectable = true
-        label.isBordered = false
-        label.isBezeled = false
-        label.font = NSFont(name: "Arial", size: 13)
+extension InputCellView {
+    class TextField: NSTextField {
+        override init(frame frameRect: NSRect) {
+            super.init(frame: frameRect)
+
+            isEditable = true
+            isSelectable = true
+            isBordered = false
+            isBezeled = false
+            focusRingType = .none
+            font = NSFont(name: "Arial", size: 13)
+        }
+
+        required init?(coder: NSCoder) {
+            fatalError("init(coder:) has not been implemented")
+        }
+
+        override func becomeFirstResponder() -> Bool {
+            if let textView = window?.fieldEditor(true, for: nil) as? NSTextView {
+                textView.insertionPointColor = .red
+            }
+            return super.becomeFirstResponder()
+        }
     }
 }
