@@ -20,7 +20,7 @@ extension Portfolio {
         }
     }
 
-    var since: Date { startAt ?? createdAt! }
+    var since: Date { startAt ?? createdAt ?? Date() }
 
     var sinceString: String {
         Self.monthFormatter.string(from: since)

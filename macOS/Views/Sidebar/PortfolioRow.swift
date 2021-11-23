@@ -115,7 +115,6 @@ private extension PortfolioRow {
 
             do {
                 try viewContext.save()
-                // TODO: perhaps better select another eixsting portfolio?
                 selection = ""
             } catch {
                 viewContext.rollback()
