@@ -145,23 +145,24 @@ extension AccountRecordList {
 
                 let inputFormatter = parent.portfolioSettings.currencyFormatter.inputFormatter
                 let outputFormatter = parent.portfolioSettings.currencyFormatter.outputFormatter
-
-                let oldValue = outputFormatter.string(from: balance(for: columnId, of: record))
-                    ?? outputFormatter.string(from: 0)!
-                input.textField.stringValue = oldValue
-                input.onValidate = { newValue in
-                    let trimmed = newValue
+                let trim = { (text: String) in
+                    return text
                         .replacingOccurrences(of: outputFormatter.currencySymbol, with: "")
                         .replacingOccurrences(of: outputFormatter.currencyGroupingSeparator, with: "")
                         .replacingOccurrences(of: " ", with: "")
-                    if let balance = inputFormatter.number(from: trimmed) as? NSDecimalNumber {
+                }
+
+                let oldValue = outputFormatter.string(from: balance(for: columnId, of: record))!
+                input.textField.stringValue = oldValue
+                input.onValidate = { newValue in
+                    if let balance = inputFormatter.number(from: trim(newValue)) as? NSDecimalNumber {
                         return outputFormatter.string(from: balance)!
                     } else {
                         return oldValue
                     }
                 }
                 input.onSubmit = { [weak self] newValue in
-                    if let balance = inputFormatter.number(from: newValue) as? NSDecimalNumber {
+                    if let balance = inputFormatter.number(from: trim(newValue)) as? NSDecimalNumber {
                         self?.update(balance: balance, record: record, column: columnId)
                     }
                 }
