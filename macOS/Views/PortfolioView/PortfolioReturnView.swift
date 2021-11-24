@@ -9,20 +9,45 @@ import SwiftUI
 
 struct PortfolioReturnView: View {
     var portfolioReturn: PortfolioReturn
+    @State private var showingInvestorReturnViewPopover = false
+    @State private var showingPortfolioReturnViewPopover = false
 
     var body: some View {
         if let returnObject = portfolioReturn.returns.last {
             VStack(alignment: .leading) {
-                Text("Investor return (money-weighted) as of \(Self.dateFormatter.string(from: returnObject.closeDate))")
-                    .font(.headline)
+                HStack {
+                    Text("Investor return as of \(Self.dateFormatter.string(from: returnObject.closeDate))")
+                        .font(.headline)
+                    Button {
+                        showingInvestorReturnViewPopover.toggle()
+                    } label: {
+                        Image(systemName: "info.circle")
+                    }
+                    .buttonStyle(.plain)
+                    .popover(isPresented: $showingInvestorReturnViewPopover, arrowEdge: .bottom) {
+                        InvestorReturnPopover()
+                    }
+                }
 
                 returnView(
                     label: "Since \(Self.dateFormatter.string(from: portfolioReturn.returns.first!.closeDate))",
                     value: portfolioReturn.internalReturn
                 )
 
-                Text("Portfolio return (time-weighted) as of \(Self.dateFormatter.string(from: returnObject.closeDate))")
-                    .font(.headline)
+                HStack {
+                    Text("Portfolio return as of \(Self.dateFormatter.string(from: returnObject.closeDate))")
+                        .font(.headline)
+
+                    Button {
+                        showingPortfolioReturnViewPopover.toggle()
+                    } label: {
+                        Image(systemName: "info.circle")
+                    }
+                    .buttonStyle(.plain)
+                    .popover(isPresented: $showingPortfolioReturnViewPopover, arrowEdge: .bottom) {
+                        PortfolioReturnPopover()
+                    }
+                }
 
                 HStack {
                     returnView(label: "1 Month", value: returnObject.oneMonthReturn)
@@ -80,6 +105,34 @@ struct PortfolioReturnView: View {
         formatter.maximumFractionDigits = 1
         return formatter
     }()
+}
+
+struct InvestorReturnPopover: View {
+    var body: some View {
+        VStack(alignment: .leading) {
+            Text("Investor Return")
+                .font(.headline)
+
+            Text("Money-weighted return, internal rate of return. It represents the annual rate of return of the invested money while taking into account the timing of various contributions to and withdrawals from the portfolio.")
+                .lineLimit(6)
+                .fixedSize(horizontal: false, vertical: true)
+                .frame(maxWidth: 400, maxHeight: .infinity)
+        }.padding()
+    }
+}
+
+struct PortfolioReturnPopover: View {
+    var body: some View {
+        VStack(alignment: .leading) {
+            Text("Portfolio Return")
+                .font(.headline)
+
+            Text("Time-weighted return, comparable return. It represents the annual rate of return of a single lump sum invested in the portfolio during a selected time period.")
+                .lineLimit(5)
+                .fixedSize(horizontal: false, vertical: true)
+                .frame(maxWidth: 400, maxHeight: .infinity)
+        }.padding()
+    }
 }
 
 struct PortfolioReturnView_Previews: PreviewProvider {

@@ -8,7 +8,7 @@ Learn more about [Calculating personal returns](https://www.bogleheads.org/wiki/
 ## Features
 
 * Track your multiple investment or portfolios in one place.
-* Compute **investor return** (money-weighted, internal rate of return).
+* Compute **investor return** (money-weighted return, internal rate of return).
 * Compute **portfolio return** (time-weighted return, comparable return).
 * Show portfolio returns for 1 month, 3 months, 6 months, year-to-date (YTD) and 1 year.
 * Show portfolio returns for 3 years and up to 50 years.
