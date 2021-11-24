@@ -12,7 +12,7 @@ struct Sidebar: View {
     @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \Portfolio.createdAt, ascending: true)], animation: .default)
     private var portfolios: FetchedResults<Portfolio>
     @State private var showingNewPortfolioSheet = false
-    @State var selection: String?
+    @AppStorage("lastNavigationItem") var selection: String?
 
     var body: some View {
         VStack {
