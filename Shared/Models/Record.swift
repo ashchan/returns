@@ -15,11 +15,11 @@ extension Record {
 
     // Last day of the month to add the closing account balance
     var closeDate: Date {
-        timestamp!.endOfMonth
+        (timestamp ?? Date()).endOfMonth
     }
 
     var monthString: String {
-        Self.monthFormatter.string(from: timestamp!)
+        Self.monthFormatter.string(from: timestamp ?? Date())
     }
 
     var closeDateString: String {

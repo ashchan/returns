@@ -8,11 +8,11 @@
 import SwiftUI
 
 struct Sidebar: View {
+    @AppStorage(NavigationItem.appStorageKeyLastItem) var selection: String?
     @Environment(\.managedObjectContext) private var viewContext
     @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \Portfolio.createdAt, ascending: true)], animation: .default)
     private var portfolios: FetchedResults<Portfolio>
     @State private var showingNewPortfolioSheet = false
-    @AppStorage("lastNavigationItem") var selection: String?
 
     var body: some View {
         VStack {
@@ -92,29 +92,21 @@ private extension Sidebar {
     }
 
     var hasSelectedPortfolio: Bool {
-        let selected = selection ?? ""
-        return selected.starts(with: "account-") || selected.starts(with: "portfolio")
+        NavigationItem(tag: selection ?? "").isPortfolio
     }
 
     var selectedPortfolio: Portfolio? {
-        let tag = selection ?? ""
-        if tag.starts(with: "account-") {
-            if let uri = URL(string: tag.replacingOccurrences(of: "account-", with: "")),
-               let id = viewContext.persistentStoreCoordinator?.managedObjectID(forURIRepresentation: uri) {
-                if let account = viewContext.object(with: id) as? Account {
-                    return account.portfolio
-                }
+        let item = NavigationItem(tag: selection ?? "")
+        if let uri = item.accountUri,
+           let id = viewContext.persistentStoreCoordinator?.managedObjectID(forURIRepresentation: uri) {
+            if let account = viewContext.object(with: id) as? Account {
+                return account.portfolio
             }
         }
-        if tag.starts(with: "portfolio-") {
-            let uriString = tag.replacingOccurrences(of: "portfolio-", with: "")
-                .replacingOccurrences(of: "-overview", with: "")
-                .replacingOccurrences(of: "-calculations", with: "")
-            if let uri = URL(string: uriString),
-               let id = viewContext.persistentStoreCoordinator?.managedObjectID(forURIRepresentation: uri),
-               let portfolio = viewContext.object(with: id) as? Portfolio {
-                return portfolio
-            }
+        if let uri = item.portfolioUri,
+           let id = viewContext.persistentStoreCoordinator?.managedObjectID(forURIRepresentation: uri),
+           let portfolio = viewContext.object(with: id) as? Portfolio {
+            return portfolio
         }
         return nil
     }
