@@ -15,12 +15,12 @@ struct DesktopCommands: Commands {
 
         CommandGroup(replacing: .newItem, addition: {
             Button("New Portfolio") {
-                // TODO
+                NotificationCenter.default.post(name: .willCreatePortfolioNotification, object: nil)
             }
             .keyboardShortcut("N", modifiers: .command)
 
             Button("New Account") {
-                // TODO
+                NotificationCenter.default.post(name: .willCreateAccountNotification, object: nil)
             }
             .disabled(!hasSelectedPortfolio)
             .keyboardShortcut("N", modifiers: [.command, .shift])
@@ -43,4 +43,9 @@ struct DesktopCommands: Commands {
     private var hasSelectedPortfolio: Bool {
         NavigationItem(tag: navigationSelection ?? "").isPortfolio
     }
+}
+
+extension Notification.Name {
+    static let willCreatePortfolioNotification = Notification.Name("willCreatePortfolio")
+    static let willCreateAccountNotification = Notification.Name("willCreateAccount")
 }

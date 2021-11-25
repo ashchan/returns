@@ -49,6 +49,12 @@ struct Sidebar: View {
                 Spacer()
             }
         }
+        .onReceive(NotificationCenter.default.publisher(for: .willCreatePortfolioNotification, object: nil)) {_ in
+            showingNewPortfolioSheet = true
+        }
+        .onReceive(NotificationCenter.default.publisher(for: .willCreateAccountNotification, object: nil)) {_ in
+            addAccount()
+        }
         .sheet(isPresented: $showingNewPortfolioSheet) {
             ConfigurePortfolioView(config: PortfolioConfig.defaultConfig()) { config in
                 addPortfolio(config: config)
