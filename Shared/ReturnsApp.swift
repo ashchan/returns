@@ -21,20 +21,9 @@ struct ReturnsApp: App {
         }
         .handlesExternalEvents(matching: Set(arrayLiteral: "main"))
         .commands {
-            SidebarCommands()
-
-            CommandGroup(replacing: .newItem, addition: {})
-            CommandGroup(before: .windowArrangement) {
-                Button("Main Window") {
-                    if let window = NSApp.keyWindow {
-                        window.orderFront(nil)
-                    } else {
-                        NSWorkspace.shared.open(URL(string: "returnsapp:main")!)
-                    }
-                }
-                .keyboardShortcut("0", modifiers: .command)
-            }
-            CommandGroup(replacing: .windowList, addition: {})
+            #if os(macOS)
+            DesktopCommands()
+            #endif
         }
 
         #if os(macOS)
