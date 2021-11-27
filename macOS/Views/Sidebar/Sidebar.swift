@@ -102,7 +102,7 @@ private extension Sidebar {
 
             do {
                 try viewContext.save()
-                selection = portfolio.sortedAccounts.first?.tag
+                selection = portfolio.tag + "-overview"
             } catch {
                 viewContext.rollback()
                 print("Failed to save, error \(error)")
