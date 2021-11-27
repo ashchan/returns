@@ -1,7 +1,8 @@
 # Portfolio Returns <img src="Shared/Assets.xcassets/AppIcon.appiconset/icon_256x256.png" style="width: 40px;" align="left">
 
-Financial app for macOS inspired by [A Returns Spreadsheet for Bogleheads](https://www.bogleheads.org/forum/viewtopic.php?f=10&t=150025).
-Learn more about [Calculating personal returns](https://www.bogleheads.org/wiki/Calculating_personal_returns).
+Portfolio Returns is a financial app for macOS that helps you track your multiple investment or portfolios in one place.
+It's inspired by [A Returns Spreadsheet for Bogleheads](https://www.bogleheads.org/forum/viewtopic.php?f=10&t=150025).
+To learn more about how it computes returns, see [Calculating personal returns](https://www.bogleheads.org/wiki/Calculating_personal_returns).
 
 ![screenshot](returns.png)
 
