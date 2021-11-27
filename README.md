@@ -14,6 +14,14 @@ Learn more about [Calculating personal returns](https://www.bogleheads.org/wiki/
 * Show portfolio returns for 3 years and up to 50 years.
 * Calculate and show **growth of $10,000** chart.
 
+## Usage
+
+1. Create a portfolio.
+1. Add one or more accounts.
+1. At the close of the last day of each month, add **total contributions**, **total withdrawals** and **account balance** to each account.
+1. Sleep well. Do not watch your portfolio. Let it perform.
+
+
 ## System Requirements
 
 Portfolio Returns is developed and built with SwiftUI.
