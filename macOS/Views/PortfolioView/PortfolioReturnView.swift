@@ -11,6 +11,7 @@ struct PortfolioReturnView: View {
     var portfolioReturn: PortfolioReturn
     @State private var showingInvestorReturnViewPopover = false
     @State private var showingPortfolioReturnViewPopover = false
+    @AppStorage("upsDownsColor") var upsDownsColor = UpsDownsColor.greenUp
 
     var body: some View {
         if let returnObject = portfolioReturn.returns.last {
@@ -31,7 +32,8 @@ struct PortfolioReturnView: View {
 
                 returnView(
                     label: "Since \(Self.dateFormatter.string(from: portfolioReturn.returns.first!.closeDate))",
-                    value: portfolioReturn.internalReturn
+                    value: portfolioReturn.internalReturn,
+                    showColor: true
                 )
 
                 HStack {
@@ -76,35 +78,72 @@ struct PortfolioReturnView: View {
             EmptyView()
         }
     }
+}
 
-    private func returnView(label: String, value: Decimal?) -> some View {
+private extension PortfolioReturnView {
+    func returnView(label: String, value: Decimal?, showColor: Bool) -> some View {
+        Group {
+            if showColor {
+                returnView(label: label, value: value)
+                    .foregroundColor(returnColor(value ?? 0))
+            } else {
+                returnView(label: label, value: value)
+            }
+        }
+    }
+
+    func returnView(label: String, value: Decimal?) -> some View {
         Group {
             if let value = value {
-                VStack {
+                GroupBox {
                     Text(Self.valueFormatter.string(from: value as NSNumber) ?? "0.0%")
                         .font(.headline)
+                } label: {
                     Text(label)
-                        .foregroundColor(.gray)
-                }.padding()
+                }
+                .groupBoxStyle(ReturnGroupBoxStyle())
             } else {
                 EmptyView()
             }
         }
     }
 
-    private static var dateFormatter: DateFormatter = {
+    func returnColor(_ value: Decimal) -> Color {
+        if upsDownsColor == .greenUp {
+            return value >= 0 ? Color("PriceGreen") : Color("PriceRed")
+        } else {
+            return value >= 0 ? Color("PriceRed") : Color("PriceGreen")
+        }
+    }
+
+    static var dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateFormat = "MM/dd/yyyy"
         return formatter
     }()
 
-    private static var valueFormatter: NumberFormatter = {
+    static var valueFormatter: NumberFormatter = {
         let formatter = NumberFormatter()
         formatter.numberStyle = .percent
         formatter.minimumFractionDigits = 1
         formatter.maximumFractionDigits = 1
         return formatter
     }()
+}
+
+struct ReturnGroupBoxStyle: GroupBoxStyle {
+    func makeBody(configuration: Configuration) -> some View {
+        VStack(alignment: .leading) {
+            configuration.label
+                .font(.subheadline)
+                .foregroundColor(Color.secondary)
+            configuration.content
+        }
+        .padding(.vertical, 10)
+        .padding(.horizontal, 20)
+        .background(Color(NSColor.windowBackgroundColor))
+        .clipShape(RoundedRectangle(cornerRadius: 8, style: .continuous))
+    }
 }
 
 struct InvestorReturnPopover: View {

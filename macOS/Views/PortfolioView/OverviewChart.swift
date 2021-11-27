@@ -22,7 +22,7 @@ struct OverviewChart: NSViewRepresentable {
         view.rotationEnabled = false
         view.legend.orientation = .vertical
         view.data = chartData
-        view.drawHoleEnabled = false
+        view.drawHoleEnabled = true
 
         return view
     }
