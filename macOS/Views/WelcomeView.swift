@@ -33,7 +33,7 @@ struct WelcomeView: View {
             }
         } else {
             Text("No Portfolio Selected")
-                .font(.title)
+                .font(.title2)
                 .foregroundColor(.secondary)
         }
     }
