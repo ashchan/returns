@@ -13,8 +13,8 @@ struct PersistenceController {
     static var preview: PersistenceController = {
         let result = PersistenceController(inMemory: true)
         let viewContext = result.container.viewContext
-        _ = Portfolio.createPortfolio(context: viewContext)
-        _ = Portfolio.createPortfolio(context: viewContext)
+        _ = PortfolioBuilder.createPortfolio(context: viewContext)
+        _ = PortfolioBuilder.createPortfolio(context: viewContext)
         do {
             try viewContext.save()
         } catch {

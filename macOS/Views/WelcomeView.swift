@@ -15,8 +15,11 @@ struct WelcomeView: View {
     var body: some View {
         if portfolios.isEmpty {
             VStack {
-                Button("Create your first portfolio") {
-                    NotificationCenter.default.post(name: .willCreatePortfolioNotification, object: nil)
+                HStack {
+                    Button("Create your first portfolio") {
+                        NotificationCenter.default.post(name: .willCreatePortfolioNotification, object: nil)
+                    }
+                    Text("to get started,")
                 }
 
                 HStack {
@@ -26,6 +29,7 @@ struct WelcomeView: View {
                     }
                     .buttonStyle(.plain)
                     .foregroundColor(.accentColor)
+                    Text("to see how it works.")
                 }
             }
         } else {

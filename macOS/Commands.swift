@@ -24,6 +24,11 @@ struct DesktopCommands: Commands {
             }
             .disabled(!hasSelectedPortfolio)
             .keyboardShortcut("N", modifiers: [.command, .shift])
+
+            Divider()
+            Button("New Sample Portfolio") {
+                NotificationCenter.default.post(name: .willCreateSamplePortfolioNotification, object: nil)
+            }
         })
 
         CommandGroup(before: .windowArrangement) {

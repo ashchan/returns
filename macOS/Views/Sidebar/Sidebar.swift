@@ -52,6 +52,9 @@ struct Sidebar: View {
         .onReceive(NotificationCenter.default.publisher(for: .willCreatePortfolioNotification, object: nil)) {_ in
             showingNewPortfolioSheet = true
         }
+        .onReceive(NotificationCenter.default.publisher(for: .willCreateSamplePortfolioNotification, object: nil)) {_ in
+            addSamplePortfolio()
+        }
         .onReceive(NotificationCenter.default.publisher(for: .willCreateAccountNotification, object: nil)) {_ in
             addAccount()
         }
@@ -66,7 +69,7 @@ struct Sidebar: View {
 private extension Sidebar {
     func addPortfolio(config: PortfolioConfig) {
         withAnimation {
-            let portfolio = Portfolio.createPortfolio(context: viewContext, config: config)
+            let portfolio = PortfolioBuilder.createPortfolio(context: viewContext, config: config)
 
             do {
                 try viewContext.save()
@@ -81,15 +84,25 @@ private extension Sidebar {
     func addAccount() {
         withAnimation {
             guard let portfolio = selectedPortfolio else { return }
-            let account = Account(context: viewContext)
-            account.createdAt = Date()
-            account.portfolio = portfolio
-            account.name = "Account #\(portfolio.accounts?.count ?? 0 + 1)"
-            account.rebuildRecords()
+            let account = PortfolioBuilder.createAccount(context: viewContext, portfolio: portfolio)
 
             do {
                 try viewContext.save()
                 selection = account.tag
+            } catch {
+                viewContext.rollback()
+                print("Failed to save, error \(error)")
+            }
+        }
+    }
+
+    func addSamplePortfolio() {
+        withAnimation {
+            let portfolio = PortfolioBuilder.createSamplePortfolio(context: viewContext)
+
+            do {
+                try viewContext.save()
+                selection = portfolio.sortedAccounts.first?.tag
             } catch {
                 viewContext.rollback()
                 print("Failed to save, error \(error)")
