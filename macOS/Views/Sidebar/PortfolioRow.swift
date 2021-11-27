@@ -125,11 +125,7 @@ private extension PortfolioRow {
 
     func addAccount(to portfolio: Portfolio) {
         withAnimation {
-            let account = Account(context: viewContext)
-            account.createdAt = Date()
-            account.portfolio = portfolio
-            account.name = "Account #\(portfolio.accounts?.count ?? 0 + 1)"
-            account.rebuildRecords()
+            let account = PortfolioBuilder.createAccount(context: viewContext, portfolio: portfolio)
 
             do {
                 try viewContext.save()

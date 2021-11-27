@@ -48,28 +48,3 @@ extension Portfolio {
         "portfolio-" + objectID.uriRepresentation().absoluteString
     }
 }
-
-// Create a new portfolio
-// TODO: this is temporarily
-extension Portfolio {
-    class func createPortfolio(context: NSManagedObjectContext, config: PortfolioConfig? = nil) -> Portfolio {
-        let portfolio = Portfolio(context: context)
-        if let config = config {
-            portfolio.update(config: config)
-        } else {
-            portfolio.name = "My Portfolio"
-            var components = Calendar.current.dateComponents([.year], from: Date())
-            components.month = 1
-            portfolio.startAt = Calendar.current.date(from: components)!.startOfMonth
-        }
-        portfolio.createdAt = Date()
-
-        let account = Account(context: context)
-        account.createdAt = Date()
-        account.name = "Account #1"
-        account.portfolio = portfolio
-        account.rebuildRecords()
-
-        return portfolio
-    }
-}

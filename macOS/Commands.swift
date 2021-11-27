@@ -24,6 +24,11 @@ struct DesktopCommands: Commands {
             }
             .disabled(!hasSelectedPortfolio)
             .keyboardShortcut("N", modifiers: [.command, .shift])
+
+            Divider()
+            Button("New Sample Portfolio") {
+                NotificationCenter.default.post(name: .willCreateSamplePortfolioNotification, object: nil)
+            }
         })
 
         CommandGroup(before: .windowArrangement) {
@@ -47,5 +52,6 @@ struct DesktopCommands: Commands {
 
 extension Notification.Name {
     static let willCreatePortfolioNotification = Notification.Name("willCreatePortfolio")
+    static let willCreateSamplePortfolioNotification = Notification.Name("willCreateSamplePortfolio")
     static let willCreateAccountNotification = Notification.Name("willCreateAccount")
 }
