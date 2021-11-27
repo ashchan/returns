@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct WelcomeView: View {
-    @Environment(\.managedObjectContext) private var viewContext
     @FetchRequest(sortDescriptors: [], animation: .default)
     private var portfolios: FetchedResults<Portfolio>
 
