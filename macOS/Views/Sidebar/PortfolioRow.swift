@@ -110,30 +110,26 @@ struct PortfolioRow: View {
 
 private extension PortfolioRow {
     func delete(portfolio: Portfolio) {
-        withAnimation {
-            viewContext.delete(portfolio)
+        viewContext.delete(portfolio)
 
-            do {
-                try viewContext.save()
-                selection = ""
-            } catch {
-                viewContext.rollback()
-                print("Failed to save, error \(error)")
-            }
+        do {
+            try viewContext.save()
+            selection = ""
+        } catch {
+            viewContext.rollback()
+            print("Failed to save, error \(error)")
         }
-    }
+}
 
     func addAccount(to portfolio: Portfolio) {
-        withAnimation {
-            let account = PortfolioBuilder.createAccount(context: viewContext, portfolio: portfolio)
+        let account = PortfolioBuilder.createAccount(context: viewContext, portfolio: portfolio)
 
-            do {
-                try viewContext.save()
-                selection = account.tag
-            } catch {
-                viewContext.rollback()
-                print("Failed to save, error \(error)")
-            }
+        do {
+            try viewContext.save()
+            selection = account.tag
+        } catch {
+            viewContext.rollback()
+            print("Failed to save, error \(error)")
         }
     }
 

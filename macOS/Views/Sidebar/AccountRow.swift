@@ -82,16 +82,14 @@ extension AccountRow {
     }
 
     func delete(account: Account) {
-        withAnimation {
-            viewContext.delete(account)
+        viewContext.delete(account)
 
-            do {
-                try viewContext.save()
-                selection = portfolio.tag + "-overview"
-            } catch {
-                viewContext.rollback()
-                print("Failed to save, error \(error)")
-            }
+        do {
+            try viewContext.save()
+            selection = portfolio.tag + "-overview"
+        } catch {
+            viewContext.rollback()
+            print("Failed to save, error \(error)")
         }
     }
 }

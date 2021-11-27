@@ -68,47 +68,41 @@ struct Sidebar: View {
 
 private extension Sidebar {
     func addPortfolio(config: PortfolioConfig) {
-        withAnimation {
-            let portfolio = PortfolioBuilder.createPortfolio(context: viewContext, config: config)
+        let portfolio = PortfolioBuilder.createPortfolio(context: viewContext, config: config)
 
-            do {
-                try viewContext.save()
-                selection = portfolio.sortedAccounts.first?.tag
-            } catch {
-                viewContext.rollback()
-                print("Failed to save, error \(error)")
-            }
+        do {
+            try viewContext.save()
+            selection = portfolio.sortedAccounts.first?.tag
+        } catch {
+            viewContext.rollback()
+            print("Failed to save, error \(error)")
         }
     }
 
     func addAccount() {
-        withAnimation {
-            guard let portfolio = selectedPortfolio else { return }
-            let account = PortfolioBuilder.createAccount(context: viewContext, portfolio: portfolio)
+        guard let portfolio = selectedPortfolio else { return }
+        let account = PortfolioBuilder.createAccount(context: viewContext, portfolio: portfolio)
 
-            do {
-                try viewContext.save()
-                selection = account.tag
-            } catch {
-                viewContext.rollback()
-                print("Failed to save, error \(error)")
-            }
+        do {
+            try viewContext.save()
+            selection = account.tag
+        } catch {
+            viewContext.rollback()
+            print("Failed to save, error \(error)")
         }
-    }
+}
 
     func addSamplePortfolio() {
-        withAnimation {
-            let portfolio = PortfolioBuilder.createSamplePortfolio(context: viewContext)
+        let portfolio = PortfolioBuilder.createSamplePortfolio(context: viewContext)
 
-            do {
-                try viewContext.save()
-                selection = portfolio.sortedAccounts.first?.tag
-            } catch {
-                viewContext.rollback()
-                print("Failed to save, error \(error)")
-            }
+        do {
+            try viewContext.save()
+            selection = portfolio.tag + "-overview"
+        } catch {
+            viewContext.rollback()
+            print("Failed to save, error \(error)")
         }
-    }
+}
 
     var hasSelectedPortfolio: Bool {
         NavigationItem(tag: selection ?? "").isPortfolio
