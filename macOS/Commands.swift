@@ -47,5 +47,6 @@ struct DesktopCommands: Commands {
 
 extension Notification.Name {
     static let willCreatePortfolioNotification = Notification.Name("willCreatePortfolio")
+    static let willCreateSamplePortfolioNotification = Notification.Name("willCreateSamplePortfolio")
     static let willCreateAccountNotification = Notification.Name("willCreateAccount")
 }

@@ -22,7 +22,7 @@ struct PortfolioListView: View {
                 }
                 .frame(minWidth: 220, alignment: .leading)
 
-            Text("Welcome")
+            WelcomeView()
                 .frame(minWidth: 400)
         }
     }
