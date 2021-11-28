@@ -11,6 +11,10 @@ import SwiftUI
 struct ReturnsApp: App {
     let persistenceController = PersistenceController.shared
 
+    init() {
+        rebuildRecordsIfNecessary()
+    }
+
     var body: some Scene {
         WindowGroup {
             ContentView()
@@ -31,5 +35,16 @@ struct ReturnsApp: App {
             SettingsView()
         }
         #endif
+    }
+}
+
+extension ReturnsApp {
+    func rebuildRecordsIfNecessary() {
+        let fetchRequest: NSFetchRequest<Portfolio> = Portfolio.fetchRequest()
+        do {
+            let portfolios = try persistenceController.container.viewContext.fetch(fetchRequest)
+            portfolios.forEach { $0.rebuildAccountRecords() }
+        } catch {
+        }
     }
 }

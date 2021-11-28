@@ -36,6 +36,10 @@ extension Portfolio {
         NotificationCenter.default.post(name: .portfolioDataUpdated, object: self)
     }
 
+    func rebuildAccountRecords() {
+        sortedAccounts.forEach { $0.rebuildRecords() }
+    }
+
     static let monthFormatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateFormat = "MMMM yyyy"
