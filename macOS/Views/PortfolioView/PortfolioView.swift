@@ -33,6 +33,7 @@ struct PortfolioView: View {
             }
         }
         .padding()
+        .background(Color(NSColor.textBackgroundColor))
         .navigationTitle(portfolio.name ?? "")
         .navigationSubtitle("Start: \(portfolio.sinceString)")
         .toolbar {
