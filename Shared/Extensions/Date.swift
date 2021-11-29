@@ -7,22 +7,35 @@
 
 import Foundation
 
+extension TimeZone {
+    static let utc = TimeZone(identifier: "UTC")!
+}
+
+extension Calendar {
+    static var utc: Calendar = {
+        var calendar = Calendar(identifier: .gregorian)
+        calendar.timeZone = .utc
+        return calendar
+    }()
+}
+
+// Note the app assumes all record dates are stored in UTC time zone.
 extension Date {
     var year: Int {
-        Calendar.current.component(.year, from: self)
+        Calendar.utc.component(.year, from: self)
     }
 
     var month: Int {
-        Calendar.current.component(.month, from: self)
+        Calendar.utc.component(.month, from: self)
     }
 
     var startOfMonth: Date {
-        let components = Calendar.current.dateComponents([.year, .month], from: Calendar.current.startOfDay(for: self))
-        return Calendar.current.date(from: components)!
+        let components = Calendar.utc.dateComponents([.year, .month], from: Calendar.utc.startOfDay(for: self))
+        return Calendar.utc.date(from: components)!
     }
 
     var endOfMonth: Date {
         let components = DateComponents(month: 1, second: -1)
-        return Calendar.current.date(byAdding: components, to: startOfMonth)!
+        return Calendar.utc.date(byAdding: components, to: startOfMonth)!
     }
 }

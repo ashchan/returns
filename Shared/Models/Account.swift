@@ -27,7 +27,7 @@ extension Account {
     private var firstRecordMonth: Date {
         guard let portfolio = portfolio else { return Date().startOfMonth }
 
-        return Calendar.current.date(byAdding: .month, value: -1, to: portfolio.since.startOfMonth)!
+        return Calendar.utc.date(byAdding: .month, value: -1, to: portfolio.since.startOfMonth)!
     }
 
     func rebuildRecords() {
@@ -46,7 +46,7 @@ extension Account {
                 record.account = self
             }
 
-            month = Calendar.current.date(byAdding: .month, value: 1, to: month)!
+            month = Calendar.utc.date(byAdding: .month, value: 1, to: month)!
         }
     }
 }

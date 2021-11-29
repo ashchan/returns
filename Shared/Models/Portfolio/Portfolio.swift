@@ -20,7 +20,7 @@ extension Portfolio {
         }
     }
 
-    var since: Date { startAt ?? createdAt ?? Date() }
+    var since: Date { startAt ?? Date() }
 
     var sinceString: String {
         Self.monthFormatter.string(from: since)
@@ -43,6 +43,7 @@ extension Portfolio {
     static let monthFormatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateFormat = "MMMM yyyy"
+        formatter.timeZone = .utc
         return formatter
     }()
 }

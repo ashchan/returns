@@ -15,9 +15,9 @@ struct PortfolioBuilder {
             portfolio.update(config: config)
         } else {
             portfolio.name = "My Portfolio"
-            var components = Calendar.current.dateComponents([.year], from: Date())
+            var components = Calendar.utc.dateComponents([.year], from: Date())
             components.month = 1
-            portfolio.startAt = Calendar.current.date(from: components)!.startOfMonth
+            portfolio.startAt = Calendar.utc.date(from: components)!.startOfMonth
         }
         portfolio.createdAt = Date()
 
@@ -44,14 +44,14 @@ struct PortfolioBuilder {
         let portfolio = Portfolio(context: context)
         portfolio.name = "Sample Portfolio"
         portfolio.createdAt = Date()
-        portfolio.startAt = Calendar.current.date(byAdding: .month, value: 1 - sampleAccountRecordsData.count, to: Date())!.startOfMonth
+        portfolio.startAt = Calendar.utc.date(byAdding: .month, value: 1 - sampleAccountRecordsData.count, to: Date())!.startOfMonth
 
         let account = Account(context: context)
         account.createdAt = Date()
         account.name = "Sample Account"
         account.portfolio = portfolio
         for (index, data) in sampleAccountRecordsData.enumerated() {
-            let month = Calendar.current.date(byAdding: .month, value: index - 1, to: portfolio.startAt!)!
+            let month = Calendar.utc.date(byAdding: .month, value: index - 1, to: portfolio.startAt!)!
             let record = Record(context: context)
             record.touch(date: month)
             record.contribution = NSDecimalNumber(decimal: data[0])

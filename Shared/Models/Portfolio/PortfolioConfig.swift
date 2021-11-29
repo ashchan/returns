@@ -31,7 +31,7 @@ struct PortfolioConfig {
 
 extension Portfolio {
     var config: PortfolioConfig {
-        let components = Calendar.current.dateComponents([.year, .month], from: startAt!)
+        let components = Calendar.utc.dateComponents([.year, .month], from: startAt!)
         return PortfolioConfig(
             name: name ?? "Portfolio",
             startYear: components.year!,
@@ -43,7 +43,7 @@ extension Portfolio {
     func update(config: PortfolioConfig) {
         name = config.name
         let components = DateComponents(year: config.startYear, month: config.startMonth)
-        startAt = Calendar.current.date(from: components)!.startOfMonth
+        startAt = Calendar.utc.date(from: components)!.startOfMonth
         currencyCode = config.currencyCode
 
         // TODO: only rebuild if startAt has been changed
