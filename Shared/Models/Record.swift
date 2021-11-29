@@ -27,18 +27,20 @@ extension Record {
     }
 
     var isClosingToday: Bool {
-        Calendar.current.isDate(Date(), inSameDayAs: closeDate)
+        Calendar.utc.isDate(Date(), inSameDayAs: closeDate)
     }
 
     static let monthFormatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateFormat = "MMMM yyyy"
+        formatter.timeZone = .utc
         return formatter
     }()
 
     static let closeDateFormatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateFormat = "MM/dd/yyyy"
+        formatter.timeZone = .utc
         return formatter
     }()
 }
