@@ -73,6 +73,7 @@
 		1AF18EA327325856008C9984 /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AF18E9A27324CB2008C9984 /* Account.swift */; };
 		1AF18EA427325859008C9984 /* Record.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AF18E9C27324CFB008C9984 /* Record.swift */; };
 		1AF2D12E273BB2C000E3D892 /* CalculationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AF2D12D273BB2C000E3D892 /* CalculationsView.swift */; };
+		1AFFBC97275B14B900120278 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 1AFFBC96275B14B900120278 /* Credits.rtf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -122,6 +123,7 @@
 		1AF18E9C27324CFB008C9984 /* Record.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Record.swift; sourceTree = "<group>"; };
 		1AF18E9F27325121008C9984 /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
 		1AF2D12D273BB2C000E3D892 /* CalculationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculationsView.swift; sourceTree = "<group>"; };
+		1AFFBC96275B14B900120278 /* Credits.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = Credits.rtf; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -208,6 +210,7 @@
 				1A60D533274F21C8007C12DD /* Commands.swift */,
 				1A21929326A56B9C0032A15D /* Info.plist */,
 				1AA90ABC2738A6E500D8A794 /* InfoPlist.strings */,
+				1AFFBC96275B14B900120278 /* Credits.rtf */,
 			);
 			path = macOS;
 			sourceTree = "<group>";
@@ -448,6 +451,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1A21928A26A565F60032A15D /* Assets.xcassets in Resources */,
+				1AFFBC97275B14B900120278 /* Credits.rtf in Resources */,
 				1AA90ABD2738A6E500D8A794 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
