@@ -34,19 +34,15 @@ struct WelcomeView: View {
                         NotificationCenter.default.post(name: .willCreatePortfolioNotification, object: nil)
                     }
                     .font(.body.bold())
-                    .buttonStyle(.plain)
-                    .foregroundColor(.accentColor)
-
-                    Text("now, or")
-
+                    Text("or")
                     Button("generate a sample portfolio") {
                         NotificationCenter.default.post(name: .willCreateSamplePortfolioNotification, object: nil)
                     }
                     .buttonStyle(.plain)
                     .foregroundColor(.accentColor)
-
-                    Text("to see how it works.")
                 }
+
+                Text("This app is inspired by and based on the [return spreadsheet](https://www.bogleheads.org/forum/viewtopic.php?f=10&t=150025) built by Bogleheads forum member longinvest. To learn more about how it computes returns, see Bogleheads wiki page [Calculating personal returns](https://www.bogleheads.org/wiki/Calculating_personal_returns).")
 
                 Spacer()
             }
