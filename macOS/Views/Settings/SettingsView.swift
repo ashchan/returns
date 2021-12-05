@@ -17,14 +17,14 @@ struct SettingsView: View {
 
             Picker("Ups/Downs Color:", selection: $upsDownsColor) {
                 HStack {
-                    Image(systemName: "chart.line.uptrend.xyaxis")
+                    Image(systemName: "arrow.up.right")
                         .renderingMode(.template)
                         .foregroundColor(Color("PriceGreen"))
                     Text("Green up")
                 }.tag(UpsDownsColor.greenUp)
 
                 HStack {
-                    Image(systemName: "chart.line.uptrend.xyaxis")
+                    Image(systemName: "arrow.up.right")
                         .renderingMode(.template)
                         .foregroundColor(Color("PriceRed"))
                     Text("Red up")
