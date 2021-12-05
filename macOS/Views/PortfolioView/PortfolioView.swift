@@ -41,7 +41,12 @@ struct PortfolioView: View {
                 Button {
                     showingConfigureSheet = true
                 } label: {
-                    Label("Configure...", systemImage: "folder.badge.gearshape")
+                    if #available(macOS 12, *) {
+                        Label("Configure...", systemImage: "folder.badge.gearshape")
+                    }
+                    else {
+                        Label("Configure...", systemImage: "doc.badge.gearshape")
+                    }
                 }
             }
         }
