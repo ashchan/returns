@@ -42,7 +42,11 @@ struct WelcomeView: View {
                     .foregroundColor(.accentColor)
                 }
 
-                Text("This app is inspired by and based on the [return spreadsheet](https://www.bogleheads.org/forum/viewtopic.php?f=10&t=150025) built by Bogleheads forum member longinvest. To learn more about how it computes returns, see Bogleheads wiki page [Calculating personal returns](https://www.bogleheads.org/wiki/Calculating_personal_returns).")
+                if #available(macOS 12, *) {
+                    Text("This app is inspired by and based on the [return spreadsheet](https://www.bogleheads.org/forum/viewtopic.php?f=10&t=150025) built by Bogleheads forum member longinvest. To learn more about how it computes returns, see Bogleheads wiki page [Calculating personal returns](https://www.bogleheads.org/wiki/Calculating_personal_returns).")
+                } else {
+                    Text("This app is inspired by and based on the return spreadsheet built by Bogleheads forum member longinvest. To learn more about how it computes returns, see Bogleheads wiki page Calculating personal returns.")
+                }
 
                 Spacer()
             }
