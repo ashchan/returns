@@ -13,12 +13,14 @@ struct Sidebar: View {
     @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \Portfolio.createdAt, ascending: true)], animation: .default)
     private var portfolios: FetchedResults<Portfolio>
     @State private var showingNewPortfolioSheet = false
+    @StateObject private var deletingObject = DeletingObject()
 
     var body: some View {
         VStack {
             List {
                 ForEach(portfolios) { portfolio in
                     PortfolioRow(portfolio: portfolio, selection: $selection)
+                        .environmentObject(deletingObject)
                 }
                 .padding(.leading, 10)
             }
@@ -58,6 +60,19 @@ struct Sidebar: View {
         .onReceive(NotificationCenter.default.publisher(for: .willCreateAccountNotification, object: nil)) {_ in
             addAccount()
         }
+        .alert(item: $deletingObject.deletingInfo) { info in
+            Alert(
+                title: Text(info.title),
+                message: Text(info.message),
+                primaryButton: .default(Text("Delete")) {
+                    if info.type == .portfolio {
+                        delete(portfolio: info.portfolio!)
+                    } else {
+                        delete(account: info.account!)
+                    }
+                },
+                secondaryButton: .cancel())
+        }
         .sheet(isPresented: $showingNewPortfolioSheet) {
             ConfigurePortfolioView(config: PortfolioConfig.defaultConfig()) { config in
                 addPortfolio(config: config)
@@ -79,6 +94,18 @@ private extension Sidebar {
         }
     }
 
+    func delete(portfolio: Portfolio) {
+        viewContext.delete(portfolio)
+
+        do {
+            try viewContext.save()
+            selection = ""
+        } catch {
+            viewContext.rollback()
+            print("Failed to save, error \(error)")
+        }
+    }
+
     func addAccount() {
         guard let portfolio = selectedPortfolio else { return }
         let account = PortfolioBuilder.createAccount(context: viewContext, portfolio: portfolio)
@@ -90,7 +117,20 @@ private extension Sidebar {
             viewContext.rollback()
             print("Failed to save, error \(error)")
         }
-}
+    }
+
+    func delete(account: Account) {
+        let tag = account.portfolio!.tag
+        viewContext.delete(account)
+
+        do {
+            try viewContext.save()
+            selection = tag + "-overview"
+        } catch {
+            viewContext.rollback()
+            print("Failed to save, error \(error)")
+        }
+    }
 
     func addSamplePortfolio() {
         let portfolio = PortfolioBuilder.createSamplePortfolio(context: viewContext)

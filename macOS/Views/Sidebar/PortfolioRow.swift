@@ -9,9 +9,9 @@ import SwiftUI
 
 struct PortfolioRow: View {
     @Environment(\.managedObjectContext) private var viewContext
+    @EnvironmentObject var deletingObject: DeletingObject
     @StateObject var portfolioSettings = PortfolioSettings()
     @State private var isHeaderHovering = false
-    @State private var showingDeletePrompt = false
     @State private var showingConfigureSheet = false
 
     @ObservedObject var portfolio: Portfolio
@@ -44,15 +44,6 @@ struct PortfolioRow: View {
             ) {
                 Label("Overview", systemImage: "chart.pie")
             }
-            .alert(isPresented: $showingDeletePrompt) {
-                Alert(
-                    title: Text(portfolio.name ?? ""),
-                    message: Text("Are you sure you want to delete the portfolio?"),
-                    primaryButton: .default(Text("Delete")) {
-                        delete(portfolio: portfolio)
-                    },
-                    secondaryButton: .cancel())
-            }
             .sheet(isPresented: $showingConfigureSheet) {
                 ConfigurePortfolioView(config: portfolio.config) { config in
                     configure(portfolio: portfolio, config: config)
@@ -68,7 +59,7 @@ struct PortfolioRow: View {
                 }
                 Divider()
                 Button("Delete Portfolio...") {
-                    showingDeletePrompt = true
+                    deletingObject.deletingInfo = DeletingInfo(type: .portfolio, portfolio: portfolio, account: nil)
                 }
             }
 
@@ -92,7 +83,7 @@ struct PortfolioRow: View {
                 }
                 Divider()
                 Button("Delete Portfolio...") {
-                    showingDeletePrompt = true
+                    deletingObject.deletingInfo = DeletingInfo(type: .portfolio, portfolio: portfolio, account: nil)
                 }
             }
 
@@ -109,18 +100,6 @@ struct PortfolioRow: View {
 }
 
 private extension PortfolioRow {
-    func delete(portfolio: Portfolio) {
-        viewContext.delete(portfolio)
-
-        do {
-            try viewContext.save()
-            selection = ""
-        } catch {
-            viewContext.rollback()
-            print("Failed to save, error \(error)")
-        }
-}
-
     func addAccount(to portfolio: Portfolio) {
         let account = PortfolioBuilder.createAccount(context: viewContext, portfolio: portfolio)
 
