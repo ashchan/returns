@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct WelcomeView: View {
-    @FetchRequest(sortDescriptors: [], animation: .default)
+    @FetchRequest(sortDescriptors: [])
     private var portfolios: FetchedResults<Portfolio>
 
     var body: some View {
