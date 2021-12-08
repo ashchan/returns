@@ -11,10 +11,10 @@ import Combine
 
 struct AccountRow: View {
     @Environment(\.managedObjectContext) private var viewContext
+    @EnvironmentObject var deletingObject: DeletingObject
     @EnvironmentObject var portfolioSettings: PortfolioSettings
     @ObservedObject var portfolio: Portfolio
     @ObservedObject var account: Account
-    @State private var showingDeletePrompt = false
     @State private var showingRenameSheet = false
     @State private var showingAccountHelpPopover = false
     @Binding var selection: String?
@@ -43,15 +43,6 @@ struct AccountRow: View {
         ) {
             Label(account.name ?? "", systemImage: "tray.2")
         }
-        .alert(isPresented: $showingDeletePrompt) {
-            Alert(
-                title: Text(account.name ?? ""),
-                message: Text("Are you sure you want to delete the account?"),
-                primaryButton: .default(Text("Delete")) {
-                    delete(account: account)
-                },
-                secondaryButton: .cancel())
-        }
         .sheet(isPresented: $showingRenameSheet) {
             RenameSheet(name: account.name ?? "", label: "Account Name:") { newName in
                 rename(account: account, name: newName)
@@ -63,7 +54,7 @@ struct AccountRow: View {
             }
             Divider()
             Button("Delete...") {
-                showingDeletePrompt = true
+                deletingObject.deletingInfo = DeletingInfo(type: .account, portfolio: nil, account: account)
             }
         }
     }
@@ -75,18 +66,6 @@ extension AccountRow {
 
         do {
             try viewContext.save()
-        } catch {
-            viewContext.rollback()
-            print("Failed to save, error \(error)")
-        }
-    }
-
-    func delete(account: Account) {
-        viewContext.delete(account)
-
-        do {
-            try viewContext.save()
-            selection = portfolio.tag + "-overview"
         } catch {
             viewContext.rollback()
             print("Failed to save, error \(error)")
