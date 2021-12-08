@@ -16,6 +16,12 @@ To learn more about how it computes returns, see Bogleheads wiki page [Calculati
 * Show portfolio returns for 3 years and up to 50 years.
 * Calculate and show **growth of $10,000** chart.
 
+## Download
+
+[![download on the Mac App Store](badge-download-on-the-mac-app-store.svg)](https://apps.apple.com/app/id1593819081)
+
+Requires macOS 11 Big Sur or later.
+
 ## Usage
 
 1. Create a portfolio.
