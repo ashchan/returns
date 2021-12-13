@@ -1,0 +1,102 @@
+/* No comment provided by engineer. */
+"Add Account" = "添加账户";
+
+/* No comment provided by engineer. */
+"Annual compound return" = "复合年化收益";
+
+/* No comment provided by engineer. */
+"Calculations" = "计算";
+
+/* No comment provided by engineer. */
+"Cancel" = "取消";
+
+/* No comment provided by engineer. */
+"Configure Portfolio" = "配置组合";
+
+/* No comment provided by engineer. */
+"Configure Portfolio..." = "配置组合...";
+
+/* No comment provided by engineer. */
+"Configure..." = "配置...";
+
+/* No comment provided by engineer. */
+"Create your first portfolio" = "创建第一个投资组合";
+
+/* No comment provided by engineer. */
+"Currency:" = "货币：";
+
+/* No comment provided by engineer. */
+"Delete" = "删除";
+
+/* No comment provided by engineer. */
+"Delete Portfolio..." = "删除组合...";
+
+/* No comment provided by engineer. */
+"generate a sample portfolio" = "生成一个组合示例";
+
+/* No comment provided by engineer. */
+"Green up" = "绿涨";
+
+/* No comment provided by engineer. */
+"How to get started" = "如何开始";
+
+/* No comment provided by engineer. */
+"Investor Return" = "内部收益率";
+
+/* No comment provided by engineer. */
+"Investor return as of %@" = "至 %@ 内部收益率";
+
+/* No comment provided by engineer. */
+"Main Window" = "主窗口";
+
+/* No comment provided by engineer. */
+"Name:" = "名称：";
+
+/* No comment provided by engineer. */
+"New Account" = "新账户";
+
+/* No comment provided by engineer. */
+"New Portfolio" = "新投资组合";
+
+/* No comment provided by engineer. */
+"New Sample Portfolio" = "新投资组合示例";
+
+/* No comment provided by engineer. */
+"No Portfolio Selected" = "未选中任何投资组合";
+
+/* No comment provided by engineer. */
+"or" = "或者";
+
+/* No comment provided by engineer. */
+"Overview" = "总览";
+
+/* No comment provided by engineer. */
+"Portfolio Return" = "投资组合收益率";
+
+/* No comment provided by engineer. */
+"Portfolio return as of %@" = "至 %@ 投资组合收益率";
+
+/* No comment provided by engineer. */
+"Portfolio: %@" = "投资组合：%@";
+
+/* No comment provided by engineer. */
+"Red up" = "红涨";
+
+/* No comment provided by engineer. */
+"Save" = "保存";
+
+/* No comment provided by engineer. */
+"Show balance on Overview page" = "总览页面显示余额";
+
+/* No comment provided by engineer. */
+"Start:" = "始于：";
+
+/* No comment provided by engineer. */
+"Start: %@" = "始于：%@";
+
+/* No comment provided by engineer. */
+"System Default" = "系统默认";
+
+/* No comment provided by engineer. */
+"Ups/Downs Color:" = "涨跌颜色：";
+
