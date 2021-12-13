@@ -20,7 +20,7 @@
 "3. At the close of the last day of each month, add **total contributions**, **total withdrawals** and **account balance** to each account." = "3. 每个月最后一天，为每个账户填入 **资金投入**, **资金撤出** 和 **账户总额**。";
 
 /* No comment provided by engineer. */
-"4. Sleep well. Do not watch your portfolio. Let it perform." = "4. 安心睡觉。不要总是盯着组合。让它随时间增长。";
+"4. Sleep well. Do not watch your portfolio. Let it perform." = "4. 安心睡觉。不要总是盯着投资组合。让它随时间增长。";
 
 /* Calculations table column */
 "5 Years" = "5年";
@@ -86,10 +86,10 @@
 "Cancel" = "取消";
 
 /* No comment provided by engineer. */
-"Configure Portfolio" = "配置组合";
+"Configure Portfolio" = "配置投资组合";
 
 /* No comment provided by engineer. */
-"Configure Portfolio..." = "配置组合...";
+"Configure Portfolio..." = "配置投资组合...";
 
 /* No comment provided by engineer. */
 "Configure..." = "配置...";
@@ -104,10 +104,13 @@
 "Delete" = "删除";
 
 /* No comment provided by engineer. */
-"Delete Portfolio..." = "删除组合...";
+"Delete Portfolio..." = "删除投资组合...";
 
 /* No comment provided by engineer. */
-"generate a sample portfolio" = "生成一个组合示例";
+"Delete..." = "删除...";
+
+/* No comment provided by engineer. */
+"generate a sample portfolio" = "生成一个投资组合示例";
 
 /* No comment provided by engineer. */
 "Green up" = "绿涨";
@@ -177,6 +180,9 @@
 
 /* No comment provided by engineer. */
 "Red up" = "红涨";
+
+/* No comment provided by engineer. */
+"Rename..." = "重命名...";
 
 /* No comment provided by engineer. */
 "Save" = "保存";
