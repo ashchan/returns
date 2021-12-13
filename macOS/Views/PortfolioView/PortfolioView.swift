@@ -55,7 +55,7 @@ struct PortfolioView: View {
     private var growthChartTitle: String {
         let formatter = CurrencyFormatter()
         formatter.currency = portfolio.currency
-        return "Growth of " + formatter.outputNoFractionFormatter.string(from: 10_000)!
+        return String(format: NSLocalizedString("Growth of %@", comment: ""), formatter.outputNoFractionFormatter.string(from: 10_000)!)
     }
 }
 

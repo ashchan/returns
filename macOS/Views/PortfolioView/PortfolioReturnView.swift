@@ -17,7 +17,7 @@ struct PortfolioReturnView: View {
         if let returnObject = portfolioReturn.returns.last {
             VStack(alignment: .leading) {
                 HStack {
-                    Text("Investor return as of \(Self.dateFormatter.string(from: returnObject.closeDate))")
+                    Text(String(format: NSLocalizedString("Investor return as of %@", comment: ""), Self.dateFormatter.string(from: returnObject.closeDate)))
                         .font(.headline)
                     Button {
                         showingInvestorReturnViewPopover.toggle()
@@ -31,13 +31,13 @@ struct PortfolioReturnView: View {
                 }
 
                 returnView(
-                    label: "Since \(Self.dateFormatter.string(from: portfolioReturn.returns.first!.closeDate))",
+                    label: String(format: NSLocalizedString("Since %@", comment: ""), Self.dateFormatter.string(from: portfolioReturn.returns.first!.closeDate)),
                     value: portfolioReturn.internalReturn,
                     showColor: true
                 )
 
                 HStack {
-                    Text("Portfolio return as of \(Self.dateFormatter.string(from: returnObject.closeDate))")
+                    Text(String(format: NSLocalizedString("Portfolio return as of %@", comment: ""), Self.dateFormatter.string(from: returnObject.closeDate)))
                         .font(.headline)
 
                     Button {
@@ -52,11 +52,11 @@ struct PortfolioReturnView: View {
                 }
 
                 HStack {
-                    returnView(label: "1 Month", value: returnObject.oneMonthReturn)
-                    returnView(label: "3 Months", value: returnObject.threeMonthReturn)
-                    returnView(label: "6 Months", value: returnObject.sixMonthReturn)
-                    returnView(label: "YTD", value: returnObject.ytdReturn)
-                    returnView(label: "1 Year", value: returnObject.oneYearReturn)
+                    returnView(label: NSLocalizedString("1 Month", comment: ""), value: returnObject.oneMonthReturn)
+                    returnView(label: NSLocalizedString("3 Months", comment: ""), value: returnObject.threeMonthReturn)
+                    returnView(label: NSLocalizedString("6 Months", comment: ""), value: returnObject.sixMonthReturn)
+                    returnView(label: NSLocalizedString("YTD", comment: ""), value: returnObject.ytdReturn)
+                    returnView(label: NSLocalizedString("1 Year", comment: ""), value: returnObject.oneYearReturn)
                 }
 
                 if returnObject.threeYearReturn != nil {
@@ -64,13 +64,13 @@ struct PortfolioReturnView: View {
                         .font(.subheadline).fontWeight(.semibold)
 
                     HStack {
-                        returnView(label: "3 Years", value: returnObject.threeYearReturn)
-                        returnView(label: "5 Years", value: returnObject.fiveYearReturn)
-                        returnView(label: "10 Years", value: returnObject.tenYearReturn)
-                        returnView(label: "15 Years", value: returnObject.fifteenYearReturn)
-                        returnView(label: "20 Years", value: returnObject.twentyYearReturn)
-                        returnView(label: "30 Years", value: returnObject.thirtyYearReturn)
-                        returnView(label: "50 Years", value: returnObject.fiftyYearReturn)
+                        returnView(label: NSLocalizedString("3 Years", comment: ""), value: returnObject.threeYearReturn)
+                        returnView(label: NSLocalizedString("5 Years", comment: ""), value: returnObject.fiveYearReturn)
+                        returnView(label: NSLocalizedString("10 Years", comment: ""), value: returnObject.tenYearReturn)
+                        returnView(label: NSLocalizedString("15 Years", comment: ""), value: returnObject.fifteenYearReturn)
+                        returnView(label: NSLocalizedString("20 Years", comment: ""), value: returnObject.twentyYearReturn)
+                        returnView(label: NSLocalizedString("30 Years", comment: ""), value: returnObject.thirtyYearReturn)
+                        returnView(label: NSLocalizedString("50 Years", comment: ""), value: returnObject.fiftyYearReturn)
                     }
                 }
             }

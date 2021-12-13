@@ -102,8 +102,6 @@ extension CalculationsView {
                 return NSLocalizedString("30 Years", comment: "Calculations table column")
             case.returnFiftyYear:
                 return NSLocalizedString("50 Years", comment: "Calculations table column")
-            default:
-                return rawValue.capitalized
             }
         }
     }

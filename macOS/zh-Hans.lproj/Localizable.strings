@@ -107,13 +107,13 @@
 "Delete Portfolio..." = "删除组合...";
 
 /* No comment provided by engineer. */
-"Delete..." = "删除...";
-
-/* No comment provided by engineer. */
 "generate a sample portfolio" = "生成一个组合示例";
 
 /* No comment provided by engineer. */
 "Green up" = "绿涨";
+
+/* No comment provided by engineer. */
+"Growth of %@" = "%@ 的增长";
 
 /* No comment provided by engineer. */
 "How to get started" = "如何开始";
@@ -179,13 +179,13 @@
 "Red up" = "红涨";
 
 /* No comment provided by engineer. */
-"Rename..." = "重命名...";
-
-/* No comment provided by engineer. */
 "Save" = "保存";
 
 /* No comment provided by engineer. */
 "Show balance on Overview page" = "总览页面显示余额";
+
+/* No comment provided by engineer. */
+"Since %@" = "%@至今";
 
 /* No comment provided by engineer. */
 "Start:" = "始于：";
@@ -195,6 +195,9 @@
 
 /* No comment provided by engineer. */
 "System Default" = "系统默认";
+
+/* No comment provided by engineer. */
+"Total Assets: %@" = "总资产：%@";
 
 /* No comment provided by engineer. */
 "Ups/Downs Color:" = "涨跌颜色：";

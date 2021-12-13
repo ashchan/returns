@@ -66,7 +66,7 @@ extension OverviewChart {
         if showBalance {
             entries.append(PieChartDataEntry(
                 value: 0,
-                label: "Total Assets: \(formatter.string(from: NSNumber(value: chartData.totalBalance)) ?? "")"
+                label: String(format: NSLocalizedString("Total Assets: %@", comment: ""), formatter.string(from: NSNumber(value: chartData.totalBalance)) ?? "")
             ))
         }
         let dataSet = PieChartDataSet(entries: entries)
