@@ -1,3 +1,51 @@
+/* Calculations table column */
+"1 Month" = "近1个月";
+
+/* Calculations table column */
+"1 Year" = "近1年";
+
+/* No comment provided by engineer. */
+"1. Create a portfolio." = "1. 创建一个投资组合。";
+
+/* No comment provided by engineer. */
+"2. Add one or more accounts." = "2. 添加一个或多个账户。";
+
+/* Calculations table column */
+"3 Months" = "近3个月";
+
+/* Calculations table column */
+"3 Years" = "3年";
+
+/* No comment provided by engineer. */
+"3. At the close of the last day of each month, add **total contributions**, **total withdrawals** and **account balance** to each account." = "3. 每个月最后一天，为每个账户填入 **资金投入**, **资金撤出** 和 **账户总额**。";
+
+/* No comment provided by engineer. */
+"4. Sleep well. Do not watch your portfolio. Let it perform." = "4. 安心睡觉。不要总是盯着组合。让它随时间增长。";
+
+/* Calculations table column */
+"5 Years" = "5年";
+
+/* Calculations table column */
+"6 Months" = "近半年";
+
+/* Calculations table column */
+"10 Years" = "10年";
+
+/* Calculations table column */
+"15 Years" = "15年";
+
+/* Calculations table column */
+"20 Years" = "20年";
+
+/* Calculations table column */
+"30 Years" = "30年";
+
+/* Calculations table column */
+"50 Years" = "50年";
+
+/* No comment provided by engineer. */
+"Account Name:" = "账户名称：";
+
 /* No comment provided by engineer. */
 "Add Account" = "添加账户";
 
@@ -5,7 +53,34 @@
 "Annual compound return" = "复合年化收益";
 
 /* No comment provided by engineer. */
+"Are you sure you want to delete the account?" = "确定要删除该账户吗？";
+
+/* No comment provided by engineer. */
+"Are you sure you want to delete the portfolio?" = "确定要删除该投资组合吗？";
+
+/* No comment provided by engineer. */
 "Calculations" = "计算";
+
+/* Calculations table column */
+"CalculationsTableColumn.close" = "月末总额";
+
+/* Calculations table column */
+"CalculationsTableColumn.contirubition" = "投入";
+
+/* Calculations table column */
+"CalculationsTableColumn.flow" = "资金流";
+
+/* Calculations table column */
+"CalculationsTableColumn.growth" = "增长";
+
+/* Calculations table column */
+"CalculationsTableColumn.month" = "月份";
+
+/* Calculations table column */
+"CalculationsTableColumn.open" = "月初总额";
+
+/* Calculations table column */
+"CalculationsTableColumn.withdrawal" = "撤出";
 
 /* No comment provided by engineer. */
 "Cancel" = "取消";
@@ -30,6 +105,9 @@
 
 /* No comment provided by engineer. */
 "Delete Portfolio..." = "删除组合...";
+
+/* No comment provided by engineer. */
+"Delete..." = "删除...";
 
 /* No comment provided by engineer. */
 "generate a sample portfolio" = "生成一个组合示例";
@@ -80,7 +158,28 @@
 "Portfolio: %@" = "投资组合：%@";
 
 /* No comment provided by engineer. */
+"RecordTableColumn.balance" = "总额";
+
+/* No comment provided by engineer. */
+"RecordTableColumn.contribution" = "资金投入";
+
+/* No comment provided by engineer. */
+"RecordTableColumn.date" = "日期";
+
+/* No comment provided by engineer. */
+"RecordTableColumn.month" = "月份";
+
+/* No comment provided by engineer. */
+"RecordTableColumn.notes" = "备注";
+
+/* No comment provided by engineer. */
+"RecordTableColumn.withdrawal" = "资金撤出";
+
+/* No comment provided by engineer. */
 "Red up" = "红涨";
+
+/* No comment provided by engineer. */
+"Rename..." = "重命名...";
 
 /* No comment provided by engineer. */
 "Save" = "保存";
@@ -99,4 +198,7 @@
 
 /* No comment provided by engineer. */
 "Ups/Downs Color:" = "涨跌颜色：";
+
+/* Calculations table column */
+"YTD" = "今年";
 

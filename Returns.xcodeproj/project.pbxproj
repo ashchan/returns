@@ -95,6 +95,7 @@
 		1AC27C02274BB9B100650D0C /* ReadonlyCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadonlyCellView.swift; sourceTree = "<group>"; };
 		1AC27C04274BBCAA00650D0C /* InputCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputCellView.swift; sourceTree = "<group>"; };
 		1AD2064B2766D27E00BB0858 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		1AD2064D2766E00200BB0858 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		1AE3EC4027427EFB00156790 /* irr.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = irr.swift; sourceTree = "<group>"; };
 		1AE4A19B273F2F3B003D9F7F /* Return.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Return.swift; sourceTree = "<group>"; };
 		1AE4A19E273F3B21003D9F7F /* PortfolioReturnView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortfolioReturnView.swift; sourceTree = "<group>"; };
@@ -440,6 +441,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				1AD2064B2766D27E00BB0858 /* zh-Hans */,
+				1AD2064D2766E00200BB0858 /* en */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";

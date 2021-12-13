@@ -44,7 +44,7 @@ struct AccountRow: View {
             Label(account.name ?? "", systemImage: "tray.2")
         }
         .sheet(isPresented: $showingRenameSheet) {
-            RenameSheet(name: account.name ?? "", label: "Account Name:") { newName in
+            RenameSheet(name: account.name ?? "", label: NSLocalizedString("Account Name:", comment: "")) { newName in
                 rename(account: account, name: newName)
             }
         }

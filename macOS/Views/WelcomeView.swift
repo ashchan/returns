@@ -24,10 +24,10 @@ struct WelcomeView: View {
                 Text("How to get started")
                     .font(.headline)
 
-                BulletPointView(icon: "chart.pie", text: "1. Create a portfolio.")
-                BulletPointView(icon: "tray.2", iconColor: .purple, text: "2. Add one or more accounts.")
-                BulletPointView(icon: "calendar.badge.clock", text: "3. At the close of the last day of each month, add **total contributions**, **total withdrawals** and **account balance** to each account.")
-                BulletPointView(icon: "brain.head.profile", iconColor: .red, text: "4. Sleep well. Do not watch your portfolio. Let it perform.")
+                BulletPointView(icon: "chart.pie", text: NSLocalizedString("1. Create a portfolio.", comment: ""))
+                BulletPointView(icon: "tray.2", iconColor: .purple, text: NSLocalizedString("2. Add one or more accounts.", comment: ""))
+                BulletPointView(icon: "calendar.badge.clock", text: NSLocalizedString("3. At the close of the last day of each month, add **total contributions**, **total withdrawals** and **account balance** to each account.", comment: ""))
+                BulletPointView(icon: "brain.head.profile", iconColor: .red, text: NSLocalizedString("4. Sleep well. Do not watch your portfolio. Let it perform.", comment: ""))
 
                 HStack {
                     Button("Create your first portfolio") {

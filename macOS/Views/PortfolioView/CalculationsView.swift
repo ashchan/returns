@@ -64,30 +64,44 @@ extension CalculationsView {
 
         var description: String {
             switch self {
+            case .month:
+                return NSLocalizedString("CalculationsTableColumn.month", comment: "Calculations table column")
+            case .contribution:
+                return NSLocalizedString("CalculationsTableColumn.contirubition", comment: "Calculations table column")
+            case .withdrawal:
+                return NSLocalizedString("CalculationsTableColumn.withdrawal", comment: "Calculations table column")
+            case .open:
+                return NSLocalizedString("CalculationsTableColumn.open", comment: "Calculations table column")
+            case .flow:
+                return NSLocalizedString("CalculationsTableColumn.flow", comment: "Calculations table column")
+            case .close:
+                return NSLocalizedString("CalculationsTableColumn.close", comment: "Calculations table column")
+            case .growth:
+                return NSLocalizedString("CalculationsTableColumn.growth", comment: "Calculations table column")
             case .returnOneMonth:
-                return "1 Month"
+                return NSLocalizedString("1 Month", comment: "Calculations table column")
             case .returnThreeMonth:
-                return "3 Months"
+                return NSLocalizedString("3 Months", comment: "Calculations table column")
             case .returnSixMonth:
-                return "6 Months"
+                return NSLocalizedString("6 Months", comment: "Calculations table column")
             case .returnYtd:
-                return "YTD"
+                return NSLocalizedString("YTD", comment: "Calculations table column")
             case .returnOneYear:
-                return "1 Year"
+                return NSLocalizedString("1 Year", comment: "Calculations table column")
             case.returnThreeYear:
-                return "3 Years"
+                return NSLocalizedString("3 Years", comment: "Calculations table column")
             case.returnFiveYear:
-                return "5 Years"
+                return NSLocalizedString("5 Years", comment: "Calculations table column")
             case.returnTenYear:
-                return "10 Years"
+                return NSLocalizedString("10 Years", comment: "Calculations table column")
             case.returnFifteenYear:
-                return "15 Years"
+                return NSLocalizedString("15 Years", comment: "Calculations table column")
             case.returnTwentyYear:
-                return "20 Years"
+                return NSLocalizedString("20 Years", comment: "Calculations table column")
             case.returnThirtyYear:
-                return "30 Years"
+                return NSLocalizedString("30 Years", comment: "Calculations table column")
             case.returnFiftyYear:
-                return "50 Years"
+                return NSLocalizedString("50 Years", comment: "Calculations table column")
             default:
                 return rawValue.capitalized
             }

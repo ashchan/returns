@@ -23,7 +23,7 @@ struct AccountRecordList: NSViewControllerRepresentable {
         let controller = TableViewController()
         for columnIdentifier in RecordTableColumn.allCases {
             let column = NSTableColumn(identifier: .init(rawValue: columnIdentifier.rawValue))
-            column.headerCell.title = columnIdentifier.rawValue.capitalized
+            column.headerCell.title = columnIdentifier.title
             column.headerCell.alignment = .center
             controller.tableView.addTableColumn(column)
         }
@@ -45,6 +45,23 @@ extension AccountRecordList {
         case date
         case balance
         case notes
+
+        var title: String {
+            switch self {
+            case .month:
+                return NSLocalizedString("RecordTableColumn.month", comment: "")
+            case .contribution:
+                return NSLocalizedString("RecordTableColumn.contribution", comment: "")
+            case .withdrawal:
+                return NSLocalizedString("RecordTableColumn.withdrawal", comment: "")
+            case .date:
+                return NSLocalizedString("RecordTableColumn.date", comment: "")
+            case .balance:
+                return NSLocalizedString("RecordTableColumn.balance", comment: "")
+            case .notes:
+                return NSLocalizedString("RecordTableColumn.notes", comment: "")
+            }
+        }
     }
 
     class Coordinator: NSObject, NSTableViewDelegate, NSTableViewDataSource {
