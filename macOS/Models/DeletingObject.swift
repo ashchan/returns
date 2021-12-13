@@ -33,9 +33,9 @@ struct DeletingInfo: Identifiable {
 
     var message: String {
         if type == .portfolio {
-            return "Are you sure you want to delete the portfolio?"
+            return NSLocalizedString("Are you sure you want to delete the portfolio?", comment: "")
         } else {
-            return "Are you sure you want to delete the account?"
+            return NSLocalizedString("Are you sure you want to delete the account?", comment: "")
         }
     }
 }
