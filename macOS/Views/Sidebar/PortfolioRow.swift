@@ -38,7 +38,7 @@ struct PortfolioRow: View {
                 })
         ) {
             NavigationLink(
-                destination: PortfolioView(portfolio: portfolio, showingConfigureSheet: $showingConfigureSheet),
+                destination: PortfolioView(portfolio: portfolio, showingConfigureSheet: $showingConfigureSheet).environmentObject(portfolioSettings),
                 tag: "\(portfolio.tag)-overview",
                 selection: $selection
             ) {
