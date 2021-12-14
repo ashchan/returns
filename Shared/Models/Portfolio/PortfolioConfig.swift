@@ -46,7 +46,6 @@ extension Portfolio {
         startAt = Calendar.utc.date(from: components)!.startOfMonth
         currencyCode = config.currencyCode
 
-        // TODO: only rebuild if startAt has been changed
         sortedAccounts.forEach { $0.rebuildRecords() }
     }
 }

@@ -9,6 +9,7 @@ import SwiftUI
 import Charts
 
 struct GrowthChart: NSViewRepresentable {
+    @EnvironmentObject var portfolioSettings: PortfolioSettings
     @State var portfolio: Portfolio
 
     typealias NSViewType = LineChartView
@@ -17,7 +18,6 @@ struct GrowthChart: NSViewRepresentable {
         let view = LineChartView()
         view.leftAxis.axisMinimum = 0
         view.leftAxis.drawGridLinesEnabled = false
-        view.leftAxis.valueFormatter = ChartValueFormatter(portfolio: portfolio)
         view.xAxis.labelPosition = .bottom
         view.xAxis.drawGridLinesEnabled = false
         view.xAxis.valueFormatter = ChartDateFormatter()
@@ -31,6 +31,7 @@ struct GrowthChart: NSViewRepresentable {
     }
 
     func updateNSView(_ nsView: LineChartView, context: Context) {
+        nsView.leftAxis.valueFormatter = ChartValueFormatter(portfolio: portfolio)
         nsView.data = chartData
         if let max = nsView.data?.yMax {
             nsView.leftAxis.axisMaximum = max + 2_000
