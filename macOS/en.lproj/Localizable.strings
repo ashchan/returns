@@ -16,3 +16,23 @@
 /* No comment provided by engineer. */
 "RecordTableColumn.withdrawal" = "Withdrawal";
 
+/* Calculations table column */
+"CalculationsTableColumn.close" = "Close";
+
+/* Calculations table column */
+"CalculationsTableColumn.contirubition" = "Contribution";
+
+/* Calculations table column */
+"CalculationsTableColumn.flow" = "Flow";
+
+/* Calculations table column */
+"CalculationsTableColumn.growth" = "Growth";
+
+/* Calculations table column */
+"CalculationsTableColumn.month" = "Month";
+
+/* Calculations table column */
+"CalculationsTableColumn.open" = "Open";
+
+/* Calculations table column */
+"CalculationsTableColumn.withdrawal" = "Withdrawal";
