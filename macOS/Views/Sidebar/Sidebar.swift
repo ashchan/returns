@@ -142,7 +142,7 @@ private extension Sidebar {
             viewContext.rollback()
             print("Failed to save, error \(error)")
         }
-}
+    }
 
     var hasSelectedPortfolio: Bool {
         NavigationItem(tag: selection ?? "").isPortfolio
