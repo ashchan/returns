@@ -12,6 +12,9 @@ extension NSNotification.Name {
     static let portfolioDataUpdated = NSNotification.Name("portfolioDataUPdated")
 }
 
+class Portfolio: NSManagedObject {
+}
+
 extension Portfolio {
     var sortedAccounts: [Account] {
         let set = accounts as? Set<Account> ?? []

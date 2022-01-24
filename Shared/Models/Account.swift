@@ -6,6 +6,10 @@
 //
 
 import Foundation
+import CoreData
+
+class Account: NSManagedObject {
+}
 
 extension Account {
     // Records sorted by date, excluding those out of portfolio start...current date.

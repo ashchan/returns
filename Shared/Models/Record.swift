@@ -6,6 +6,10 @@
 //
 
 import Foundation
+import CoreData
+
+class Record: NSManagedObject {
+}
 
 extension Record {
     // Set timestamp to beginning of the month

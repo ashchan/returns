@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="19461" systemVersion="21A558" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithCloudKit="YES" userDefinedModelVersionIdentifier="">
-    <entity name="Account" representedClassName="Account" syncable="YES" codeGenerationType="class">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="19574" systemVersion="21D48" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithCloudKit="YES" userDefinedModelVersionIdentifier="">
+    <entity name="Account" representedClassName=".Account" syncable="YES" codeGenerationType="category">
         <attribute name="createdAt" attributeType="Date" defaultDateTimeInterval="657530340" usesScalarValueType="NO"/>
         <attribute name="name" attributeType="String" defaultValueString="Account #1"/>
         <relationship name="portfolio" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Portfolio" inverseName="accounts" inverseEntity="Portfolio"/>
         <relationship name="records" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Record" inverseName="account" inverseEntity="Record"/>
     </entity>
-    <entity name="Portfolio" representedClassName="Portfolio" syncable="YES" codeGenerationType="class">
+    <entity name="Portfolio" representedClassName=".Portfolio" syncable="YES" codeGenerationType="category">
         <attribute name="createdAt" attributeType="Date" defaultDateTimeInterval="657521760" usesScalarValueType="NO"/>
         <attribute name="currencyCode" optional="YES" attributeType="String"/>
         <attribute name="name" attributeType="String" defaultValueString="New Portfolio"/>
         <attribute name="startAt" attributeType="Date" defaultDateTimeInterval="658030140" usesScalarValueType="NO"/>
         <relationship name="accounts" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Account" inverseName="portfolio" inverseEntity="Account"/>
     </entity>
-    <entity name="Record" representedClassName="Record" syncable="YES" codeGenerationType="class">
+    <entity name="Record" representedClassName=".Record" syncable="YES" codeGenerationType="category">
         <attribute name="balance" optional="YES" attributeType="Decimal" defaultValueString="0.0"/>
         <attribute name="contribution" optional="YES" attributeType="Decimal" defaultValueString="0.0"/>
         <attribute name="notes" optional="YES" attributeType="String"/>
