@@ -60,6 +60,12 @@ struct Sidebar: View {
         .onReceive(NotificationCenter.default.publisher(for: .willCreateAccountNotification, object: nil)) {_ in
             addAccount()
         }
+        .onReceive(NotificationCenter.default.publisher(for: .willImportNotification, object: nil)) {_ in
+            importPortfolios()
+        }
+        .onReceive(NotificationCenter.default.publisher(for: .willExportNotification, object: nil)) {_ in
+            exportPortfolios()
+        }
         .alert(item: $deletingObject.deletingInfo) { info in
             Alert(
                 title: Text(info.title),
@@ -144,6 +150,25 @@ private extension Sidebar {
         }
     }
 
+    func importPortfolios() {
+        // TODO
+    }
+
+    func exportPortfolios() {
+        if let exportUrl = showExportDialog() {
+            do {
+                let jsonEncoder = JSONEncoder()
+                if let encoded = try? jsonEncoder.encode(portfolios.map { $0 }) {
+                    try encoded.write(to: exportUrl)
+                }
+            } catch {
+                // TODO: show error to user
+            }
+        }
+    }
+}
+
+private extension Sidebar {
     var hasSelectedPortfolio: Bool {
         NavigationItem(tag: selection ?? "").isPortfolio
     }
@@ -162,6 +187,19 @@ private extension Sidebar {
             return portfolio
         }
         return nil
+    }
+}
+
+private extension Sidebar {
+    func showExportDialog() -> URL? {
+        let savePanel = NSSavePanel()
+        savePanel.allowedFileTypes = ["json"]
+        savePanel.canCreateDirectories = true
+        savePanel.isExtensionHidden = false
+        savePanel.allowsOtherFileTypes = false
+        savePanel.title = "Export Portfolios"
+        let response = savePanel.runModal()
+        return response == .OK ? savePanel.url : nil
     }
 }
 

@@ -29,6 +29,15 @@ struct DesktopCommands: Commands {
             Button("New Sample Portfolio") {
                 NotificationCenter.default.post(name: .willCreateSamplePortfolioNotification, object: nil)
             }
+
+            Divider()
+            Button("Import...") {
+                NotificationCenter.default.post(name: .willImportNotification, object: nil)
+            }
+            .disabled(true)
+            Button("Export...") {
+                NotificationCenter.default.post(name: .willExportNotification, object: nil)
+            }
         })
 
         CommandGroup(before: .windowArrangement) {
@@ -54,4 +63,6 @@ extension Notification.Name {
     static let willCreatePortfolioNotification = Notification.Name("willCreatePortfolio")
     static let willCreateSamplePortfolioNotification = Notification.Name("willCreateSamplePortfolio")
     static let willCreateAccountNotification = Notification.Name("willCreateAccount")
+    static let willImportNotification = Notification.Name("willImport")
+    static let willExportNotification = Notification.Name("willExport")
 }
