@@ -6,6 +6,10 @@
 //
 
 import Foundation
+import CoreData
+
+class Account: NSManagedObject {
+}
 
 extension Account {
     // Records sorted by date, excluding those out of portfolio start...current date.
@@ -54,5 +58,18 @@ extension Account {
 extension Account {
     var tag: String {
         "account-" + objectID.uriRepresentation().absoluteString
+    }
+}
+
+extension Account: Encodable {
+    enum CodingKeys: CodingKey {
+        case name, createdAt, records
+    }
+
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(name, forKey: .name)
+        try container.encode(createdAt, forKey: .createdAt)
+        try container.encode(records as! Set<Record>, forKey: .records)
     }
 }

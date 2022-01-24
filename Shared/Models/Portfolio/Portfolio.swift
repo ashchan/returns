@@ -12,6 +12,9 @@ extension NSNotification.Name {
     static let portfolioDataUpdated = NSNotification.Name("portfolioDataUPdated")
 }
 
+class Portfolio: NSManagedObject {
+}
+
 extension Portfolio {
     var sortedAccounts: [Account] {
         let set = accounts as? Set<Account> ?? []
@@ -51,5 +54,20 @@ extension Portfolio {
 extension Portfolio {
     var tag: String {
         "portfolio-" + objectID.uriRepresentation().absoluteString
+    }
+}
+
+extension Portfolio: Encodable {
+    enum CodingKeys: CodingKey {
+        case name, currencyCode, startAt, createdAt, accounts
+    }
+
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(name, forKey: .name)
+        try container.encode(currencyCode, forKey: .currencyCode)
+        try container.encode(startAt, forKey: .startAt)
+        try container.encode(createdAt, forKey: .createdAt)
+        try container.encode(accounts as! Set<Account>, forKey: .accounts)
     }
 }

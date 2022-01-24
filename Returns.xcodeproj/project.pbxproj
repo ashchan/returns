@@ -94,6 +94,7 @@
 		1AC27BFE274BADA100650D0C /* LabelCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelCellView.swift; sourceTree = "<group>"; };
 		1AC27C02274BB9B100650D0C /* ReadonlyCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadonlyCellView.swift; sourceTree = "<group>"; };
 		1AC27C04274BBCAA00650D0C /* InputCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputCellView.swift; sourceTree = "<group>"; };
+		1AD189CA279E468C00751406 /* Returns.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Returns.entitlements; sourceTree = "<group>"; };
 		1AD2064B2766D27E00BB0858 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		1AD2064D2766E00200BB0858 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		1AE3EC4027427EFB00156790 /* irr.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = irr.swift; sourceTree = "<group>"; };
@@ -180,6 +181,7 @@
 				1A21929826A574610032A15D /* Views */,
 				1A60D533274F21C8007C12DD /* Commands.swift */,
 				1A21929326A56B9C0032A15D /* Info.plist */,
+				1AD189CA279E468C00751406 /* Returns.entitlements */,
 				1AD2064A2766D27E00BB0858 /* Localizable.strings */,
 				1AA90ABC2738A6E500D8A794 /* InfoPlist.strings */,
 				1AFFBC96275B14B900120278 /* Credits.rtf */,
@@ -569,6 +571,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = macOS/Returns.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
@@ -602,6 +605,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = macOS/Returns.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;

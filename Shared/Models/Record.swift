@@ -6,6 +6,10 @@
 //
 
 import Foundation
+import CoreData
+
+class Record: NSManagedObject {
+}
 
 extension Record {
     // Set timestamp to beginning of the month
@@ -43,4 +47,19 @@ extension Record {
         formatter.timeZone = .utc
         return formatter
     }()
+}
+
+extension Record: Encodable {
+    enum CodingKeys: CodingKey {
+        case timestamp, balance, contribution, withdrawal, notes
+    }
+
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(timestamp, forKey: .timestamp)
+        try container.encode((balance ?? 0).decimalValue, forKey: .balance)
+        try container.encode((contribution ?? 0).decimalValue, forKey: .contribution)
+        try container.encode((withdrawal ?? 0).decimalValue, forKey: .withdrawal)
+        try container.encode(notes, forKey: .notes)
+    }
 }
