@@ -12,7 +12,42 @@ extension NSNotification.Name {
     static let portfolioDataUpdated = NSNotification.Name("portfolioDataUPdated")
 }
 
-class Portfolio: NSManagedObject {
+extension CodingUserInfoKey {
+    static let managedObjectContext = CodingUserInfoKey(rawValue: "managedObjectContext")!
+}
+
+enum DecoderConfigurationError: Error {
+    case missingManagedObjectContext
+}
+
+class Portfolio: NSManagedObject, Codable {
+    enum CodingKeys: CodingKey {
+        case name, currencyCode, startAt, createdAt, accounts
+    }
+
+    required convenience init(from decoder: Decoder) throws {
+        guard let context = decoder.userInfo[.managedObjectContext] as? NSManagedObjectContext else {
+            throw DecoderConfigurationError.missingManagedObjectContext
+        }
+
+        self.init(context: context)
+
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        name = try container.decode(String.self, forKey: .name)
+        currencyCode = try container.decode(String.self, forKey: .currencyCode)
+        startAt = try container.decode(Date.self, forKey: .startAt)
+        createdAt = try container.decode(Date.self, forKey: .createdAt)
+        accounts = try container.decode(Set<Account>.self, forKey: .accounts) as NSSet
+    }
+
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(name, forKey: .name)
+        try container.encode(currencyCode, forKey: .currencyCode)
+        try container.encode(startAt, forKey: .startAt)
+        try container.encode(createdAt, forKey: .createdAt)
+        try container.encode(accounts as! Set<Account>, forKey: .accounts)
+    }
 }
 
 extension Portfolio {
@@ -54,20 +89,5 @@ extension Portfolio {
 extension Portfolio {
     var tag: String {
         "portfolio-" + objectID.uriRepresentation().absoluteString
-    }
-}
-
-extension Portfolio: Encodable {
-    enum CodingKeys: CodingKey {
-        case name, currencyCode, startAt, createdAt, accounts
-    }
-
-    func encode(to encoder: Encoder) throws {
-        var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encode(name, forKey: .name)
-        try container.encode(currencyCode, forKey: .currencyCode)
-        try container.encode(startAt, forKey: .startAt)
-        try container.encode(createdAt, forKey: .createdAt)
-        try container.encode(accounts as! Set<Account>, forKey: .accounts)
     }
 }

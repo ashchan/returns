@@ -34,7 +34,6 @@ struct DesktopCommands: Commands {
             Button("Import...") {
                 NotificationCenter.default.post(name: .willImportNotification, object: nil)
             }
-            .disabled(true)
             Button("Export...") {
                 NotificationCenter.default.post(name: .willExportNotification, object: nil)
             }

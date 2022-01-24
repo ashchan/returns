@@ -110,6 +110,9 @@
 "Delete..." = "删除...";
 
 /* No comment provided by engineer. */
+"Export..." = "导出...";
+
+/* No comment provided by engineer. */
 "generate a sample portfolio" = "生成一个投资组合示例";
 
 /* No comment provided by engineer. */
@@ -120,6 +123,9 @@
 
 /* No comment provided by engineer. */
 "How to get started" = "如何开始";
+
+/* No comment provided by engineer. */
+"Import..." = "导入...";
 
 /* No comment provided by engineer. */
 "Investor Return" = "内部收益率";

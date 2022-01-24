@@ -151,7 +151,21 @@ private extension Sidebar {
     }
 
     func importPortfolios() {
-        // TODO
+        guard let importUrl = showImportDialog(), let data = try? Data(contentsOf: importUrl) else {
+            return
+        }
+        let decoder = JSONDecoder()
+        decoder.userInfo[.managedObjectContext] = viewContext
+        do {
+            let imported = try decoder.decode([Portfolio].self, from: data)
+            for portfolio in imported {
+                portfolio.name = (portfolio.name ?? "") + " - imported"
+            }
+            try viewContext.save()
+        } catch {
+            print(error)
+            // TODO: show error to user
+        }
     }
 
     func exportPortfolios() {
@@ -197,9 +211,18 @@ private extension Sidebar {
         savePanel.canCreateDirectories = true
         savePanel.isExtensionHidden = false
         savePanel.allowsOtherFileTypes = false
-        savePanel.title = "Export Portfolios"
         let response = savePanel.runModal()
         return response == .OK ? savePanel.url : nil
+    }
+
+    func showImportDialog() -> URL? {
+        let openPanel = NSOpenPanel()
+        openPanel.allowedFileTypes = ["json"]
+        openPanel.allowsMultipleSelection = false
+        openPanel.canChooseDirectories = false
+        openPanel.canChooseFiles = true
+        let response = openPanel.runModal()
+        return response == .OK ? openPanel.url : nil
     }
 }
 
