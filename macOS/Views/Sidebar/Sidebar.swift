@@ -199,7 +199,6 @@ private extension Sidebar {
         savePanel.canCreateDirectories = true
         savePanel.isExtensionHidden = false
         savePanel.allowsOtherFileTypes = false
-        savePanel.title = "Export Portfolios"
         let response = savePanel.runModal()
         return response == .OK ? savePanel.url : nil
     }
