@@ -151,8 +151,20 @@ private extension Sidebar {
     }
 
     func importPortfolios() {
-        if let importUrl = showImportDialog() {
-            // TODO
+        guard let importUrl = showImportDialog(), let data = try? Data(contentsOf: importUrl) else {
+            return
+        }
+        let decoder = JSONDecoder()
+        decoder.userInfo[.managedObjectContext] = viewContext
+        do {
+            let imported = try decoder.decode([Portfolio].self, from: data)
+            for portfolio in imported {
+                portfolio.name = (portfolio.name ?? "") + " - imported"
+            }
+            try viewContext.save()
+        } catch {
+            print(error)
+            // TODO: show error to user
         }
     }
 

@@ -8,7 +8,30 @@
 import Foundation
 import CoreData
 
-class Account: NSManagedObject {
+class Account: NSManagedObject, Codable {
+    enum CodingKeys: CodingKey {
+        case name, createdAt, records
+    }
+
+    required convenience init(from decoder: Decoder) throws {
+        guard let context = decoder.userInfo[.managedObjectContext] as? NSManagedObjectContext else {
+            throw DecoderConfigurationError.missingManagedObjectContext
+        }
+
+        self.init(context: context)
+
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        name = try container.decode(String.self, forKey: .name)
+        createdAt = try container.decode(Date.self, forKey: .createdAt)
+        records = try container.decode(Set<Record>.self, forKey: .records) as NSSet
+    }
+
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(name, forKey: .name)
+        try container.encode(createdAt, forKey: .createdAt)
+        try container.encode(records as! Set<Record>, forKey: .records)
+    }
 }
 
 extension Account {
@@ -58,18 +81,5 @@ extension Account {
 extension Account {
     var tag: String {
         "account-" + objectID.uriRepresentation().absoluteString
-    }
-}
-
-extension Account: Encodable {
-    enum CodingKeys: CodingKey {
-        case name, createdAt, records
-    }
-
-    func encode(to encoder: Encoder) throws {
-        var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encode(name, forKey: .name)
-        try container.encode(createdAt, forKey: .createdAt)
-        try container.encode(records as! Set<Record>, forKey: .records)
     }
 }
