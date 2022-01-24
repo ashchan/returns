@@ -151,7 +151,9 @@ private extension Sidebar {
     }
 
     func importPortfolios() {
-        // TODO
+        if let importUrl = showImportDialog() {
+            // TODO
+        }
     }
 
     func exportPortfolios() {
@@ -200,6 +202,16 @@ private extension Sidebar {
         savePanel.title = "Export Portfolios"
         let response = savePanel.runModal()
         return response == .OK ? savePanel.url : nil
+    }
+
+    func showImportDialog() -> URL? {
+        let openPanel = NSOpenPanel()
+        openPanel.allowedFileTypes = ["json"]
+        openPanel.allowsMultipleSelection = false
+        openPanel.canChooseDirectories = false
+        openPanel.canChooseFiles = true
+        let response = openPanel.runModal()
+        return response == .OK ? openPanel.url : nil
     }
 }
 
