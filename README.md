@@ -15,6 +15,7 @@ To learn more about how it computes returns, see Bogleheads wiki page [Calculati
 * Show portfolio returns for 1 month, 3 months, 6 months, year-to-date (YTD) and 1 year.
 * Show portfolio returns for 3 years and up to 50 years.
 * Calculate and show **growth of $10,000** chart.
+* Import and export portfolios as JSON.
 
 ## Download
 
