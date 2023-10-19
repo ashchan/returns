@@ -38,13 +38,13 @@
 		1AA75737273B4BF8002ABCD6 /* ChartData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AA75735273B4BF8002ABCD6 /* ChartData.swift */; };
 		1AA90ABD2738A6E500D8A794 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1AA90ABC2738A6E500D8A794 /* InfoPlist.strings */; };
 		1AA90AC02738B98900D8A794 /* PortfolioConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AA90ABE2738B98900D8A794 /* PortfolioConfig.swift */; };
-		1AB19620273B87530010B8E2 /* Charts in Frameworks */ = {isa = PBXBuildFile; productRef = 1AB1961F273B87530010B8E2 /* Charts */; };
 		1AB19622273B8A550010B8E2 /* OverviewChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AB19621273B8A550010B8E2 /* OverviewChart.swift */; };
 		1ABDFD652735240B00959FA8 /* ConfigurePortfolioView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ABDFD642735240B00959FA8 /* ConfigurePortfolioView.swift */; };
 		1AC27BFF274BADA100650D0C /* LabelCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AC27BFE274BADA100650D0C /* LabelCellView.swift */; };
 		1AC27C03274BB9B100650D0C /* ReadonlyCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AC27C02274BB9B100650D0C /* ReadonlyCellView.swift */; };
 		1AC27C05274BBCAA00650D0C /* InputCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AC27C04274BBCAA00650D0C /* InputCellView.swift */; };
 		1AD2064C2766D27E00BB0858 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1AD2064A2766D27E00BB0858 /* Localizable.strings */; };
+		1AD6EE8C2AE0D85D00F2D7DC /* DGCharts in Frameworks */ = {isa = PBXBuildFile; productRef = 1AD6EE8B2AE0D85D00F2D7DC /* DGCharts */; };
 		1AE3EC4227427EFB00156790 /* irr.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AE3EC4027427EFB00156790 /* irr.swift */; };
 		1AE4A19D273F2F3B003D9F7F /* Return.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AE4A19B273F2F3B003D9F7F /* Return.swift */; };
 		1AE4A19F273F3B21003D9F7F /* PortfolioReturnView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AE4A19E273F3B21003D9F7F /* PortfolioReturnView.swift */; };
@@ -114,7 +114,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1A6AD1BD273683FB004FA67B /* Money in Frameworks */,
-				1AB19620273B87530010B8E2 /* Charts in Frameworks */,
+				1AD6EE8C2AE0D85D00F2D7DC /* DGCharts in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -329,7 +329,7 @@
 			name = "Returns (macOS)";
 			packageProductDependencies = (
 				1A6AD1BC273683FB004FA67B /* Money */,
-				1AB1961F273B87530010B8E2 /* Charts */,
+				1AD6EE8B2AE0D85D00F2D7DC /* DGCharts */,
 			);
 			productName = "Returns (macOS)";
 			productReference = 1A21928026A565F60032A15D /* Returns.app */;
@@ -671,7 +671,7 @@
 			repositoryURL = "https://github.com/danielgindi/Charts";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 4.0.0;
+				minimumVersion = 5.0.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
@@ -682,10 +682,10 @@
 			package = 1A6AD1BB273683FB004FA67B /* XCRemoteSwiftPackageReference "Money" */;
 			productName = Money;
 		};
-		1AB1961F273B87530010B8E2 /* Charts */ = {
+		1AD6EE8B2AE0D85D00F2D7DC /* DGCharts */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 1AB1961E273B87530010B8E2 /* XCRemoteSwiftPackageReference "Charts" */;
-			productName = Charts;
+			productName = DGCharts;
 		};
 /* End XCSwiftPackageProductDependency section */
 

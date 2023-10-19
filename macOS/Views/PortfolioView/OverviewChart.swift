@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-import Charts
+import DGCharts
 
 struct OverviewChart: NSViewRepresentable {
     @AppStorage("showBalanceOnPortfolioOverview") var showBalance = true

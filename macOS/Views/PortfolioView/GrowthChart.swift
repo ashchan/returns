@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-import Charts
+import DGCharts
 
 struct GrowthChart: NSViewRepresentable {
     @EnvironmentObject var portfolioSettings: PortfolioSettings

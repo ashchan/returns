@@ -7,7 +7,7 @@
 
 import SwiftUI
 import AppKit
-import Charts
+import DGCharts
 
 struct CalculationsView: NSViewControllerRepresentable {
     typealias NSViewControllerType = TableViewController
