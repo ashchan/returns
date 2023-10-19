@@ -15,7 +15,7 @@ final class CurrencySymbol {
             ETH.code: [ETH.symbol],
             LTC.code: [LTC.symbol]
         ]
-        let currencyCodes = Set(Locale.commonISOCurrencyCodes)
+        let currencyCodes = Set(NSLocale.commonISOCurrencyCodes)
 
         for locale in Locale.availableIdentifiers.map(Locale.init(identifier:)) {
             guard let currencyCode = locale.currencyCode, let currencySymbol = locale.currencySymbol else {
