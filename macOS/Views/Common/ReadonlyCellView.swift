@@ -27,23 +27,12 @@ class ReadonlyCellView: NSView {
     }
 
     func createView() {
-        let contentView = ContentView()
-        addSubview(contentView)
-
-        contentView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            contentView.topAnchor.constraint(equalTo: topAnchor),
-            contentView.bottomAnchor.constraint(equalTo: bottomAnchor),
-            contentView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            contentView.trailingAnchor.constraint(equalTo: trailingAnchor)
-        ])
-
-        contentView.addSubview(label)
+        addSubview(label)
         label.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            label.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
-            label.widthAnchor.constraint(equalTo: contentView.widthAnchor, constant: -8),
-            label.centerYAnchor.constraint(equalTo: contentView.centerYAnchor)
+            label.centerXAnchor.constraint(equalTo: centerXAnchor),
+            label.widthAnchor.constraint(equalTo: widthAnchor, constant: -8),
+            label.centerYAnchor.constraint(equalTo: centerYAnchor)
         ])
 
         label.isEditable = false
@@ -54,16 +43,8 @@ class ReadonlyCellView: NSView {
         label.lineBreakMode = .byTruncatingTail
         label.font = NSFont(name: "Arial", size: 13)
         label.alignment = .center
-    }
-}
 
-extension ReadonlyCellView {
-    class ContentView: NSView {
-        override func draw(_ dirtyRect: NSRect) {
-            super.draw(dirtyRect)
-
-            NSColor(Color("readonlyCellColor")).setFill()
-            dirtyRect.fill()
-        }
+        wantsLayer = true
+        layer?.backgroundColor = NSColor(Color("readonlyCellColor")).cgColor
     }
 }
