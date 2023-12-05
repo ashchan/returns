@@ -7,8 +7,8 @@
 
 import AppKit
 
-class InputCellView: NSView {
-    let textField = TextField()
+class InputCellView: NSTableCellView {
+    let inputField = TextField()
     var onSubmit: (String) -> Void = { _ in }
     var onValidate: (String) -> String = { v in return v }
     var onEnterKey: () -> Void = {}
@@ -24,24 +24,24 @@ class InputCellView: NSView {
     }
 
     func createView() {
-        addSubview(textField)
+        addSubview(inputField)
 
-        textField.delegate = self
+        inputField.delegate = self
 
-        textField.translatesAutoresizingMaskIntoConstraints = false
+        inputField.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            textField.centerXAnchor.constraint(equalTo: centerXAnchor),
-            textField.widthAnchor.constraint(equalTo: widthAnchor, constant: -8),
-            textField.centerYAnchor.constraint(equalTo: centerYAnchor)
+            inputField.centerXAnchor.constraint(equalTo: centerXAnchor),
+            inputField.widthAnchor.constraint(equalTo: widthAnchor, constant: -8),
+            inputField.centerYAnchor.constraint(equalTo: centerYAnchor)
         ])
     }
 }
 
 extension InputCellView: NSTextFieldDelegate {
     func control(_ control: NSControl, textShouldEndEditing fieldEditor: NSText) -> Bool {
-        let newValue = onValidate(textField.stringValue)
-        if newValue != textField.stringValue {
-            textField.stringValue = newValue
+        let newValue = onValidate(inputField.stringValue)
+        if newValue != inputField.stringValue {
+            inputField.stringValue = newValue
         }
         onSubmit(newValue)
         return true

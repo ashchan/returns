@@ -165,7 +165,7 @@ extension AccountRecordList {
         private func configCell(cell: NSView?, record: Record, columnId: RecordTableColumn, row: Int, tableView: NSTableView) {
             if [.contribution, .withdrawal, .balance].contains(columnId) {
                 let input = cell as! InputCellView
-                input.textField.alignment = .right
+                input.inputField.alignment = .right
 
                 let inputFormatter = parent.portfolioSettings.currencyFormatter.inputFormatter
                 let outputFormatter = parent.portfolioSettings.currencyFormatter.outputFormatter
@@ -177,7 +177,7 @@ extension AccountRecordList {
                 }
 
                 let oldValue = outputFormatter.string(from: balance(for: columnId, of: record))!
-                input.textField.stringValue = oldValue
+                input.inputField.stringValue = oldValue
                 input.onValidate = { newValue in
                     if let balance = inputFormatter.number(from: trim(newValue)) as? NSDecimalNumber {
                         return outputFormatter.string(from: balance)!
@@ -203,7 +203,7 @@ extension AccountRecordList {
                 view.title = record.closeDateString
             } else if columnId == .notes {
                 let input = cell as! InputCellView
-                input.textField.stringValue = record.notes ?? ""
+                input.inputField.stringValue = record.notes ?? ""
                 input.onSubmit = { [weak self] newValue in
                     self?.update(notes: newValue, record: record)
                 }
@@ -233,7 +233,7 @@ extension AccountRecordList {
             let columnIndex = tableView.column(withIdentifier: NSUserInterfaceItemIdentifier(column.rawValue))
             if let cell = tableView.view(atColumn: columnIndex, row: row + 1, makeIfNecessary: false) as? InputCellView {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.02) {
-                    _ = cell.textField.becomeFirstResponder()
+                    _ = cell.inputField.becomeFirstResponder()
                 }
             }
         }

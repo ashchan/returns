@@ -6,9 +6,8 @@
 //
 
 import AppKit
-import SwiftUI
 
-class LabelCellView: NSView {
+class LabelCellView: NSTableCellView {
     let label = NSTextField()
 
     override init(frame frameRect: NSRect) {

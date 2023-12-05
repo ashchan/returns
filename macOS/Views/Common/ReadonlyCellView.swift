@@ -8,7 +8,7 @@
 import AppKit
 import SwiftUI
 
-class ReadonlyCellView: NSView {
+class ReadonlyCellView: NSTableCellView {
     private let label = NSTextField()
 
     var title: String = "" {
