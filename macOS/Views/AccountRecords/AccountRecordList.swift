@@ -95,6 +95,13 @@ extension AccountRecordList {
             26
         }
 
+        func tableViewColumnDidResize(_ notification: Notification) {
+            guard let column = notification.userInfo?["NSTableColumn"] as? NSTableColumn else {
+                return
+            }
+            column.tableView?.reloadData()
+        }
+
         // MARK: - NSTableViewDataSource
         func numberOfRows(in tableView: NSTableView) -> Int {
             records.count
