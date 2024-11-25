@@ -80,6 +80,7 @@ extension Portfolio {
 
     static let monthFormatter: DateFormatter = {
         let formatter = DateFormatter()
+        formatter.calendar = Calendar(identifier: .gregorian)
         formatter.dateFormat = "MMMM yyyy"
         formatter.timeZone = .utc
         return formatter

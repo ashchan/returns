@@ -118,6 +118,7 @@ private extension PortfolioReturnView {
 
     static var dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
+        formatter.calendar = Calendar(identifier: .gregorian)
         formatter.dateFormat = "MM/dd/yyyy"
         formatter.timeZone = .utc
         return formatter

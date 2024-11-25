@@ -21,7 +21,7 @@ struct PortfolioConfig {
     }
 
     static var currentYear: Int {
-        Calendar.current.dateComponents([.year], from: Date()).year!
+        Calendar(identifier: .gregorian).dateComponents([.year], from: Date()).year!
     }
 
     static var defaultYear: Int {
