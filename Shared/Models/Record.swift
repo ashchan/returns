@@ -63,6 +63,7 @@ extension Record {
 
     static let monthFormatter: DateFormatter = {
         let formatter = DateFormatter()
+        formatter.calendar = Calendar(identifier: .gregorian)
         formatter.dateFormat = "MMMM yyyy"
         formatter.timeZone = .utc
         return formatter
@@ -70,6 +71,7 @@ extension Record {
 
     static let closeDateFormatter: DateFormatter = {
         let formatter = DateFormatter()
+        formatter.calendar = Calendar(identifier: .gregorian)
         formatter.dateFormat = "MM/dd/yyyy"
         formatter.timeZone = .utc
         return formatter

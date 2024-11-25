@@ -48,6 +48,7 @@ extension GrowthChart {
 
         static var formatter: DateFormatter = {
             let formatter = DateFormatter()
+            formatter.calendar = Calendar(identifier: .gregorian)
             formatter.dateFormat = "MM/yyyy"
             formatter.timeZone = .utc
             return formatter
