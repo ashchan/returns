@@ -64,6 +64,7 @@ extension AccountRecordList {
         }
     }
 
+    @MainActor
     class Coordinator: NSObject, NSTableViewDelegate, NSTableViewDataSource {
         var parent: AccountRecordList
         private var records = [Record]()

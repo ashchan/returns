@@ -5,7 +5,7 @@
 //  Created by James Chen on 2021/07/20.
 //
 
-import SwiftUI
+@preconcurrency import SwiftUI
 
 struct Sidebar: View {
     @AppStorage(NavigationItem.appStorageKeyLastItem) var selection: String?

@@ -9,7 +9,7 @@ import Foundation
 
 final class CurrencySymbol {
     // code: symbols
-    private static var cached: [String: [String]] = {
+    private static let cached: [String: [String]] = {
         var cache: [String: [String]] = [
             BTC.code: [BTC.symbol],
             ETH.code: [ETH.symbol],

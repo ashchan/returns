@@ -106,6 +106,7 @@ extension CalculationsView {
         }
     }
 
+    @MainActor
     class Coordinator: NSObject, NSTableViewDelegate, NSTableViewDataSource {
         var parent: CalculationsView
         private var returns = [Return]()

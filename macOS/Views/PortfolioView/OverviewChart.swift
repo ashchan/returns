@@ -38,7 +38,7 @@ extension OverviewChart {
             Self.formatter.string(from: NSNumber(value: value)) ?? value.description
         }
 
-        static var formatter: NumberFormatter = {
+        static let formatter: NumberFormatter = {
             let formatter = NumberFormatter()
             formatter.numberStyle = .percent
             formatter.maximumFractionDigits = 1

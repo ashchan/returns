@@ -46,7 +46,7 @@ extension GrowthChart {
             return Self.formatter.string(from: date)
         }
 
-        static var formatter: DateFormatter = {
+        static let formatter: DateFormatter = {
             let formatter = DateFormatter()
             formatter.calendar = Calendar(identifier: .gregorian)
             formatter.dateFormat = "MM/yyyy"
