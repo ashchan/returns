@@ -12,7 +12,7 @@ extension TimeZone {
 }
 
 extension Calendar {
-    static var utc: Calendar = {
+    static let utc: Calendar = {
         var calendar = Calendar(identifier: .gregorian)
         calendar.timeZone = .utc
         return calendar

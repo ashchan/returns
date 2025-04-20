@@ -50,11 +50,11 @@ extension Currency {
         return nil
     }
 
-    static var allCurrencies: [Currency] = {
+    static let allCurrencies: [Currency] = {
         popularCurrencies + cryptocurrencies + otherCurrencies
     }()
 
-    static var popularCurrencies: [Currency] = {
+    static let popularCurrencies: [Currency] = {
         let popular = [
             Currency(type: USD.self),
             Currency(type: EUR.self),
@@ -67,7 +67,7 @@ extension Currency {
         return popular
     }()
 
-    static var cryptocurrencies: [Currency] = {
+    static let cryptocurrencies: [Currency] = {
         let crypto = [
             Currency(type: BTC.self),
             Currency(type: ETH.self),
@@ -76,7 +76,7 @@ extension Currency {
         return crypto
     }()
 
-    static var otherCurrencies: [Currency] = {
+    static let otherCurrencies: [Currency] = {
         let others = [
             Currency(type: AED.self),
             Currency(type: AFN.self),
