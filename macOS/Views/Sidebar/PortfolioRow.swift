@@ -13,6 +13,7 @@ struct PortfolioRow: View {
     @StateObject var portfolioSettings = PortfolioSettings()
     @State private var isHeaderHovering = false
     @State private var showingConfigureSheet = false
+    @State private var isExpanded = true
 
     @ObservedObject var portfolio: Portfolio
     @Binding var selection: String?
@@ -30,68 +31,78 @@ struct PortfolioRow: View {
                             .font(.system(size: 14))
                     }
                     .buttonStyle(.plain)
+
+                    Button {
+                        isExpanded.toggle()
+                    } label: {
+                        Image(systemName: isExpanded ? "chevron.down" : "chevron.right")
+                            .font(.system(size: 12))
+                    }
+                    .buttonStyle(.plain)
                 }
             }
-                .padding(.bottom, 2)
-                .onHover(perform: { isHovering in
-                    isHeaderHovering = isHovering
-                })
+            .padding(.bottom, 2)
+            .onHover(perform: { isHovering in
+                isHeaderHovering = isHovering
+            })
         ) {
-            NavigationLink(
-                destination: PortfolioView(portfolio: portfolio, showingConfigureSheet: $showingConfigureSheet).environmentObject(portfolioSettings),
-                tag: "\(portfolio.tag)-overview",
-                selection: $selection
-            ) {
-                Label("Overview", systemImage: "chart.pie")
-            }
-            .sheet(isPresented: $showingConfigureSheet) {
-                ConfigurePortfolioView(config: portfolio.config) { config in
-                    configure(portfolio: portfolio, config: config)
+            if isExpanded {
+                NavigationLink(
+                    destination: PortfolioView(portfolio: portfolio, showingConfigureSheet: $showingConfigureSheet).environmentObject(portfolioSettings),
+                    tag: "\(portfolio.tag)-overview",
+                    selection: $selection
+                ) {
+                    Label("Overview", systemImage: "chart.pie")
                 }
-            }
-            .contextMenu {
-                Button("Configure Portfolio...") {
-                    showingConfigureSheet = true
+                .sheet(isPresented: $showingConfigureSheet) {
+                    ConfigurePortfolioView(config: portfolio.config) { config in
+                        configure(portfolio: portfolio, config: config)
+                    }
                 }
-                Divider()
-                Button("Add Account") {
-                    addAccount(to: portfolio)
+                .contextMenu {
+                    Button("Configure Portfolio...") {
+                        showingConfigureSheet = true
+                    }
+                    Divider()
+                    Button("Add Account") {
+                        addAccount(to: portfolio)
+                    }
+                    Divider()
+                    Button("Delete Portfolio...") {
+                        deletingObject.deletingInfo = DeletingInfo(type: .portfolio, portfolio: portfolio, account: nil)
+                    }
                 }
-                Divider()
-                Button("Delete Portfolio...") {
-                    deletingObject.deletingInfo = DeletingInfo(type: .portfolio, portfolio: portfolio, account: nil)
-                }
-            }
 
-            NavigationLink(
-                destination: CalculationsView(portfolio: portfolio)
-                    .navigationTitle("Calculations")
-                    .navigationSubtitle("Portfolio: \(portfolio.name ?? "")")
-                    .environmentObject(portfolioSettings),
-                tag: "\(portfolio.tag)-calculations",
-                selection: $selection
-            ) {
-                Label("Calculations", systemImage: "calendar.badge.clock")
-            }
-            .contextMenu {
-                Button("Configure Portfolio...") {
-                    showingConfigureSheet = true
+                NavigationLink(
+                    destination: CalculationsView(portfolio: portfolio)
+                        .navigationTitle("Calculations")
+                        .navigationSubtitle("Portfolio: \(portfolio.name ?? "")")
+                        .environmentObject(portfolioSettings),
+                    tag: "\(portfolio.tag)-calculations",
+                    selection: $selection
+                ) {
+                    Label("Calculations", systemImage: "calendar.badge.clock")
                 }
-                Divider()
-                Button("Add Account") {
-                    addAccount(to: portfolio)
+                .contextMenu {
+                    Button("Configure Portfolio...") {
+                        showingConfigureSheet = true
+                    }
+                    Divider()
+                    Button("Add Account") {
+                        addAccount(to: portfolio)
+                    }
+                    Divider()
+                    Button("Delete Portfolio...") {
+                        deletingObject.deletingInfo = DeletingInfo(type: .portfolio, portfolio: portfolio, account: nil)
+                    }
                 }
-                Divider()
-                Button("Delete Portfolio...") {
-                    deletingObject.deletingInfo = DeletingInfo(type: .portfolio, portfolio: portfolio, account: nil)
-                }
-            }
 
-            ForEach(portfolio.sortedAccounts) { account in
-                AccountRow(portfolio: portfolio, account: account, selection: $selection)
-                    .environmentObject(portfolioSettings)
+                ForEach(portfolio.sortedAccounts) { account in
+                    AccountRow(portfolio: portfolio, account: account, selection: $selection)
+                        .environmentObject(portfolioSettings)
+                }
+                .listItemTint(.purple)
             }
-            .listItemTint(.purple)
         }
         .onAppear {
             portfolioSettings.portfolio = portfolio
