@@ -18,7 +18,7 @@ final class CurrencySymbol {
         let currencyCodes = Set(NSLocale.commonISOCurrencyCodes)
 
         for locale in Locale.availableIdentifiers.map(Locale.init(identifier:)) {
-            guard let currencyCode = locale.currencyCode, let currencySymbol = locale.currencySymbol else {
+            guard let currencyCode = locale.currency?.identifier, let currencySymbol = locale.currencySymbol else {
                 continue
             }
             if currencyCodes.contains(currencyCode) {
