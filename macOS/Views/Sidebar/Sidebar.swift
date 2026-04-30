@@ -207,6 +207,9 @@ private extension Sidebar {
 private extension Sidebar {
     func showExportDialog() -> URL? {
         let savePanel = NSSavePanel()
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        savePanel.nameFieldStringValue = "\(dateFormatter.string(from: Date())).json"
         savePanel.allowedFileTypes = ["json"]
         savePanel.canCreateDirectories = true
         savePanel.isExtensionHidden = false
