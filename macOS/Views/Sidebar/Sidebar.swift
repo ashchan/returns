@@ -47,6 +47,8 @@ struct Sidebar: View {
                 }
                 .padding(EdgeInsets(top: 2, leading: 10, bottom: 2, trailing: 0))
                 .frame(width: 30, height: 30, alignment: .center)
+                .menuStyle(.button)
+                .buttonStyle(.borderless)
                 .menuIndicator(.hidden)
 
                 Spacer()
