@@ -8,7 +8,7 @@
 import Foundation
 import Money
 
-struct Currency {
+struct Currency : @unchecked Sendable {
     let type: CurrencyType.Type
 
     var code: String { type.code }

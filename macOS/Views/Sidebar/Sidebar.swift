@@ -6,6 +6,7 @@
 //
 
 @preconcurrency import SwiftUI
+import UniformTypeIdentifiers
 
 struct Sidebar: View {
     @AppStorage(NavigationItem.appStorageKeyLastItem) var selection: String?
@@ -46,7 +47,7 @@ struct Sidebar: View {
                 }
                 .padding(EdgeInsets(top: 2, leading: 10, bottom: 2, trailing: 0))
                 .frame(width: 30, height: 30, alignment: .center)
-                .menuStyle(BorderlessButtonMenuStyle(showsMenuIndicator: false))
+                .menuIndicator(.hidden)
 
                 Spacer()
             }
@@ -210,7 +211,7 @@ private extension Sidebar {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
         savePanel.nameFieldStringValue = "\(dateFormatter.string(from: Date())).json"
-        savePanel.allowedFileTypes = ["json"]
+        savePanel.allowedContentTypes = [UTType.json]
         savePanel.canCreateDirectories = true
         savePanel.isExtensionHidden = false
         savePanel.allowsOtherFileTypes = false
@@ -220,7 +221,7 @@ private extension Sidebar {
 
     func showImportDialog() -> URL? {
         let openPanel = NSOpenPanel()
-        openPanel.allowedFileTypes = ["json"]
+        openPanel.allowedContentTypes = [UTType.json]
         openPanel.allowsMultipleSelection = false
         openPanel.canChooseDirectories = false
         openPanel.canChooseFiles = true
