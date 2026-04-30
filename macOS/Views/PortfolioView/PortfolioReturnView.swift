@@ -143,8 +143,14 @@ struct ReturnGroupBoxStyle: GroupBoxStyle {
         }
         .padding(.vertical, 10)
         .padding(.horizontal, 20)
-        .background(Color(NSColor.windowBackgroundColor))
-        .clipShape(RoundedRectangle(cornerRadius: 8, style: .continuous))
+        .background(
+            RoundedRectangle(cornerRadius: 8, style: .continuous)
+                .fill(Color(nsColor: .controlBackgroundColor))
+        )
+        .overlay(
+            RoundedRectangle(cornerRadius: 8, style: .continuous)
+                .stroke(Color.primary.opacity(0.08), lineWidth: 1)
+        )
     }
 }
 
@@ -191,3 +197,4 @@ struct PortfolioReturnView_Previews: PreviewProvider {
         return portfolio
     }
 }
+
