@@ -8,12 +8,12 @@
 import Foundation
 import CoreData
 
-class Record: NSManagedObject, Codable {
+public class Record: NSManagedObject, Codable {
     enum CodingKeys: CodingKey {
         case timestamp, balance, contribution, withdrawal, notes
     }
 
-    required convenience init(from decoder: Decoder) throws {
+    public required convenience init(from decoder: Decoder) throws {
         guard let context = decoder.userInfo[.managedObjectContext] as? NSManagedObjectContext else {
             throw DecoderConfigurationError.missingManagedObjectContext
         }
@@ -28,7 +28,7 @@ class Record: NSManagedObject, Codable {
         notes = try container.decode(String?.self, forKey: .notes)
     }
 
-    func encode(to encoder: Encoder) throws {
+    public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(timestamp, forKey: .timestamp)
         try container.encode((balance ?? 0).decimalValue, forKey: .balance)

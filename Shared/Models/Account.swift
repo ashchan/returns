@@ -8,12 +8,12 @@
 import Foundation
 import CoreData
 
-class Account: NSManagedObject, Codable {
+public class Account: NSManagedObject, Codable {
     enum CodingKeys: CodingKey {
         case name, createdAt, records
     }
 
-    required convenience init(from decoder: Decoder) throws {
+    public required convenience init(from decoder: Decoder) throws {
         guard let context = decoder.userInfo[.managedObjectContext] as? NSManagedObjectContext else {
             throw DecoderConfigurationError.missingManagedObjectContext
         }
@@ -26,7 +26,7 @@ class Account: NSManagedObject, Codable {
         records = try container.decode(Set<Record>.self, forKey: .records) as NSSet
     }
 
-    func encode(to encoder: Encoder) throws {
+    public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(name, forKey: .name)
         try container.encode(createdAt, forKey: .createdAt)

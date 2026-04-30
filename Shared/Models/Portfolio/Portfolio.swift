@@ -20,12 +20,12 @@ enum DecoderConfigurationError: Error {
     case missingManagedObjectContext
 }
 
-class Portfolio: NSManagedObject, Codable {
+public class Portfolio: NSManagedObject, Codable {
     enum CodingKeys: CodingKey {
         case name, currencyCode, startAt, createdAt, accounts
     }
 
-    required convenience init(from decoder: Decoder) throws {
+    public required convenience init(from decoder: Decoder) throws {
         guard let context = decoder.userInfo[.managedObjectContext] as? NSManagedObjectContext else {
             throw DecoderConfigurationError.missingManagedObjectContext
         }
@@ -40,7 +40,7 @@ class Portfolio: NSManagedObject, Codable {
         accounts = try container.decode(Set<Account>.self, forKey: .accounts) as NSSet
     }
 
-    func encode(to encoder: Encoder) throws {
+    public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(name, forKey: .name)
         try container.encode(currencyCode, forKey: .currencyCode)
