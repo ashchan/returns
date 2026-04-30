@@ -16,6 +16,10 @@ struct NavigationItem {
         return tag.starts(with: "account-") || tag.starts(with: "portfolio-")
     }
 
+    var isCalculations: Bool {
+        tag.hasSuffix("-calculations")
+    }
+
     var accountUri: URL? {
         guard tag.starts(with: "account-") else { return nil }
         return URL(string: tag.replacingOccurrences(of: "account-", with: ""))

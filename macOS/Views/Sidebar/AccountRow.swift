@@ -12,35 +12,12 @@ import Combine
 struct AccountRow: View {
     @Environment(\.managedObjectContext) private var viewContext
     @EnvironmentObject var deletingObject: DeletingObject
-    @EnvironmentObject var portfolioSettings: PortfolioSettings
     @ObservedObject var portfolio: Portfolio
     @ObservedObject var account: Account
     @State private var showingRenameSheet = false
-    @State private var showingAccountHelpPopover = false
-    @Binding var selection: String?
 
     var body: some View {
-        NavigationLink(
-            destination: AccountRecordList(account: account)
-                .navigationTitle(account.name ?? "")
-                .navigationSubtitle("Portfolio: \(portfolio.name ?? "")")
-                .toolbar {
-                    ToolbarItemGroup {
-                        Button {
-                            showingAccountHelpPopover.toggle()
-                        } label: {
-                            Label("Configure...", systemImage: "questionmark.circle")
-                        }
-                        .popover(isPresented: $showingAccountHelpPopover, arrowEdge: .bottom) {
-                            AccountHelpPopover()
-                        }
-                    }
-                }
-                .environmentObject(portfolioSettings),
-
-            tag: account.tag,
-            selection: $selection
-        ) {
+        NavigationLink(value: account.tag) {
             Label(account.name ?? "", systemImage: "tray.2")
         }
         .sheet(isPresented: $showingRenameSheet) {
@@ -95,7 +72,7 @@ struct AccountHelpPopover: View {
 
 struct AccountRow_Previews: PreviewProvider {
     static var previews: some View {
-        AccountRow(portfolio: testAccount.portfolio!, account: testAccount, selection: .constant(""))
+        AccountRow(portfolio: testAccount.portfolio!, account: testAccount)
             .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
     }
 

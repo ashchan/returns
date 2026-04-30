@@ -9,7 +9,7 @@
 import UniformTypeIdentifiers
 
 struct Sidebar: View {
-    @AppStorage(NavigationItem.appStorageKeyLastItem) var selection: String?
+    @Binding var selection: String?
     @Environment(\.managedObjectContext) private var viewContext
     @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \Portfolio.createdAt, ascending: true)], animation: .default)
     private var portfolios: FetchedResults<Portfolio>
@@ -18,7 +18,7 @@ struct Sidebar: View {
 
     var body: some View {
         VStack {
-            List {
+            List(selection: $selection) {
                 ForEach(portfolios) { portfolio in
                     PortfolioRow(portfolio: portfolio, selection: $selection)
                         .environmentObject(deletingObject)
@@ -234,7 +234,7 @@ private extension Sidebar {
 
 struct Sidebar_Previews: PreviewProvider {
     static var previews: some View {
-        Sidebar()
+        Sidebar(selection: .constant(""))
             .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
     }
 }

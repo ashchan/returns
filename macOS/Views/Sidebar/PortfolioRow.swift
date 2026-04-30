@@ -10,7 +10,6 @@ import SwiftUI
 struct PortfolioRow: View {
     @Environment(\.managedObjectContext) private var viewContext
     @EnvironmentObject var deletingObject: DeletingObject
-    @StateObject var portfolioSettings = PortfolioSettings()
     @State private var isHeaderHovering = false
     @State private var showingConfigureSheet = false
     @State private var isExpanded = true
@@ -47,11 +46,7 @@ struct PortfolioRow: View {
             })
         ) {
             if isExpanded {
-                NavigationLink(
-                    destination: PortfolioView(portfolio: portfolio, showingConfigureSheet: $showingConfigureSheet).environmentObject(portfolioSettings),
-                    tag: "\(portfolio.tag)-overview",
-                    selection: $selection
-                ) {
+                NavigationLink(value: "\(portfolio.tag)-overview") {
                     Label("Overview", systemImage: "chart.pie")
                 }
                 .sheet(isPresented: $showingConfigureSheet) {
@@ -73,14 +68,7 @@ struct PortfolioRow: View {
                     }
                 }
 
-                NavigationLink(
-                    destination: CalculationsView(portfolio: portfolio)
-                        .navigationTitle("Calculations")
-                        .navigationSubtitle("Portfolio: \(portfolio.name ?? "")")
-                        .environmentObject(portfolioSettings),
-                    tag: "\(portfolio.tag)-calculations",
-                    selection: $selection
-                ) {
+                NavigationLink(value: "\(portfolio.tag)-calculations") {
                     Label("Calculations", systemImage: "calendar.badge.clock")
                 }
                 .contextMenu {
@@ -98,14 +86,10 @@ struct PortfolioRow: View {
                 }
 
                 ForEach(portfolio.sortedAccounts) { account in
-                    AccountRow(portfolio: portfolio, account: account, selection: $selection)
-                        .environmentObject(portfolioSettings)
+                    AccountRow(portfolio: portfolio, account: account)
                 }
                 .listItemTint(.purple)
             }
-        }
-        .onAppear {
-            portfolioSettings.portfolio = portfolio
         }
     }
 }
@@ -128,7 +112,6 @@ private extension PortfolioRow {
 
         do {
             try viewContext.save()
-            portfolioSettings.update()
         } catch {
             viewContext.rollback()
             print("Failed to save, error \(error)")
